@@ -3,6 +3,8 @@ import pygame
 pygame.init() #"master switch" 
 
 
+
+
 tile_size = 50
 
 game_map = [
@@ -13,7 +15,7 @@ game_map = [
     "100000000000000001",
     "111110000000111111",   
     "000000000000000000",   #Outside Area
-    "000033300000000000",
+    "000033300000000000",   #3 is trees
     "000000040000000000" 
 ]
 
@@ -34,6 +36,14 @@ clock = pygame.time.Clock() #limit the pc fps
 
 player_size = tile_size
 
+duck_img = pygame.image.load("Images/duck_with_knife.jpg").convert_alpha()
+duck_img = pygame.transform.scale(duck_img, (player_size, player_size))
+flipped_duck = pygame.transform.flip(duck_img, True, False)
+screen.blit(flipped_duck, (player_x, player_y))
+
+tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
+tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
+
 running = True
 while running: #game is still live if still running
     clock.tick(60) #fps, frame per second
@@ -51,17 +61,24 @@ while running: #game is still live if still running
 
             if tile == "1":
                 color = (90, 90, 90)
-            elif tile == "3":
-                color = (0, 150, 0) #tree
-            elif tile == "4": 
-                color = (200, 150, 50)
-            else:
-                color = (200, 200, 200)
 
-            pygame.draw.rect(screen, color, (x,y, tile_size, tile_size))
+            elif tile == "3":
+                screen.blit(tree_img, (x,y)) #Tree Image for Illustration Purpose
+            
+            elif tile == "4":
+                pygame.draw.rect(screen, (200,150,50), (x,y, tile_size, tile_size))
+
+
+            else:
+                pygame.draw.rect(screen, (200,200,200), (x, y, tile_size, tile_size))
+
+
+           
             pygame.draw.rect(screen, (0, 0, 0), (x, y, tile_size, tile_size), 1)
+            
+            
     #Draw
-    pygame.draw.rect(screen, (0, 255, 0), (player_x, player_y, player_size, player_size))
+    screen.blit(duck_img, (player_x, player_y))
 
     pygame.display.update()
            
