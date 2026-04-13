@@ -38,8 +38,6 @@ player_size = tile_size
 
 duck_img = pygame.image.load("Images/duck_with_knife.jpg").convert_alpha()
 duck_img = pygame.transform.scale(duck_img, (player_size, player_size))
-flipped_duck = pygame.transform.flip(duck_img, True, False)
-screen.blit(flipped_duck, (player_x, player_y))
 
 tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
 tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
@@ -125,6 +123,7 @@ while running: #game is still live if still running
 
 player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
 
+
 for row_index, row in enumerate(game_map):
     for col_index, tile in enumerate(game_map):
         if tile == "4":
@@ -135,8 +134,7 @@ for row_index, row in enumerate(game_map):
                 tile_size
             )
 
-            if player_rect.collidedict(tile_rect):
-                print("Entered building!") 
+
 
 
 #2D game from python feels like minecraft world but with blocks
