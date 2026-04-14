@@ -14,7 +14,7 @@ npc_rect = pygame.Rect(npc_x, npc_y, npc_size, npc_size)
 keys = pygame.key.get_pressed()
 
 if player_rect.colliderect(npc_rect):
-    if keys[pygame.K_e]:
+    if keys[pygame.K_q]:
         interacting = True
 else:
     interacting = False
