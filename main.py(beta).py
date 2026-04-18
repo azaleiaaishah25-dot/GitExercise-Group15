@@ -1,136 +1,82 @@
 import pygame
 
-pygame.init() #"master switch" 
+#Master switch 
+pygame.init() 
 
+#1. Setup & Variables
 tile_size = 50
+WIDTH, HEIGHT = 1200, 720  
+screen = pygame.display.set_mode((WIDTH, HEIGHT)) 
+pygame.display.set_caption("Style Heist - Detective Game")
+clock = pygame.time.Clock() #limit the pc fps 
+font = pygame.font.SysFont(None, 30)
 
-game_map = [
+
+#2. The Maps (Scene to Scene)
+museum_map = [
     "111111111111111111",
     "100000000000000001",
     "100000000333000001",   
     "100011111110000001",
     "100330000000000001",
     "111110000000111111",   
-    "000000000000000000",   #3 is trees, 4 is Next Entrance, 5 is NPC
+    "000000000000000000",   
     "000033300000050000",   
-    "000000000003300000",
-    "110000011000011000",
-    "11110001111111101111",
-    "000000000011111111",
-    "111100000033311111",
-    "1114000000003111111"
+    "111100000000011111",
+    "111400000000011111" # 4 is the Teleporter
 ]
 
-#sScreen
-WIDTH, HEIGHT = 1200, 720  #Dimensions
-screen = pygame.display.set_mode((WIDTH, HEIGHT)) #window, open physical window. Takes a tuple
-pygame.display.set_caption("2D Game") #Window with name, cosmetic
+era_1920s_map = [
+    "1111111111",
+    "1000000001",
+    "1000400001", # 4 takes you back to Museum
+    "1111111111"
+]
 
-#Player 
-#player_x / player_y = player variable
+current_era = "Museum"
+game_map = museum_map #Starting at the Museum
+
+
+#3. Player Variables
 player_size = tile_size
 player_size = 50
 player_x = 100
 player_y = 100
 speed = 5 #pixels per movements in a frame = FPS
 
-clock = pygame.time.Clock() #limit the pc fps 
 
-#Images
+#4. Images
 duck_img = pygame.image.load("Images/duck_with_knife.jpg").convert_alpha()
 duck_img = pygame.transform.scale(duck_img, (player_size, player_size))
 
 tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
 tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
 
-#NPC for MAP
-npc_positions = []
-for row_index, row in enumerate(game_map):
-    for col_index, tile in enumerate(row):
-        if tile == "5":
-            npc_positions.append((col_index * tile_size, row_index * tile_size))
+#5. Functions (Logic)
 
-#Font
-font = pygame.font.SysFont(None, 30)
+def check_collision(x, y, current_map):
+    player_rect = pygame.Rect(x, y, player_size, player_size)
+    for row_index, row in enumerate(current_map):
+        for col_index, tile in enumerate(row):
+            if tile in ["1", "3"]:
+                wall_rect = pygame.Rect(col_index * tile_size, row_index * tile_size, tile_size, tile_size)
+                if player_rect.colliderect(wall_rect):
+                    return True
+                
+    return False
 
- 
+
+#6. Main Game Loop
 running = True
-while running: #game is still live if still running
+while running: 
     clock.tick(60) #fps, frame per second
 
+    #A. Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((10, 20, 20))
-    
-    for row_index, row in enumerate(game_map):
-        for col_index, tile in enumerate(row):
-            x = col_index * tile_size
-            y = row_index * tile_size
-
-            if tile == "1":
-                color = (90, 90, 90)
-
-            elif tile == "3":
-                screen.blit(tree_img, (x,y)) #Tree Image for Illustration Purpose
-            
-            elif tile == "4":
-                pygame.draw.rect(screen, (200,150,50), (x,y, tile_size, tile_size))
-           
-
-            else:
-                pygame.draw.rect(screen, (200,200,200), (x, y, tile_size, tile_size))
-
-
-           
-            pygame.draw.rect(screen, (0, 0, 0), (x, y, tile_size, tile_size), 1)
-            
-npc_size = tile_size
-npc_x = 400
-npc_y = 300
-
-font = pygame.font.SysFont(None, 30)
-interacting = False
-
-player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
-npc_rect = pygame.Rect(npc_x, npc_y, npc_size, npc_size)
-
-keys = pygame.key.get_pressed()
-
-if player_rect.colliderect(npc_rect):
-    if keys[pygame.K_e]:
-        interacting = True
-    else:
-        interacting = False
-
-        if interacting:
-            text = font.render("WELCOME TO THE GAME!", True, (255, 255, 255))
-            screen.blit(text, (50, 50))
-            
-    #Draw
-    screen.blit(duck_img, (player_x, player_y))
-
-    pygame.display.update()
-           
-    def check_collision(x, y):
-        player_rect = pygame.Rect(x, y, player_size, player_size)
-
-        for row_index, row in enumerate(game_map):
-            for col_index, tile in enumerate(row):
-                if tile in ["1", "3"]:
-                    wall_rect = pygame.Rect(
-                        col_index * tile_size,
-                        row_index * tile_size,
-                        tile_size,
-                        tile_size
-                    )            
-
-                    if player_rect.colliderect(wall_rect):
-                        return True
-        return False            
-
-    #Movement hot keys
+     #B. Movement Logic
     hotkeys = pygame.key.get_pressed()
 
     new_x = player_x
@@ -146,32 +92,56 @@ if player_rect.colliderect(npc_rect):
         new_x += speed
 
     #Move X
-    if not check_collision(new_x, player_y):
+    if not check_collision(new_x, player_y, game_map):
         player_x = new_x
-
     #Move Y
-    if not check_collision(player_x, new_y):
+    if not check_collision(player_x, new_y, game_map):
         player_y = new_y
 
-player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
+    #C. Teleportation Logic 
+    player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
+    #Step on Tile 4
 
+    for row_index, row in enumerate(game_map):
+        for col_index, tile in enumerate(row):
+            if tile == "4":
+                portal_rect = pygame.Rect(col_index * tile_size, row_index * tile_size, tile_size, tile_size)
+                if player_rect.colliderect(portal_rect):
+                    #Scenes to Scenes
+                    if current_era == "Museum":
+                        current_era = "1920s"
+                        game_map = era_1920s_map
+                    else:
+                        current_era = "Museum"
+                        game_map = museum_map
 
-for row_index, row in enumerate(game_map):
-    for col_index, tile in enumerate(row):
-        if tile == "4":
-            tile_rect = pygame.Rect(
-                col_index * tile_size,
-                row_index * tile_size,
-                tile_size,
-                tile_size
-            )
+                    player_x, player_y = 100, 100
 
+    #D. Drawing
+    screen.fill((10, 20, 20))
 
+    for row_index, row in enumerate(game_map):
+        for col_index, tile in enumerate(row):
+            x, y = col_index * tile_size, row_index * tile_size
+            
+            if tile == "1":
+                pygame.draw.rect(screen, (90, 90, 90), (x, y, tile_size, tile_size))
+            elif tile == "3":
+                screen.blit(tree_img, (x, y))
+            elif tile == "4":
+                pygame.draw.rect(screen, (200, 150, 50), (x, y, tile_size, tile_size)) # Portal
+            elif tile == "5":
+                pygame.draw.rect(screen, (0, 0, 255), (x, y, tile_size, tile_size)) # NPC Placeholder
+            else:
+                pygame.draw.rect(screen, (200, 200, 200), (x, y, tile_size, tile_size))
+            
+            # Grid lines
+            pygame.draw.rect(screen, (0, 0, 0), (x, y, tile_size, tile_size), 1)
 
+    # Draw Player
+    screen.blit(duck_img, (player_x, player_y))
 
-#2D game from python feels like minecraft world but with blocks
-#Example: 111111 - wall
-#sample test 1 with tile_size
+    pygame.display.update()
 
 pygame.quit()
 
