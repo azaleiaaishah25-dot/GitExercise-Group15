@@ -102,6 +102,8 @@ era_1920s_map = [
 current_era = "Museum"
 game_map = museum_map #Starting at the Museum
 
+visited_map = [[False for _ in range(len(museum_map[0]))] for _ in range(len(museum_map))]
+
 
 #3. Player Variables
 player_size = tile_size
@@ -167,6 +169,15 @@ while running:
     camera_x = player_x - (WIDTH // 2)
     camera_y = player_y - (HEIGHT // 2)
 
+    player_col = player_x // tile_size
+    player_row = player_y // tile_size
+
+    reveal_radius = 3
+    for row in range(player_row - reveal_radius, player_row + reveal_radius + 1):
+        for col in range(player_col - reveal_radius, player_col + reveal_radius + 1):
+            if 0 <= row < len(game_map) and 0 <= col < len (game_map[0]):
+                visited_map[row][col] = True
+
 
     #C. Teleportation Logic 
     player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
@@ -216,6 +227,34 @@ while running:
 
     # Draw Player
     screen.blit(duck_img, (player_x - camera_x, player_y - camera_y))
+
+    # ---Mini-Map---
+    mini_tile = 5
+    map_width = len(game_map[0]) * mini_tile
+    start_x = WIDTH - map_width - 20
+    start_y = 20
+
+    #1. Mini Map
+    pygame.draw.rect(screen, (30, 30, 30), (start_x - 2, start_y -2, map_width + 4, len(game_map) * mini_tile + 4))
+
+    #2. Draw Tiles
+    for row_index, row in enumerate(game_map):
+        for col_index, tile in enumerate(row):
+            if visited_map[row_index][col_index]:
+                mini_x = start_x + (col_index * mini_tile)
+                mini_y = start_y + (row_index * mini_tile)
+
+                if tile == "1": #wall
+                    pygame.draw.rect(screen, (150, 150, 150), (mini_x, mini_y, mini_tile, mini_tile))
+                elif tile == "4": #Portal
+                    pygame.draw.rect(screen, (200, 150, 50), (mini_x, mini_y, mini_tile, mini_tile))
+                else:
+                    pygame.draw.rect(screen, (70, 70, 70), (mini_x, mini_y, mini_tile, mini_tile))
+
+
+    player_mini_x = start_x + (player_x // tile_size) * mini_tile
+    player_mini_y = start_y + (player_y // tile_size) * mini_tile
+    pygame.draw.circle(screen, (0, 255, 0 ), (player_mini_x + mini_tile//2, player_mini_y + mini_tile//2), 3)
 
     pygame.display.update()
 
