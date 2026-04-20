@@ -5,7 +5,7 @@ pygame.init()
 
 #1. Setup & Variables
 tile_size = 60
-WIDTH, HEIGHT = 1920, 1080 #Resolution Full HD
+WIDTH, HEIGHT = 1200, 800 #Resolution Full HD
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) 
 pygame.display.set_caption("Style Heist - Detective Game")
 clock = pygame.time.Clock() #limit the pc fps 
