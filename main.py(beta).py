@@ -178,6 +178,7 @@ while running:
     player_col = player_x // tile_size
     player_row = player_y // tile_size
 
+    #What Player can see
     reveal_radius = 3
     for row in range(player_row - reveal_radius, player_row + reveal_radius + 1):
         for col in range(player_col - reveal_radius, player_col + reveal_radius + 1):
