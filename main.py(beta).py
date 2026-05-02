@@ -11,6 +11,32 @@ pygame.display.set_caption("Style Heist - Detective Game")
 clock = pygame.time.Clock() #limit the pc fps 
 font = pygame.font.SysFont(None, 30)
 
+dialogue_active = False
+current_dialogue = []
+dialogue_index = 0
+dialogue_text_shown = ""
+text_speed = 2
+text_counter = 0
+
+can_interact = False
+current_npc = None
+
+current_quest = None
+quest_log = {}
+
+# NPC DATA (TEAMMATE FRIENDLY)
+dialogue_data = {
+    (13, 6): {
+        "dialogue": ["Hello Detective.", "Find the missing artifact."],
+        "quest": "find_artifact",
+        "type": "main"
+    },
+    (13, 11): {
+        "dialogue": ["Nice suit.", "Stay sharp."],
+        "quest": None,
+        "type": "side"
+    }
+}
 
 #2. The Maps (Scene to Scene)
 # --- 2. THE MAPS (MUSEUM - RE-RE-REDESIGN) ---
@@ -72,7 +98,7 @@ era_1920s_map = [
     "100003000000444400000000030001", 
     "100000000000444400000000000001",
     "100000000000000000000000000001",
-    "100000000000000500000000000001", 
+    "100000000000000000050000000001", 
     "100000000000000000000000000001", 
     "101112211000000000011199111101", 
     "101111111000030000011111111101", 
@@ -166,7 +192,7 @@ def check_collision(x, y, current_map):
     player_rect = pygame.Rect(x, y, player_size, player_size)
     for row_index, row in enumerate(current_map):
         for col_index, tile in enumerate(row):
-            if tile in ["1", "3"]:
+            if tile in ["1", "3", "5"]:
                 wall_rect = pygame.Rect(col_index * tile_size, row_index * tile_size, tile_size, tile_size)
                 if player_rect.colliderect(wall_rect):
                     return True
@@ -197,20 +223,52 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-     #B. Movement Logic
-    hotkeys = pygame.key.get_pressed()
+        if event.type == pygame.KEYDOWN:
 
-    new_x = player_x
-    new_y = player_y
+            if event.key == pygame.K_e:
+                if not dialogue_active and can_interact:
+                    if current_npc in dialogue_data:
+                        npc_data = dialogue_data[current_npc]
 
-    if hotkeys[pygame.K_w]:
-        new_y -= speed
-    if hotkeys[pygame.K_s]:
-        new_y += speed
-    if hotkeys[pygame.K_a]:
-        new_x -= speed
-    if hotkeys[pygame.K_d]:
-        new_x += speed
+                        current_dialogue = npc_data["dialogue"]
+                        current_quest = npc_data.get("quest")
+
+                        dialogue_active = True
+                        dialogue_index = 0
+                        dialogue_text_shown = ""
+                        text_counter = 0
+
+                        # Add quest to log
+                        if current_quest:
+                            quest_log[current_quest] = "started"
+
+            elif event.key == pygame.K_SPACE:
+                if dialogue_active:
+                    if dialogue_text_shown != current_dialogue[dialogue_index]:
+                        # finish typing instantly
+                        dialogue_text_shown = current_dialogue[dialogue_index]
+                    else:
+                        dialogue_index += 1
+                        text_counter = 0
+                        dialogue_text_shown = ""
+
+                        if dialogue_index >= len(current_dialogue):
+                            dialogue_active = False
+
+    if not dialogue_active:
+        hotkeys = pygame.key.get_pressed()
+
+        new_x = player_x
+        new_y = player_y
+
+        if hotkeys[pygame.K_w]:
+            new_y -= speed
+        if hotkeys[pygame.K_s]:
+            new_y += speed
+        if hotkeys[pygame.K_a]:
+            new_x -= speed
+        if hotkeys[pygame.K_d]:
+            new_x += speed
 
     #Move X
     if not check_collision(new_x, player_y, game_map):
@@ -230,6 +288,16 @@ while running:
 
     player_col = player_x // tile_size
     player_row = player_y // tile_size
+
+    can_interact = False
+    current_npc = None
+
+    for row in range(player_row - 1, player_row + 2):
+        for col in range(player_col - 1, player_col + 2):
+            if 0 <= row < len(game_map) and 0 <= col < len(game_map[0]):
+                if game_map[row][col] == "5":
+                    can_interact = True
+                    current_npc = (col, row)
 
     #What Player can see
     reveal_radius = 3
@@ -287,7 +355,15 @@ while running:
 
                     pygame.time.delay(200)
                     break
-                    
+
+                if dialogue_active:
+                    if dialogue_index < len(current_dialogue):
+                        full_text = current_dialogue[dialogue_index]
+
+                        if text_counter < len(full_text):
+                            text_counter += text_speed
+                            dialogue_text_shown = full_text[:text_counter]
+                                    
     #D. Drawing
     screen.fill((10, 20, 20))
 
@@ -354,6 +430,24 @@ while running:
 
     era_label = font.render(f"TIMELINE: {current_era}", True, (255, 255, 0)) #Yellow Color
     screen.blit(era_label, (20, 20))
+
+    if can_interact and not dialogue_active:
+        hint = font.render("Press E", True, (255, 255, 255))
+        screen.blit(hint, (player_x - camera_x, player_y - camera_y - 30))
+
+    if dialogue_active:
+        box_height = 150
+        box_rect = pygame.Rect(50, HEIGHT - box_height - 30, WIDTH - 100, box_height)
+
+        pygame.draw.rect(screen, (0, 0, 0), box_rect)
+        pygame.draw.rect(screen, (255, 255, 255), box_rect, 3)
+
+        if dialogue_index < len(current_dialogue):
+            rendered_text = font.render(dialogue_text_shown, True, (255, 255, 255))
+            screen.blit(rendered_text, (box_rect.x + 20, box_rect.y + 20))
+
+        hint = font.render("SPACE to continue", True, (200, 200, 200))
+        screen.blit(hint, (box_rect.x + 20, box_rect.y + 80))    
 
     pygame.display.update()
 
