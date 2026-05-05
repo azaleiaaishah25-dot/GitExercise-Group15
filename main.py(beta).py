@@ -40,8 +40,7 @@ text_speed = 2
 can_interact = False
 current_npc = None
 
-current_quest = None
-quest_log = {}
+
 
 #1920s arrival dialogue
 arrival_1920s_dialogue = [
@@ -151,6 +150,19 @@ item_dialogue_data = {
         ],
         "quest": "boots_recovered"
     }
+}
+
+quest_log = {}
+
+#Quest System
+active_quests = []
+completed_quests = []
+current_quest = None
+
+quest_descriptions = {
+    "clue_gogo_boots": "Find the Go-Go Boots",
+    "old_tailor_hint": "Use the Tailor's advice to find what does not belong",
+    "boots_recovered": "Complete the mini-game to stabilize the timeline"
 }
 
 #2. The Maps (Scene to Scene)
@@ -524,6 +536,69 @@ def draw_pause_menu():
     draw_button(main_menu_button, "Main Menu")
     draw_button(pause_quit_button, "Quit Game")
 
+def add_quest(quest_id):
+    if quest_id and quest_id not in active_quests and quest_id not in completed_quests:
+        active_quests.append(quest_id)
+
+def complete_quest(quest_id):
+    if quest_id in active_quests:
+        active_quests.remove(quest_id)
+
+    if quest_id not in completed_quests:
+        completed_quests.append(quest_id)
+
+def draw_wrapped_text(surface, text, font, color, x, y, max_width, line_spacing=5):
+    words = text.split(" ")
+    lines = []
+    current_line = ""
+
+    for word in words:
+        test_line = current_line + word + " "
+
+        if font.size(test_line)[0] <= max_width:
+            current_line = test_line
+        else:
+            lines.append(current_line)
+            current_line = word + " "
+
+    lines.append(current_line)
+
+    for line in lines:
+        rendered_line = font.render(line.strip(), True, color)
+        surface.blit(rendered_line, (x, y))
+        y += font.get_height() + line_spacing
+
+    return y
+
+def draw_quest_navigation():
+    quest_box = pygame.Rect(20, 90, 320, 190)
+
+    pygame.draw.rect(screen, (20, 20, 20), quest_box)
+    pygame.draw.rect(screen, (255, 255, 255), quest_box, 2)
+
+    title = font.render("CURRENT QUEST", True, (255, 255, 0))
+    screen.blit(title, (quest_box.x + 15, quest_box.y + 15))
+
+    y = quest_box.y + 55
+    max_text_width = quest_box.width - 30
+
+    if len(active_quests) == 0:
+        no_quest_text = font.render("No active quest", True, (200, 200, 200))
+        screen.blit(no_quest_text, (quest_box.x + 15, y))
+    else:
+        for quest_id in active_quests[:3]:
+            quest_text = quest_descriptions.get(quest_id, quest_id)
+            y = draw_wrapped_text(
+                screen,
+                "- " + quest_text,
+                font,
+                (255, 255, 255),
+                quest_box.x + 15,
+                y,
+                max_text_width
+            )
+            y += 8
+
 #6. Main Game Loop
 running = True
 while running:
@@ -582,9 +657,6 @@ while running:
                             dialogue_text_shown = ""
                             text_counter = 0
 
-                            if current_quest:
-                                quest_log[current_quest] = "started"
-
                 elif event.key == pygame.K_ESCAPE:
                     game_state = "pause"
 
@@ -606,6 +678,11 @@ while running:
 
                             if dialogue_index >= len(current_dialogue):
                                 dialogue_active = False
+
+                                if current_quest:
+                                    quest_log[current_quest] = "started"
+                                    add_quest(current_quest)
+                                    current_quest = None
     #Menu Part
     if game_state == "menu":
         draw_main_menu()
@@ -787,6 +864,8 @@ while running:
 
     era_label = font.render(f"TIMELINE: {current_era}", True, (255, 255, 0))
     screen.blit(era_label, (20, 20))
+
+    draw_quest_navigation()
 
     fps_label = font.render(f"FPS: {int(clock.get_fps())}", True, (255, 255, 255))
     screen.blit(fps_label, (20, 50))
