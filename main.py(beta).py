@@ -43,33 +43,20 @@ current_npc = None
 current_quest = None
 quest_log = {}
 
-era_intro_dialogues = {
-    "1920s": [
-        {"speaker": "PLAYER", "text": "...Whoa—"},
-        {"speaker": "PLAYER", "text": "..Okay.. okay.."},
-        {"speaker": "PLAYER", "text": "..This is definitely not the museum anymore."},
-        {"speaker": "PLAYER", "text": "..1920s. It actually worked."},
-        {"speaker": "PLAYER", "text": "..Alright. Focus."}
-    ],
-
-    "1960s": [
-        {"speaker": "PLAYER", "text": "..The 1960s."},
-        {"speaker": "PLAYER", "text": "Everything feels louder, brighter, and faster here."},
-        {"speaker": "PLAYER", "text": "If another stolen item is here, it should stand out."}
-    ],
-
-    "1980s": [
-        {"speaker": "PLAYER", "text": "..The 1980s."},
-        {"speaker": "PLAYER", "text": "This place feels sharper. More powerful."},
-        {"speaker": "PLAYER", "text": "I need to find what does not belong here."}
-    ],
-
-    "1990s": [
-        {"speaker": "PLAYER", "text": "..The 1990s."},
-        {"speaker": "PLAYER", "text": "This era feels more relaxed, but something is still off."},
-        {"speaker": "PLAYER", "text": "One thief. Multiple eras. I have to keep going."}
-    ]
-}
+#1920s arrival dialogue
+arrival_1920s_dialogue = [
+    {"speaker": "PLAYER", "text": "...Whoa—"},
+    {"speaker": "PLAYER", "text": "..Okay.. okay.."},
+    {"speaker": "PLAYER", "text": "..This is definitely not the museum anymore."},
+    {"speaker": "PLAYER", "text": "Clothes.. hairstyles.. even the way they walk.."},
+    {"speaker": "PLAYER", "text": "..1920s. It actually worked."},
+    {"speaker": "PLAYER", "text": "I just time traveled.. because someone stole clothes."},
+    {"speaker": "PLAYER", "text": "..Alright. Focus."},
+    {"speaker": "PLAYER", "text": "If the thief came here.."},
+    {"speaker": "PLAYER", "text": "..then the item has to be here too."},
+    {"speaker": "PLAYER", "text": "And if it doesn't belong in this era.."},
+    {"speaker": "PLAYER", "text": "..it should stand out."}
+]
 
 # NPC DATA
 dialogue_data = {
@@ -454,10 +441,6 @@ def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
     visited_map = [[False for _ in range(len(game_map[0]))] for _ in range(len(game_map))]
     
     pygame.time.delay(80)
-
-    if current_era in era_intro_dialogues and current_era not in seen_era_intro:
-        start_story_dialogue(era_intro_dialogues[current_era])
-        seen_era_intro.add(current_era)
 
 #This area is the main menu Part
 def draw_button(rect, text):
