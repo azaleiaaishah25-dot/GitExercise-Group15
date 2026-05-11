@@ -504,10 +504,10 @@ def draw_credits_screen():
 
     credit_lines = [
         "Style Heist - Group 15",
-        "",
+        "Sample Line",
         "Programming / Game Systems: Alvin",
         "UI Design Contributor: Balqish",
-        "Dialogue / Story Contributor: Your teammate",
+        "Dialogue / Story Contributor: Azaleia",
         "",
         "Built using Python and Pygame"
     ]
