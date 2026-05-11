@@ -159,6 +159,10 @@ active_quests = []
 completed_quests = []
 current_quest = None
 
+quest_popup_text = ""
+quest_popup_timer = 0
+QUEST_POPUP_DURATION = 150
+
 quest_descriptions = {
     "clue_gogo_boots": "Find the Go-Go Boots",
     "old_tailor_hint": "Use the Tailor's advice to find what does not belong",
@@ -541,11 +545,17 @@ def add_quest(quest_id):
         active_quests.append(quest_id)
 
 def complete_quest(quest_id):
+    global quest_popup_text, quest_popup_timer
+
     if quest_id in active_quests:
         active_quests.remove(quest_id)
 
     if quest_id not in completed_quests:
         completed_quests.append(quest_id)
+
+    quest_name = quest_descriptions.get(quest_id, quest_id)
+    quest_popup_text = "QUEST COMPLETE: " + quest_name
+    quest_popup_timer = QUEST_POPUP_DURATION
 
 def draw_wrapped_text(surface, text, font, color, x, y, max_width, line_spacing=5):
     words = text.split(" ")
@@ -571,6 +581,10 @@ def draw_wrapped_text(surface, text, font, color, x, y, max_width, line_spacing=
     return y
 
 def draw_quest_navigation():
+    # Do not show quest box if no active quest
+    if len(active_quests) == 0:
+        return
+
     quest_box = pygame.Rect(20, 90, 320, 190)
 
     pygame.draw.rect(screen, (20, 20, 20), quest_box)
@@ -582,22 +596,40 @@ def draw_quest_navigation():
     y = quest_box.y + 55
     max_text_width = quest_box.width - 30
 
-    if len(active_quests) == 0:
-        no_quest_text = font.render("No active quest", True, (200, 200, 200))
-        screen.blit(no_quest_text, (quest_box.x + 15, y))
-    else:
-        for quest_id in active_quests[:3]:
-            quest_text = quest_descriptions.get(quest_id, quest_id)
-            y = draw_wrapped_text(
-                screen,
-                "- " + quest_text,
-                font,
-                (255, 255, 255),
-                quest_box.x + 15,
-                y,
-                max_text_width
-            )
-            y += 8
+    for quest_id in active_quests[:3]:
+        quest_text = quest_descriptions.get(quest_id, quest_id)
+        y = draw_wrapped_text(
+            screen,
+            "- " + quest_text,
+            font,
+            (255, 255, 255),
+            quest_box.x + 15,
+            y,
+            max_text_width
+        )
+        y += 8
+
+def draw_quest_complete_popup():
+    global quest_popup_timer
+
+    if quest_popup_timer <= 0:
+        return
+
+    alpha = int(255 * (quest_popup_timer / QUEST_POPUP_DURATION))
+
+    popup_surface = pygame.Surface((500, 70), pygame.SRCALPHA)
+    pygame.draw.rect(popup_surface, (20, 20, 20, alpha), (0, 0, 500, 70))
+    pygame.draw.rect(popup_surface, (255, 220, 120, alpha), (0, 0, 500, 70), 3)
+
+    text_surface = font.render(quest_popup_text, True, (255, 255, 255))
+    text_surface.set_alpha(alpha)
+
+    text_rect = text_surface.get_rect(center=(250, 35))
+    popup_surface.blit(text_surface, text_rect)
+
+    screen.blit(popup_surface, (WIDTH // 2 - 250, 90))
+
+    quest_popup_timer -= 1
 
 #6. Main Game Loop
 running = True
