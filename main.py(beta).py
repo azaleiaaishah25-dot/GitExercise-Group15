@@ -128,8 +128,88 @@ dialogue_data = {
             {"speaker": "PLAYER", "text": "That sounds like him."}
         ],
         "quest": "old_tailor_hint"
-    }
+    },
+
+    # =========================
+    # 1950s NPC 3: Gallery Host
+    # =========================
+    ("1950s", 13, 3): {
+        "speaker": "Elegant Woman",
+        "dialogue": [
+            {"speaker": "GALLERY HOST", "text": "Well, you look a little out of place."},
+            {"speaker": "PLAYER", "text": "..That obvious?"},
+            {"speaker": "GALLERY HOST", "text": "Just a little."},
+            {"speaker": "GALLERY HOST", "text": "Here for the exhibition?"},
+            {"speaker": "PLAYER", "text": "..Something like that."},
+            {"speaker": "PLAYER", "text": "I’m actually looking for something unusual."},
+            {"speaker": "GALLERY HOST", "text": "Oh? In a place full of fashion?"},
+            {"speaker": "PLAYER", "text": "Something that doesn’t belong to this time."},
+            {"speaker": "GALLERY HOST", "text": "..You know.."},
+            {"speaker": "PLAYER", "text": "What?"},
+            {"speaker": "GALLERY HOST", "text": "There was a girl earlier."},
+            {"speaker": "PLAYER", "text": "..A girl?"},
+            {"speaker": "GALLERY HOST", "text": "Yes. Didn’t seem interested in the displays."},
+            {"speaker": "GALLERY HOST", "text": "She kept looking around instead.. like she was searching for something."},
+            {"speaker": "PLAYER", "text": "Did anything stand out about her?"},
+            {"speaker": "GALLERY HOST", "text": "..Her pants."},
+            {"speaker": "PLAYER", "text": "What about them?"},
+            {"speaker": "GALLERY HOST", "text": "They didn’t match the rest of the era."},
+            {"speaker": "GALLERY HOST", "text": "Faded in patches.. uneven coloring."},
+            {"speaker": "GALLERY HOST", "text": "Almost like they were.. damaged on purpose."},
+            {"speaker": "CLUE", "text": "Clue discovered: Acid Wash Denim"},
+            {"speaker": "PLAYER", "text": "..That’s it."},
+            {"speaker": "GALLERY HOST", "text": "She wandered deeper into the gallery after that."},
+            {"speaker": "GALLERY HOST", "text": "Towards the back exhibits."},
+        ],
+        "quest": "clue_acid_wash_denim"
+    },
+
+    # =========================
+    # 1960s NPC 3: Gallery Host
+    # =========================
+    ("1960s", 4, 7): {
+        "speaker": "Fashion Enthusiast",
+        "dialogue": [
+            {"speaker": "FASHION ENTHUSIAST", "text": "You’re staring."},
+            {"speaker": "PLAYER", "text": "..That obvious?"},
+            {"speaker": "FASHION ENTHUSIAST", "text": "In here? Yeah."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "And that outfit? Completely out of place."},
+            {"speaker": "PLAYER", "text": "I get that a lot."},
+            {"speaker": "PLAYER", "text": "I’m looking for something specific."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "Everyone is. What makes yours special?"},
+            {"speaker": "PLAYER", "text": "It doesn’t belong in this era."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "..Now that’s interesting."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "There was someone like that earlier."},
+            {"speaker": "PLAYER", "text": "A girl?"},
+            {"speaker": "FASHION ENTHUSIAST", "text": "Yes."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "She didn’t blend in."},
+            {"speaker": "PLAYER", "text": "How so?"},
+            {"speaker": "FASHION ENTHUSIAST", "text": "Everything here is bold, intentional.."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "But she felt.. calculated."},
+            {"speaker": "PLAYER", "text": "Did you notice what she was wearing?"},
+            {"speaker": "FASHION ENTHUSIAST", "text": "..Red dress."},
+            {"speaker": "PLAYER", "text": "Red?."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "Bright. Hard to miss."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "And her hair—tied back."},
+            {"speaker": "CLUE", "text": "Clue discovered: Red dress + ponytail"},
+            {"speaker": "PLAYER", "text": "..That matches."},
+            {"speaker": "FASHION ENTHUSIAST", "text": "But that’s not what stood out most."},
+            {"speaker": "PLAYER", "text": "Then what?"},
+            {"speaker": "NPC 1", "text": "She was holding something strange."},
+            {"speaker": "PLAYER", "text": "What kind of item?"},
+            {"speaker": "NPC 1", "text": "A shirt."},
+            {"speaker": "NPC 1", "text": "Loose.. patterned.."},
+            {"speaker": "NPC 1", "text": "Not fitted like anything here."},
+            {"speaker": "CLUE", "text": "Clue discovered: Flannel Shirt"},
+            {"speaker": "PLAYER", "text": "Where did she go?"},
+            {"speaker": "NPC 1", "text": "Toward the back."},
+            {"speaker": "NPC 1", "text": "Near the storage racks."},
+        ],
+        "quest": "clue_flannel_shirt"
+    },
 }
+
+#testing
 
 item_dialogue_data = {
     ("1920s", 10, 4): {
@@ -540,17 +620,6 @@ def draw_pause_menu():
     draw_button(main_menu_button, "Main Menu")
     draw_button(pause_quit_button, "Quit Game")
 
-<<<<<<< HEAD
-def start_story_dialogue(lines):
-    global dialogue_active, current_dialogue, dialogue_index
-    global dialogue_text_shown, text_counter
-
-    current_dialogue = lines
-    dialogue_active = True
-    dialogue_index = 0
-    dialogue_text_shown = ""
-    text_counter = 0
-=======
 def add_quest(quest_id):
     if quest_id and quest_id not in active_quests and quest_id not in completed_quests:
         active_quests.append(quest_id)
@@ -641,7 +710,6 @@ def draw_quest_complete_popup():
     screen.blit(popup_surface, (WIDTH // 2 - 250, 90))
 
     quest_popup_timer -= 1
->>>>>>> 87b5d0e7ed3af168ddfa6f93fc92caeb0ded4feb
 
 #6. Main Game Loop
 running = True
@@ -951,4 +1019,3 @@ pygame.quit()
 #Refactored the Architecture, Resolution Upgrade
 #Mega Map Installation, Museum and 1920s Jazz Age, Scrolling Camera, Camera Clamping
 #Teleportation System, Fog of War Mini-Map, Scene Transitions
-
