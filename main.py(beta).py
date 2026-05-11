@@ -207,6 +207,37 @@ dialogue_data = {
         ],
         "quest": "clue_flannel_shirt"
     },
+
+    # ===========================
+    # 1960s NPC 4: Gallery Staff
+    # ===========================
+    ("1960s", 4, 7): {
+        "speaker": "Gallery Staff",
+        "dialogue": [
+            {"speaker": "GALLERY STAFF", "text": "Careful with those racks."},
+            {"speaker": "PLAYER", "text": "I won’t touch anything I shouldn’t."},
+            {"speaker": "GALLERY STAFF", "text": "..You’re not browsing."},
+            {"speaker": "PLAYER", "text": "No."},
+            {"speaker": "PLAYER", "text": "I’m looking for something that doesn’t belong here."},
+            {"speaker": "GALLERY STAFF", "text": "..Then you think like him."},
+            {"speaker": "PLAYER", "text": "My grandfather."},
+            {"speaker": "GALLERY STAFF", "text": "Yes."},
+            {"speaker": "GALLERY STAFF", "text": "He always said.."},
+            {"speaker": "GALLERY STAFF", "text": "Every era has its rhythm. The wrong piece breaks it."},
+            {"speaker": "PLAYER", "text": "..That sounds like him."},
+            {"speaker": "GALLERY STAFF", "text": "You’ve inherited that awareness."},
+            {"speaker": "PLAYER", "text": "A girl came through here."},
+            {"speaker": "GALLERY STAFF", "text": "She did."},
+            {"speaker": "PLAYER", "text": "What was she carrying?"},
+            {"speaker": "GALLERY STAFF", "text": "A shirt."},
+            {"speaker": "GALLERY STAFF", "text": "Rough fabric. Checkered pattern."},
+            {"speaker": "GALLERY STAFF", "text": "Doesn’t belong in this decade."},
+            {"speaker": "PLAYER", "text": "Where is it now?"},
+            {"speaker": "GALLERY STAFF", "text": "She tried to hide it among the racks."},
+            {"speaker": "GALLERY STAFF", "text": "But it stands out.. if you know what to look for."},
+        ],
+        "quest": "clue_flannel_shirt"
+    },
 }
 
 #testing
