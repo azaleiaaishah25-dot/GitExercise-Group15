@@ -127,7 +127,7 @@ dialogue_data = {
             {"speaker": "PLAYER", "text": "..Yeah."},
             {"speaker": "PLAYER", "text": "That sounds like him."}
         ],
-        "quest": "old_tailor_hint"
+        "quest": "clue_old_tailor"
     },
 
     # =========================
@@ -236,7 +236,85 @@ dialogue_data = {
             {"speaker": "GALLERY STAFF", "text": "She tried to hide it among the racks."},
             {"speaker": "GALLERY STAFF", "text": "But it stands out.. if you know what to look for."},
         ],
-        "quest": "clue_flannel_shirt"
+    },
+
+    # ============================
+    # 1980s NPC 5: Fashion Curator
+    # ============================
+    ("1980s", 4, 7): {
+        "speaker": "Fashion Curator",
+        "dialogue": [
+            {"speaker": "FASHION CURATOR", "text": "If you’re here to admire, don’t stand in front of the display."},
+            {"speaker": "PLAYER", "text": "I’m not here to admire."},
+            {"speaker": "FASHION CURATOR", "text": "..Clearly"},
+            {"speaker": "FASHION CURATOR", "text": "You stand out more than the exhibits.."},
+            {"speaker": "PLAYER", "text": "I’m looking for something that doesn’t belong here."},
+            {"speaker": "FASHION CURATOR", "text": "..That’s a very specific request."},
+            {"speaker": "FASHION CURATOR", "text": "There was someone like that earlier."},
+            {"speaker": "PLAYER", "text": "A girl."},
+            {"speaker": "FASHION CURATOR", "text": "Yes."},
+            {"speaker": "FASHION CURATOR", "text": "She didn’t look at the displays the way others do."},
+            {"speaker": "PLAYER", "text": "How did she look at them?"},
+            {"speaker": "FASHION CURATOR", "text": "Like they were pieces on a board."},
+            {"speaker": "FASHION CURATOR", "text": "Not art. Not history."},
+            {"speaker": "FASHION CURATOR", "text": "..Moves."},
+            {"speaker": "PLAYER", "text": "She’s planning something."},
+            {"speaker": "FASHION CURATOR", "text": "She already has."},
+            {"speaker": "PLAYER", "text": "What did she look like?"},
+            {"speaker": "FASHION CURATOR", "text": "Red dress."},
+            {"speaker": "FASHION CURATOR", "text": "Hair tied back."},
+            {"speaker": "PLAYER", "text": "...Yeah."},
+            {"speaker": "FASHION CURATOR", "text": "And her expression.."},
+            {"speaker": "PLAYER", "text": "What about it?"},
+            {"speaker": "FASHION CURATOR", "text": "Confident."},
+            {"speaker": "FASHION CURATOR", "text": "Playful."},
+            {"speaker": "FASHION CURATOR", "text": "But not harmless."},
+            {"speaker": "CLUE", "text": "Clue discovered: Mischiveous Personality"},
+            {"speaker": "PLAYER", "text": "..Mischievous."},
+            {"speaker": "FASHION CURATOR", "text": "And her shoes-"},
+            {"speaker": "PLAYER", "text": "Black?"},
+            {"speaker": "FASHION CURATOR", "text": "So you’ve seen her too."},
+            {"speaker": "PLAYER", "text": "What was she carrying?"},
+            {"speaker": "FASHION CURATOR", "text": "A shirt"},
+            {"speaker": "PLAYER", "text": "What kind?"},
+            {"speaker": "FASHION CURATOR", "text": "Short-sleeved."},
+            {"speaker": "FASHION CURATOR", "text": "Loose. Casual."},
+            {"speaker": "FASHION CURATOR", "text": "Didn’t match anything here."},
+            {"speaker": "CLUE", "text": "Clue discovered: Bowling Shirt"},
+            {"speaker": "FASHION CURATOR", "text": "She went toward the archive section."},
+        ],
+        "quest": "clue: bowling shirt"
+    },
+
+    # ===========================
+    # 1980s NPC 6: Archive Staff
+    # ===========================
+    ("1980s", 4, 7): {
+        "speaker": "Archive Staff",
+        "dialogue": [
+            {"speaker": "ARCHIVE STAFF", "text": "If you’re here to browse, you’re in the wrong section."},
+            {"speaker": "PLAYER", "text": "I’m not browsing."},
+            {"speaker": "ARCHIVE STAFF", "text": "..No. You’re searching."},
+            {"speaker": "PLAYER", "text": "Yes."},
+            {"speaker": "PLAYER", "text": "For something that doesn’t belong in this era."},
+            {"speaker": "ARCHIVE STAFF", "text": "..Then you’ve learned from him."},
+            {"speaker": "PLAYER", "text": "My grandfather."},
+            {"speaker": "ARCHIVE STAFF", "text": "He’s the reason this place changed."},
+            {"speaker": "ARCHIVE STAFF", "text": "From a gallery.. into a museum."},
+            {"speaker": "PLAYER", "text": "..I can see that."},
+            {"speaker": "ARCHIVE STAFF", "text": "He always said.."},
+            {"speaker": "ARCHIVE STAFF", "text": "Time refines everything.. except what doesn’t belong."},
+            {"speaker": "PLAYER", "text": "A girl came through here."},
+            {"speaker": "ARCHIVE STAFF", "text": "She did."},
+            {"speaker": "PLAYER", "text": "What was she carrying?"},
+            {"speaker": "ARCHIVE STAFF", "text": "A shirt."},
+            {"speaker": "ARCHIVE STAFF", "text": "Lightweight. Short sleeves."},
+            {"speaker": "ARCHIVE STAFF", "text": "Too simple for this decade’s style."},
+            {"speaker": "PLAYER", "text": "Do you know where is it now?"},
+            {"speaker": "ARCHIVE STAFF", "text": "I'm quite unsure about that."},
+            {"speaker": "PLAYER", "text": "Alright, thank you."},
+            {"speaker": "ARCHIVE STAFF", "text": "Your welcome."},
+        ],
     },
 }
 
