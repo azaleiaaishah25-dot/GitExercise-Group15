@@ -316,6 +316,67 @@ dialogue_data = {
             {"speaker": "ARCHIVE STAFF", "text": "Your welcome."},
         ],
     },
+
+    # ==============================
+    # 1990s NPC 6: Curator Assistant
+    # ==============================
+    ("1990s", 14, 2): {
+        "speaker": "CURATOR ASSISTANT",
+        "dialogue": [
+            {"speaker": "CURATOR ASSISTANT", "text": "Please don’t cross the marked lines."},
+            {"speaker": "PLAYER", "text": "I won’t."},
+            {"speaker": "CURATOR ASSISTANT", "text": "..You look like you’re searching for something."},
+            {"speaker": "PLAYER", "text": "I am."},
+            {"speaker": "PLAYER", "text": "Something that doesn’t belong in this era."},
+            {"speaker": "CURATOR ASSISTANT", "text": "..Then you’re looking for the same thing she was."},
+            {"speaker": "PLAYER", "text": "She?"},
+            {"speaker": "CURATOR ASSISTANT", "text": "A girl."},
+            {"speaker": "PLAYER", "text": "Red dress?"},
+            {"speaker": "CURATOR ASSISTANT", "text": "..Yes."},
+            {"speaker": "CURATOR ASSISTANT", "text": "She stood out immediately."},
+            {"speaker": "PLAYER", "text": "What else?"},
+            {"speaker": "CURATOR ASSISTANT", "text": "Hair tied back."},
+            {"speaker": "CURATOR ASSISTANT", "text": "Black shoes."},
+            {"speaker": "PLAYER", "text": "..That’s her."},
+            {"speaker": "CURATOR ASSISTANT", "text": "She wasn’t here to admire anything."},
+            {"speaker": "CURATOR ASSISTANT", "text": "She was looking for a place to hide something."},
+            {"speaker": "PLAYER", "text": "What kind of item?"},
+            {"speaker": "CURATOR ASSISTANT", "text": "A necklace."},
+            {"speaker": "CURATOR ASSISTANT", "text": "Long. Elegant."},
+            {"speaker": "CURATOR ASSISTANT", "text": "Didn’t match anything from this decade."},
+            {"speaker": "CLUE", "text": "Clue discovered: Pearl Necklace"},
+            {"speaker": "CURATOR ASSISTANT", "text": "She moved toward the deeper archive section."},
+        ],
+        "quest": "clue: bowling shirt"
+    },
+
+    # =====================
+    # 1990s NPC 7: Visitor
+    # =====================
+    ("1990s", 14, 2): {
+        "speaker": "Visitor",
+        "dialogue": [
+            {"speaker": "VISITOR", "text": "You’re not here to browse, are you?"},
+            {"speaker": "PLAYER", "text": "..No."},
+            {"speaker": "VISITOR", "text": "I saw you earlier."},
+            {"speaker": "PLAYER", "text": "Doing what?"},
+            {"speaker": "VISITOR", "text": "Watching everything."},
+            {"speaker": "VISITOR", "text": "..Like her."},
+            {"speaker": "PLAYER", "text": "You saw her too?"},
+            {"speaker": "VISITOR", "text": "Yeah."},
+            {"speaker": "VISITOR", "text": "She had this.. look."},
+            {"speaker": "PLAYER", "text": "What kind of look?"},
+            {"speaker": "VISITOR", "text": "Like she knew something no one else did."},
+            {"speaker": "VISITOR", "text": "Like she was ahead of everyone."},
+            {"speaker": "PLAYER", "text": "..Mischievous."},
+            {"speaker": "VISITOR", "text": "Exactly."},
+            {"speaker": "VISITOR", "text": "She wasn’t nervous."},
+            {"speaker": "VISITOR", "text": "She was enjoying it."},
+            {"speaker": "PLAYER", "text": "...a game."},
+            {"speaker": "VISITOR", "text": "If you’re following her.."},
+            {"speaker": "VISITOR", "text": "You’re close."},
+        ],
+    },
 }
 
 #testing
