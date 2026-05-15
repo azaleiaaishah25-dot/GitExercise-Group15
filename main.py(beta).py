@@ -211,7 +211,7 @@ dialogue_data = {
     # ===========================
     # 1960s NPC 4: Gallery Staff
     # ===========================
-    ("1960s", 4, 7): {
+    ("1960s", 12, 15): {
         "speaker": "Gallery Staff",
         "dialogue": [
             {"speaker": "GALLERY STAFF", "text": "Careful with those racks."},
@@ -241,7 +241,7 @@ dialogue_data = {
     # ============================
     # 1980s NPC 5: Fashion Curator
     # ============================
-    ("1980s", 4, 7): {
+    ("1980s", 13, 13): {
         "speaker": "Fashion Curator",
         "dialogue": [
             {"speaker": "FASHION CURATOR", "text": "If you’re here to admire, don’t stand in front of the display."},
@@ -289,7 +289,7 @@ dialogue_data = {
     # ===========================
     # 1980s NPC 6: Archive Staff
     # ===========================
-    ("1980s", 4, 7): {
+    ("1980s", 14, 2): {
         "speaker": "Archive Staff",
         "dialogue": [
             {"speaker": "ARCHIVE STAFF", "text": "If you’re here to browse, you’re in the wrong section."},
