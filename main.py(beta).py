@@ -347,7 +347,7 @@ dialogue_data = {
             {"speaker": "CLUE", "text": "Clue discovered: Pearl Necklace"},
             {"speaker": "CURATOR ASSISTANT", "text": "She moved toward the deeper archive section."},
         ],
-        "quest": "clue: bowling shirt"
+        "quest": "clue: pearl necklace"
     },
 
     # =====================
@@ -375,6 +375,34 @@ dialogue_data = {
             {"speaker": "PLAYER", "text": "...a game."},
             {"speaker": "VISITOR", "text": "If you’re following her.."},
             {"speaker": "VISITOR", "text": "You’re close."},
+        ],
+    },
+
+    # ===========================
+    # 1990s NPC 8: Senior Curator
+    # ===========================
+    ("1990s", 14, 2): {
+        "speaker": "Senior Curator",
+        "dialogue": [
+            {"speaker": "SENIOR CURATOR", "text": "This section is restricted."},
+            {"speaker": "PLAYER", "text": "I need to be here."},
+            {"speaker": "SENIOR CURATOR", "text": "..You remind me of him."},
+            {"speaker": "PLAYER", "text": "My grandfather."},
+            {"speaker": "SENIOR CURATOR", "text": "He built this place into what it is now."},
+            {"speaker": "SENIOR CURATOR", "text": "A true museum of time."},
+            {"speaker": "PLAYER", "text": "..I can see that."},
+            {"speaker": "SENIOR CURATOR", "text": "He always believed.."},
+            {"speaker": "SENIOR CURATOR", "text": "Time reveals everything eventually."},
+            {"speaker": "PLAYER", "text": "A girl came through here."},
+            {"speaker": "SENIOR CURATOR", "text": "Yes."},
+            {"speaker": "PLAYER", "text": "What did she have?"},
+            {"speaker": "SENIOR CURATOR", "text": "A necklace."},
+            {"speaker": "SENIOR CURATOR", "text": "Long. Pearl."},
+            {"speaker": "SENIOR CURATOR", "text": "Completely out of place."},
+            {"speaker": "PLAYER", "text": "Where is it now?"},
+            {"speaker": "SENIOR CURATOR", "text": "She hid it among archived accessories."},
+            {"speaker": "SENIOR CURATOR", "text": "But it doesn’t belong."},
+            {"speaker": "SENIOR CURATOR", "text": "You’ll recognize it immediately."},
         ],
     },
 }
