@@ -59,9 +59,9 @@ arrival_1920s_dialogue = [
 
 # NPC DATA
 dialogue_data = {
-    # =========================
+    # ==========================
     # 1920s NPC 1: Elegant Woman
-    # =========================
+    # ==========================
     ("1920s", 13, 6): {
         "speaker": "Elegant Woman",
         "dialogue": [
@@ -127,14 +127,13 @@ dialogue_data = {
             {"speaker": "PLAYER", "text": "..Yeah."},
             {"speaker": "PLAYER", "text": "That sounds like him."}
         ],
-        "quest": "clue_old_tailor"
     },
 
     # =========================
     # 1950s NPC 3: Gallery Host
     # =========================
     ("1950s", 13, 3): {
-        "speaker": "Elegant Woman",
+        "speaker": "Gallery Host",
         "dialogue": [
             {"speaker": "GALLERY HOST", "text": "Well, you look a little out of place."},
             {"speaker": "PLAYER", "text": "..That obvious?"},
@@ -164,9 +163,65 @@ dialogue_data = {
         "quest": "clue_acid_wash_denim"
     },
 
-    # =========================
-    # 1960s NPC 3: Gallery Host
-    # =========================
+    # ==========================
+    # 1950s NPC 4: Young Visitor
+    # ==========================
+    ("1950s", 13, 3): {
+        "speaker": "Young Visitor",
+        "dialogue": [
+            {"speaker": "YOUNG VISITOR", "text": "Oh wow—your outfit!"},
+            {"speaker": "PLAYER", "text": "..Thanks."},
+            {"speaker": "YOUNG VISITOR", "text": "It’s so different from everything here!"},
+            {"speaker": "PLAYER", "text": "You seem to notice details."},
+            {"speaker": "YOUNG VISITOR", "text": "I love fashion."},
+            {"speaker": "PLAYER", "text": "Then maybe you can help me."},
+            {"speaker": "YOUNG VISITOR", "text": "Sure! What are you looking for?"},
+            {"speaker": "PLAYER", "text": "Something in this gallery that doesn’t belong in this era."},
+            {"speaker": "YOUNG VISITOR", "text": "..Hmm.."},
+            {"speaker": "YOUNG VISITOR", "text": "Well.."},
+            {"speaker": "YOUNG VISITOR", "text": "There was this girl earlier."},
+            {"speaker": "PLAYER", "text": "What about her?"},
+            {"speaker": "YOUNG VISITOR", "text": "She wasn’t looking at the outfits like everyone else."},
+            {"speaker": "YOUNG VISITOR", "text": "She was comparing them."},
+            {"speaker": "PLAYER", "text": "Comparing?"},
+            {"speaker": "YOUNG VISITOR", "text": "Yeah. Like she knew they didn’t match something."},
+            {"speaker": "PLAYER", "text": "Did she take anything?"},
+            {"speaker": "YOUNG VISITOR", "text": "I didn’t see her take anything..."},
+            {"speaker": "YOUNG VISITOR", "text": "But she went past the staff-only section"},
+        ],
+        "quest": "clue_staff-only_section"
+    },
+
+     # =============================
+    # 1950s NPC 5: Gallery Assistant
+    # ==============================
+    ("1950s", 13, 3): {
+        "speaker": "Gallery Assistant",
+        "dialogue": [
+            {"speaker": "GALLERY ASSISTANT", "text": "Visitors aren’t usually allowed back here."},
+            {"speaker": "PLAYER", "text": "I won’t take long."},
+            {"speaker": "GALLERY ASSISTANT", "text": "..You’re not here by accident."},
+            {"speaker": "PLAYER", "text": "No."},
+            {"speaker": "PLAYER", "text": "I’m looking for something that doesn’t belong here."},
+            {"speaker": "GALLERY ASSISTANT", "text": "..Then you think like him."},
+            {"speaker": "PLAYER", "text": "Like who?"},
+            {"speaker": "GALLERY ASSISTANT", "text": "The man who owns this gallery."},
+            {"speaker": "GALLERY ASSISTANT", "text": "He always says.."},
+            {"speaker": "GALLERY ASSISTANT", "text": "‘A piece out of time will always reveal itself.'"},
+            {"speaker": "PLAYER", "text": "..My grandfather."},
+            {"speaker": "GALLERY ASSISTANT", "text": "Then you already know what to look for."},
+            {"speaker": "PLAYER", "text": "A girl came through here, right?"},
+            {"speaker": "GALLERY ASSISTANT", "text": "Yes."},
+            {"speaker": "PLAYER", "text": "What did she have?"},
+            {"speaker": "GALLERY ASSISTANT", "text": "Denim."},
+            {"speaker": "GALLERY ASSISTANT", "text": "But not from this decade."},
+            {"speaker": "GALLERY ASSISTANT", "text": "She tried to hide it among the stored pieces."},
+        ],
+    },
+
+    # ===============================
+    # 1960s NPC 6: Fashion Enthusiast
+    # ===============================
     ("1960s", 4, 7): {
         "speaker": "Fashion Enthusiast",
         "dialogue": [
@@ -209,7 +264,7 @@ dialogue_data = {
     },
 
     # ===========================
-    # 1960s NPC 4: Gallery Staff
+    # 1960s NPC 7: Gallery Staff
     # ===========================
     ("1960s", 12, 15): {
         "speaker": "Gallery Staff",
@@ -239,7 +294,7 @@ dialogue_data = {
     },
 
     # ============================
-    # 1980s NPC 5: Fashion Curator
+    # 1980s NPC 8: Fashion Curator
     # ============================
     ("1980s", 13, 13): {
         "speaker": "Fashion Curator",
@@ -287,7 +342,7 @@ dialogue_data = {
     },
 
     # ===========================
-    # 1980s NPC 6: Archive Staff
+    # 1980s NPC 9: Archive Staff
     # ===========================
     ("1980s", 14, 2): {
         "speaker": "Archive Staff",
@@ -318,7 +373,7 @@ dialogue_data = {
     },
 
     # ==============================
-    # 1990s NPC 6: Curator Assistant
+    # 1990s NPC 10: Curator Assistant
     # ==============================
     ("1990s", 14, 2): {
         "speaker": "CURATOR ASSISTANT",
@@ -351,7 +406,7 @@ dialogue_data = {
     },
 
     # =====================
-    # 1990s NPC 7: Visitor
+    # 1990s NPC 11: Visitor
     # =====================
     ("1990s", 14, 2): {
         "speaker": "Visitor",
@@ -379,7 +434,7 @@ dialogue_data = {
     },
 
     # ===========================
-    # 1990s NPC 8: Senior Curator
+    # 1990s NPC 12: Senior Curator
     # ===========================
     ("1990s", 14, 2): {
         "speaker": "Senior Curator",
