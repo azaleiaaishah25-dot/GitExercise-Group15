@@ -51,7 +51,8 @@ dialogue_data = {
             {"speaker": "ELEGANT WOMAN", "text": "If you find her, do let me know. I adore a bit of drama."},
             {"speaker": "PLAYER", "text": "I'll keep that in mind."}
         ],
-        "quest": "clue_gogo_boots"
+        "quest": "clue_gogo_boots",
+        "clue": "gogo_boots"
     },
 
     # =========================
