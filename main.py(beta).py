@@ -17,6 +17,7 @@ font = pygame.font.SysFont(None, 30)
 
 #Game state
 game_state = "menu"
+debug_mode = False
 
 #Menu Fonts
 title_font = pygame.font.SysFont(None, 90)
@@ -288,6 +289,49 @@ def draw_quest_complete_popup():
 
     quest_popup_timer -= 1
 
+def draw_debug_info():
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+
+    mouse_world_x = mouse_x + camera_x
+    mouse_world_y = mouse_y + camera_y
+
+    mouse_col = mouse_world_x // tile_size
+    mouse_row = mouse_world_y // tile_size
+
+    player_col = player_x // tile_size
+    player_row = player_y // tile_size
+
+    player_center_col = (player_x + player_size // 2) // tile_size
+    player_center_row = (player_y + player_size // 2) // tile_size
+
+    current_tile = "Out of Map"
+    if 0 <= player_center_row < len(game_map) and 0 <= player_center_col < len(game_map[0]):
+        current_tile = game_map[player_center_row][player_center_col]
+    
+    debug_lines = [
+        "DEBUG MODE: ON",
+        f"Current Era: {current_era}",
+        f"Player Tile: ({player_col}, {player_row})",
+        f"Player Center Tile: ({player_center_col}, {player_center_row})",
+        f"Current Tile: {current_tile}",
+        f"Mouse Tile: ({mouse_col}, {mouse_row})",
+        f"Can Interact: {can_interact}",
+        f"Current NPC: {current_npc}",
+        f"FPS: {int(clock.get_fps())}"
+    ]
+
+    debug_box = pygame.Rect(20, 300, 420, 260)
+    pygame.draw.rect(screen, (0, 0, 0), debug_box)
+    pygame.draw.rect(screen, (255, 255, 0), debug_box, 2)
+
+    y = debug_box.y + 15
+
+    for line in debug_lines:
+        text_surface = small_font.render(line, True, (255, 255, 255))
+        screen.blit(text_surface, (debug_box.x + 15, y))
+        y += 25
+
+
 #6. Main Game Loop
 running = True
 while running:
@@ -346,6 +390,9 @@ while running:
                             dialogue_text_shown = ""
                             text_counter = 0
 
+                elif event.key == pygame.K_F3:
+                    debug_mode = not debug_mode
+
                 elif event.key == pygame.K_ESCAPE:
                     game_state = "pause"
 
@@ -372,6 +419,8 @@ while running:
                                     quest_log[current_quest] = "started"
                                     add_quest(current_quest)
                                     current_quest = None
+
+
     #Menu Part
     if game_state == "menu":
         draw_main_menu()
@@ -588,6 +637,9 @@ while running:
 
         hint = font.render("SPACE to continue", True, (200, 200, 200))
         screen.blit(hint, (box_rect.x + 20, box_rect.y + 105))
+    
+    if debug_mode:
+        draw_debug_info()
 
         
     pygame.display.update()
