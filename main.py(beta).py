@@ -2,7 +2,8 @@ import pygame
 from data.maps import * 
 from data.buildings import building_data
 from data.dialogues import dialogue_data, item_dialogue_data
-from data.quests import quest_descriptions
+from data.quests import quest_descriptions, clue_descriptions
+
 
 #Master switch 
 pygame.init() 
@@ -42,6 +43,10 @@ dialogue_index = 0
 dialogue_text_shown = ""
 text_speed = 2
 text_counter = 0
+
+collected_clues = []
+current_clue = None
+show_clue_inventory = False
 
 can_interact = False
 current_npc = None
@@ -289,6 +294,51 @@ def draw_quest_complete_popup():
 
     quest_popup_timer -= 1
 
+def add_clue(clue_id):
+    if clue_id and clue_id not in collected_clues:
+        collected_clues.append(clue_id)
+
+def draw_clue_inventory():
+    overlay = pygame.Surface((WIDTH, HEIGHT))
+    overlay.set_alpha(220)
+    overlay.fill((10, 10, 15))
+    screen.blit(overlay, (0, 0))
+
+    title = title_font.render("CLUE INVENTORY", True, (255, 220, 120))
+    title_rect = title.get_rect(center = (WIDTH // 2, 130))
+    screen.blit(title, title_rect)
+
+    instruction = small_font.render("Press I to close", True, (220, 220, 220))
+    instruction_rect = instruction.get_rect(center = (WIDTH // 2, 130))
+    screen.blit(instruction, instruction_rect)
+
+    if len(collected_clues) == 0:
+        empty_text = menu_font.render("No clues collected yet.", True, (255, 255, 255))
+        empty_rect = empty_text.get_rect(center=(WIDTH // 2, 260))
+        screen.blit(empty_text, empty_rect)
+        return
+
+    clue_box = pygame.Rect(170, 180, 860, 500)
+    pygame.draw.rect(screen, (25, 25, 30), clue_box)
+    pygame.draw.rect(screen, (255, 255, 255), clue_box, 3)
+
+    y = clue_box.y + 30
+
+    for clue_id in collected_clues:
+        clue_text = clue_descriptions.get(clue_id, clue_id)
+
+        y = draw_wrapped_text(
+            screen,
+            "- " + clue_text,
+            font,
+            (255, 255, 255),
+            clue_box.x + 30,
+            y,
+            clue_box.width - 60
+        )
+
+        y += 20
+
 def draw_debug_info():
     mouse_x, mouse_y = pygame.mouse.get_pos()
 
@@ -377,13 +427,17 @@ while running:
         if game_state == "playing":
             if event.type == pygame.KEYDOWN:
 
-                if event.key == pygame.K_e:
-                    if not dialogue_active and can_interact:
+                if event.key == pygame.K_i:
+                    show_clue_inventory = not show_clue_inventory
+
+                elif event.key == pygame.K_e:
+                    if not dialogue_active and not show_clue_inventory and can_interact:
                         if current_npc in dialogue_data:
                             npc_data = dialogue_data[current_npc]
 
                             current_dialogue = npc_data["dialogue"]
                             current_quest = npc_data.get("quest")
+                            current_clue = npc_data.get("clue")
 
                             dialogue_active = True
                             dialogue_index = 0
@@ -420,6 +474,10 @@ while running:
                                     add_quest(current_quest)
                                     current_quest = None
 
+                                if current_clue:
+                                    add_clue(current_clue)
+                                    current_clue = None
+
 
     #Menu Part
     if game_state == "menu":
@@ -440,7 +498,7 @@ while running:
     new_x = player_x
     new_y = player_y
 
-    if not dialogue_active:
+    if not dialogue_active and not show_clue_inventory:
         hotkeys = pygame.key.get_pressed()
 
         if hotkeys[pygame.K_w]:
@@ -641,6 +699,8 @@ while running:
     if debug_mode:
         draw_debug_info()
 
+    if show_clue_inventory:
+        draw_clue_inventory()
         
     pygame.display.update()
 
