@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import time
+import random
 
 pg.init()
 
@@ -12,6 +13,13 @@ pg.display.set_caption("Tic Tac Toe - Speed Mode")
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+
+# Images
+x_img = pg.image.load("game_images/X.png")
+o_img = pg.image.load("game_images/0.png")
+
+x_img = pg.transform.scale(x_img, (120, 120))
+o_img = pg.transform.scale(o_img, (120, 120))
 
 # Board
 board = [""] * 9
@@ -37,10 +45,14 @@ def draw_board():
     # X/O
     for i in range(9):
         if board[i] != "":
-            text = font.render(board[i], True, BLACK)
-            x = (i % 3) * 200 + 70
-            y = (i // 3) * 200 + 50
-            screen.blit(text, (x, y))
+            x = (i % 3) * 200 + 40
+            y = (i // 3) * 200 + 40
+
+        if board[i] == "X":
+            screen.blit(x_img, (x, y))
+
+        elif board[i] == "O":
+            screen.blit(o_img, (x, y))
 
 
 def check_winner():
@@ -106,3 +118,4 @@ while running:
                 board[index] = current_player
                 current_player = "O" if current_player == "X" else "X"
                 start_time = time.time()
+pg.quit()
