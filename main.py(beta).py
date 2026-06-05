@@ -84,6 +84,10 @@ duck_img = pygame.transform.scale(duck_img, (player_size, player_size))
 tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
 tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
 
+menu_bg_img = pygame.image.load("Images/game_start.png").convert()
+menu_bg_img = pygame.transform.scale(menu_bg_img, (WIDTH, HEIGHT))
+
+
 #5. Functions (Logic)
 
 def check_collision(x, y, current_map):
@@ -139,15 +143,7 @@ def draw_button(rect, text):
 
 
 def draw_main_menu():
-    screen.fill((15, 10, 20))
-
-    title_text = title_font.render("STYLE HEIST", True, (255, 220, 120))
-    title_rect = title_text.get_rect(center=(WIDTH // 2, 180))
-    screen.blit(title_text, title_rect)
-
-    subtitle_text = small_font.render("A Detective Time-Travel Fashion Mystery", True, (220, 220, 220))
-    subtitle_rect = subtitle_text.get_rect(center=(WIDTH // 2, 245))
-    screen.blit(subtitle_text, subtitle_rect)
+    screen.blit(menu_bg_img, (0, 0))
 
     draw_button(start_button, "Start Game")
     draw_button(credits_button, "Credits")
