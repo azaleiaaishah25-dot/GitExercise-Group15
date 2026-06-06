@@ -1,9 +1,45 @@
 import pygame
+import json
+import os
 from data.maps import * 
 from data.buildings import building_data
 from data.dialogues import dialogue_data, item_dialogue_data
 from data.quests import quest_descriptions, clue_descriptions
 
+DB_FILE = "players.json"
+
+def load_database():
+    if not os.path.exists(DB_FILE):
+        return {}
+    with open(DB_FILE, "r") as file:
+        return json.load(file)
+    
+def save_database(data):
+    with open(DB_FILE, "w") as file:
+        json.dump(data, file, indent=4)
+
+def load_profile_data(profile_name):
+    global player_x, player_y, current_era, active_quests, completed_quests, current_user
+    
+    db = load_database()
+    current_user = profile_name
+    
+    # If this profile doesn't exist yet, create default starting stats
+    if profile_name not in db:
+        db[profile_name] = {
+            "player_x": 1500,
+            "player_y": 1600,
+            "current_era": "Museum",
+            "active_quests": [],
+            "completed_quests": []
+        }
+        save_database(db)
+
+    player_x = db[profile_name]["player_x"]
+    player_y = db[profile_name]["player_y"]
+    current_era = db[profile_name]["current_era"]
+    active_quests = db[profile_name]["active_quests"]
+    completed_quests = db[profile_name]["completed_quests"]
 
 #Master switch 
 pygame.init() 
@@ -35,6 +71,10 @@ game_exit_button = pygame.Rect(WIDTH - 130, 20, 100, 45)
 resume_button = pygame.Rect(WIDTH // 2 - 150, 330, 300, 60)
 main_menu_button = pygame.Rect(WIDTH // 2 - 150, 410, 300, 60)
 pause_quit_button = pygame.Rect(WIDTH // 2 - 150, 490, 300, 60)
+
+profile_1_btn = pygame.Rect(WIDTH // 2 - 150, 300, 300, 60)
+profile_2_btn = pygame.Rect(WIDTH // 2 - 150, 380, 300, 60)
+profile_3_btn = pygame.Rect(WIDTH // 2 - 150, 460, 300, 60)
 
 seen_self_dialogues = set()
 dialogue_active = False
@@ -72,10 +112,7 @@ visited_map = [[False for _ in range(len(museum_map[0]))] for _ in range(len(mus
 #3. Player Variables
 player_size = tile_size
 player_size = 60
-player_x = 1500
-player_y = 1600
 speed = 10 #pixels per movement per frame
-
 
 #4. Images
 duck_img = pygame.image.load("Images/duck_with_knife.jpg").convert_alpha()
@@ -156,6 +193,18 @@ def draw_main_menu():
     )
     footer_rect = footer_text.get_rect(center=(WIDTH // 2, HEIGHT - 40))
     screen.blit(footer_text, footer_rect)
+
+def draw_profiles_screen():
+    screen.blit(menu_bg_img, (0, 0)) # Reusing the main menu background
+    
+    title_text = title_font.render("SELECT PROFILE", True, (255, 220, 120))
+    title_rect = title_text.get_rect(center=(WIDTH // 2, 180))
+    screen.blit(title_text, title_rect)
+    
+    draw_button(profile_1_btn, "Save Slot 1")
+    draw_button(profile_2_btn, "Save Slot 2")
+    draw_button(profile_3_btn, "Save Slot 3")
+    draw_button(back_button, "Back")
 
 
 def draw_credits_screen():
@@ -394,13 +443,38 @@ while running:
 
                 if game_state == "menu":
                     if start_button.collidepoint(event.pos):
-                        game_state = "playing"
+                        game_state = "profiles"
 
                     elif credits_button.collidepoint(event.pos):
                         game_state = "credits"
 
                     elif quit_button.collidepoint(event.pos):
+                        # --- SAVE SYSTEM ---
+                        if current_user != "": # Only save if a profile is loaded
+                            db = load_database()
+                            db[current_user]["player_x"] = player_x
+                            db[current_user]["player_y"] = player_y
+                            db[current_user]["current_era"] = current_era
+                            db[current_user]["active_quests"] = active_quests
+                            db[current_user]["completed_quests"] = completed_quests
+                            save_database(db)
                         running = False
+
+                elif game_state == "profiles":
+                    if profile_1_btn.collidepoint(event.pos):
+                        load_profile_data("Profile_1")
+                        game_state = "playing"
+                        
+                    elif profile_2_btn.collidepoint(event.pos):
+                        load_profile_data("Profile_2")
+                        game_state = "playing"
+                        
+                    elif profile_3_btn.collidepoint(event.pos):
+                        load_profile_data("Profile_3")
+                        game_state = "playing"
+                        
+                    elif back_button.collidepoint(event.pos):
+                        game_state = "menu"
 
                 elif game_state == "credits":
                     if back_button.collidepoint(event.pos):
@@ -408,6 +482,15 @@ while running:
 
                 elif game_state == "playing":
                     if game_exit_button.collidepoint(event.pos):
+                        # --- SAVE SYSTEM ---
+                        if current_user != "":
+                            db = load_database()
+                            db[current_user]["player_x"] = player_x
+                            db[current_user]["player_y"] = player_y
+                            db[current_user]["current_era"] = current_era
+                            db[current_user]["active_quests"] = active_quests
+                            db[current_user]["completed_quests"] = completed_quests
+                            save_database(db)
                         running = False
                 
                 elif game_state == "pause":
@@ -418,6 +501,15 @@ while running:
                         game_state = "menu"
 
                     elif pause_quit_button.collidepoint(event.pos):
+                        # --- SAVE SYSTEM ---
+                        if current_user != "":
+                            db = load_database()
+                            db[current_user]["player_x"] = player_x
+                            db[current_user]["player_y"] = player_y
+                            db[current_user]["current_era"] = current_era
+                            db[current_user]["active_quests"] = active_quests
+                            db[current_user]["completed_quests"] = completed_quests
+                            save_database(db)
                         running = False
 
         if game_state == "playing":
@@ -474,12 +566,15 @@ while running:
                                     add_clue(current_clue)
                                     current_clue = None
 
-
     #Menu Part
     if game_state == "menu":
         draw_main_menu()
         pygame.display.update()
         continue
+    elif game_state == "profiles":         # <-- ADDED THIS FIX
+        draw_profiles_screen()             # <-- ADDED THIS FIX
+        pygame.display.update()            # <-- ADDED THIS FIX
+        continue                           # <-- ADDED THIS FIX
     elif game_state == "credits":
         draw_credits_screen()
         pygame.display.update()
@@ -488,7 +583,6 @@ while running:
         draw_pause_menu()
         pygame.display.update()
         continue
-
 
     # B. Movement Logic
     new_x = player_x
