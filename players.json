@@ -1,0 +1,9 @@
+{
+    "Profile_1": {
+        "player_x": 1500,
+        "player_y": 1600,
+        "current_era": "Museum",
+        "active_quests": [],
+        "completed_quests": []
+    }
+}
