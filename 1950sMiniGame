@@ -1,3 +1,5 @@
+from operator import index
+
 import pygame as pg
 import sys
 import time
@@ -105,11 +107,15 @@ while running:
 
             current_player = "X"
             start_time = time.time()
-            
+
     winner = check_winner()
     if winner:
         win_text = small_font.render(f"{winner} wins! Press R", True, BLACK)
         screen.blit(win_text, (150, 270))
+
+    elif "" not in board:
+        draw_text = small_font.render("Draw! Press R", True, BLACK)
+        screen.blit(draw_text, (170, 270))
 
     pg.display.update()
 
@@ -121,15 +127,15 @@ while running:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_r:
                 reset_game()
-
-        if event.type == pg.MOUSEBUTTONDOWN and winner is None:
+        if event.type == pg.MOUSEBUTTONDOWN and winner is None and current_player == "X":
             x, y = pg.mouse.get_pos()
             row = y // 200
             col = x // 200
             index = row * 3 + col
-
+            
             if board[index] == "":
-                board[index] = current_player
-                current_player = "O" if current_player == "X" else "X"
+                board[index] = "X"
+                current_player = "O"
                 start_time = time.time()
+                
 pg.quit()
