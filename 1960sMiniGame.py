@@ -105,6 +105,7 @@ while True:
     for index, block in enumerate(grid_blocks):
         pygame.draw.rect(screen, block["color"], block["rect"])
         # Give them a sharp, heavy border typical of 60s illustration layout
+        
         pygame.draw.rect(screen, BLACK, block["rect"], 4)
             
         # 3. Handle Item Logic and Display Indicators
