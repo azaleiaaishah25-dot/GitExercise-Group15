@@ -28,3 +28,29 @@ font_text = pygame.font.SysFont("courier", 18)
 score = 0
 grid_timer = 0
 color_flip_rate = 90
+
+#grid setup
+
+grid_blocks = [
+    {"rect": pygame.Rect(100, 150, 280, 180), "color": MOD_ORANGE},
+    {"rect": pygame.Rect(420, 150, 280, 180), "color": MUSTARD_YELLOW},
+    {"rect": pygame.Rect(100, 360, 280, 180), "color": CHERRY_RED},
+    {"rect": pygame.Rect(420, 360, 280, 180), "color": CULTURE_BLACK}
+]
+
+target_block_index = random.randint(0,3)
+player_pos = pygame.Vector2(WIDTH // 2, HEIGHT // 2)
+player_size = 30
+player_speed = 6
+
+#Game loop
+while True:
+    screen.fill(WHITE)
+    events = pygame.event.get()
+
+    for event in events:
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+#wIN WIN CONDITION
