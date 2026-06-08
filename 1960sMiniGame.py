@@ -110,7 +110,7 @@ while True:
         # 3. Handle Item Logic and Display Indicators
         if index == target_block_index:
             # Render the goal text inside the designated box
-            lbl_item = font_bold.render("👢 GO-GO BOOTS", True, WHITE if block["color"] == CULTURE_BLACK else BLACK)
+            lbl_item = font_bold.render("👔👔 Flannel shirt", True, WHITE if block["color"] == CULTURE_BLACK else BLACK)
             text_x = block["rect"].x + (block["rect"].width // 2) - (lbl_item.get_width() // 2)
             text_y = block["rect"].y + (block["rect"].height // 2) - (lbl_item.get_height() // 2)
             screen.blit(lbl_item, (text_x, text_y))
