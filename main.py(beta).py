@@ -3,7 +3,7 @@ import json
 import os
 from data.maps import * 
 from data.buildings import building_data
-from data.dialogues import dialogue_data, item_dialogue_data
+from data.dialogues import dialogue_data, item_dialogue_data, era_dialogues
 from data.quests import quest_descriptions, clue_descriptions
 
 DB_FILE = "players.json"
@@ -40,6 +40,17 @@ def load_profile_data(profile_name):
     current_era = db[profile_name]["current_era"]
     active_quests = db[profile_name]["active_quests"]
     completed_quests = db[profile_name]["completed_quests"]
+
+npc_map = {
+    ("1920s", 13, 6): "elegant_woman",
+    ("1920s", 19, 11): "old_tailor",
+    ("1950s", 13, 3): "gallery_host",
+    ("1960s", 4, 7): "fashion_enthusiast",
+    ("1980s", 13, 13): "fashion_curator",
+    ("1980s", 14, 2): "archive_staff",
+    ("1990s", 13, 3): "curator_assistant",
+    ("1990s", 13, 12): "visitor",
+}
 
 #Master switch 
 pygame.init() 
@@ -150,16 +161,35 @@ def check_collision(x, y, current_map):
 
 def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
     global game_map, current_era, player_x, player_y, visited_map
-    
-    
+    global dialogue_active, current_dialogue, dialogue_index
+    global dialogue_text_shown, text_counter
+    global current_quest, current_clue
+
     game_map = new_map_array
     current_era = new_era_name
-    
+
     player_x = spawn_tile_x * tile_size
     player_y = spawn_tile_y * tile_size
-    
+
     visited_map = [[False for _ in range(len(game_map[0]))] for _ in range(len(game_map))]
-    
+
+    # AUTO SELF-DIALOGUE WHEN ENTERING ERA
+    if new_era_name in era_dialogues and new_era_name not in seen_self_dialogues:
+        current_dialogue = [
+            {"speaker": "PLAYER", "text": line}
+            for line in era_dialogues[new_era_name]
+        ]
+
+        dialogue_active = True
+        dialogue_index = 0
+        dialogue_text_shown = ""
+        text_counter = 0
+
+        current_quest = None
+        current_clue = None
+
+        seen_self_dialogues.add(new_era_name)
+
     pygame.time.delay(80)
 
 #This area is the main menu Part
@@ -629,8 +659,10 @@ while running:
         for npc_col in range(player_col - 1, player_col + 2):
             if 0 <= npc_row < len(game_map) and 0 <= npc_col < len(game_map[0]):
                 if game_map[npc_row][npc_col] == "5":
-                    can_interact = True
+
                     current_npc = (current_era, npc_col, npc_row)
+                    can_interact = True
+
 
     # Fog of war
     reveal_radius = 3
