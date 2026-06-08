@@ -1,4 +1,3 @@
-from turtle import Screen
 
 import pygame
 
@@ -74,26 +73,6 @@ era_dialogues = {
         "Then I find her."
     ]
 }
-
-current_era = "Museum"
-dialogue_text = ""
-dialogue_timer = 0
-
-def enter_era(era_name):
-    global dialogue_text, dialogue_timer
-
-    dialogue_text = era_dialogues[era_name]
-    dialogue_timer = 300  # show for 300 frames
-
-# Call this when the player enters an era
-enter_era(current_era)
-
-# Inside game loop
-if dialogue_timer > 0:
-    font = pygame.font.Font(None, 36)
-    text_surface = font.render(dialogue_text, True, (255, 255, 255))
-    Screen.blit(text_surface, (50, 50))
-    dialogue_timer -= 1
 
 # NPC DATA
 dialogue_data = {
@@ -177,8 +156,7 @@ dialogue_data = {
     # =========================
     # 1920s NPC 1: Elegant Woman
     # =========================
-    ("1920s", 13, 6): {
-        "speaker": "Elegant Woman",
+    "elegant_woman": {
         "dialogue": [
             {"speaker": "ELEGANT WOMAN", "text": "Well now, you look like you've walked straight out of a different world."},
             {"speaker": "PLAYER", "text": "..Something like that."},
@@ -217,8 +195,7 @@ dialogue_data = {
     # =========================
     # 1920s NPC 2: Old Tailor
     # =========================
-    ("1920s", 19, 11): {
-        "speaker": "Old Tailor",
+    "old_tailor": {
         "dialogue": [
             {"speaker": "OLD TAILOR", "text": "..Hmm."},
             {"speaker": "PLAYER", "text": "..Excuse me?"},
@@ -247,8 +224,7 @@ dialogue_data = {
     },
 
 
-    ("1950s", 13, 3): {
-        "speaker": "Elegant Woman",
+    "gallery_host": {
         "dialogue": [
             {"speaker": "GALLERY HOST", "text": "Well, you look a little out of place."},
             {"speaker": "PLAYER", "text": "..That obvious?"},
@@ -279,8 +255,7 @@ dialogue_data = {
     },
 
 
-    ("1960s", 4, 7): {
-        "speaker": "Fashion Enthusiast",
+    "fashion_enthusiast": {
         "dialogue": [
             {"speaker": "FASHION ENTHUSIAST", "text": "You’re staring."},
             {"speaker": "PLAYER", "text": "..That obvious?"},
@@ -323,8 +298,7 @@ dialogue_data = {
     # ===========================
     # 1960s NPC 4: Gallery Staff
     # ===========================
-    ("1960s", 12, 15): {
-        "speaker": "Gallery Staff",
+    "gallery_staff": {
         "dialogue": [
             {"speaker": "GALLERY STAFF", "text": "Careful with those racks."},
             {"speaker": "PLAYER", "text": "I won’t touch anything I shouldn’t."},
@@ -353,8 +327,7 @@ dialogue_data = {
     # ============================
     # 1980s NPC 5: Fashion Curator
     # ============================
-    ("1980s", 13, 13): {
-        "speaker": "Fashion Curator",
+    "fashion_curator": {
         "dialogue": [
             {"speaker": "FASHION CURATOR", "text": "If you’re here to admire, don’t stand in front of the display."},
             {"speaker": "PLAYER", "text": "I’m not here to admire."},
@@ -401,8 +374,7 @@ dialogue_data = {
     # ===========================
     # 1980s NPC 6: Archive Staff
     # ===========================
-    ("1980s", 14, 2): {
-        "speaker": "Archive Staff",
+    "archive_staff": {
         "dialogue": [
             {"speaker": "ARCHIVE STAFF", "text": "If you’re here to browse, you’re in the wrong section."},
             {"speaker": "PLAYER", "text": "I’m not browsing."},
@@ -432,8 +404,7 @@ dialogue_data = {
     # ==============================
     # 1990s NPC 6: Curator Assistant
     # ==============================
-    ("1990s", 13, 3): {
-        "speaker": "CURATOR ASSISTANT",
+    "curator_assistant": {
         "dialogue": [
             {"speaker": "CURATOR ASSISTANT", "text": "Please don’t cross the marked lines."},
             {"speaker": "PLAYER", "text": "I won’t."},
@@ -465,8 +436,7 @@ dialogue_data = {
     # =====================
     # 1990s NPC 7: Visitor
     # =====================
-    ("1990s", 13, 12): {
-        "speaker": "Visitor",
+    "visitor": {
         "dialogue": [
             {"speaker": "VISITOR", "text": "You’re not here to browse, are you?"},
             {"speaker": "PLAYER", "text": "..No."},
@@ -493,8 +463,7 @@ dialogue_data = {
     # ===========================
     # 1990s NPC 8: Senior Curator
     # ===========================
-    ("1990s", 14, 2): {
-        "speaker": "Senior Curator",
+    "senior_curator": {
         "dialogue": [
             {"speaker": "SENIOR CURATOR", "text": "This section is restricted."},
             {"speaker": "PLAYER", "text": "I need to be here."},
