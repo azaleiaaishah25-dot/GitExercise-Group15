@@ -1,20 +1,179 @@
-#1920s arrival dialogue
-arrival_1920s_dialogue = [
-    {"speaker": "PLAYER", "text": "...Whoa—"},
-    {"speaker": "PLAYER", "text": "..Okay.. okay.."},
-    {"speaker": "PLAYER", "text": "..This is definitely not the museum anymore."},
-    {"speaker": "PLAYER", "text": "Clothes.. hairstyles.. even the way they walk.."},
-    {"speaker": "PLAYER", "text": "..1920s. It actually worked."},
-    {"speaker": "PLAYER", "text": "I just time traveled.. because someone stole clothes."},
-    {"speaker": "PLAYER", "text": "..Alright. Focus."},
-    {"speaker": "PLAYER", "text": "If the thief came here.."},
-    {"speaker": "PLAYER", "text": "..then the item has to be here too."},
-    {"speaker": "PLAYER", "text": "And if it doesn't belong in this era.."},
-    {"speaker": "PLAYER", "text": "..it should stand out."}
-]
+from turtle import Screen
+
+import pygame
+
+
+era_dialogues = {
+
+    "Museum": [
+        "..First night shift alone.",
+        "..No backup, no walkthroughs..just me.",
+        "This place used to be smaller ... just a gallery.",
+        "Now it’s a full museum ... every era, every style...",
+        "..He really built all of this from scratch.",
+        "..You really trusted me with this, huh?",
+        "I don’t even know where to start..",
+        "You made this place feel alive.",
+        "..Right now, it just feels empty.",
+        "scene 2 starts here"
+    ],
+
+    "1920s": [
+        "...Whoa-",
+        "..This is definitely not the museum anymore.",
+        "Clothes.. hairstyles.. even the way they walk..",
+        "..1920s.It actually worked.",
+        "I just time traveled.. because someone stole clothes.",
+        "..Alright. Focus.",
+        "If the thief came here..",
+        "..then the item has to be here too.",
+        "And if it doesn’t belong in this era..",
+        "..it should stand out."
+    ],
+
+    "1950s": [
+        "—Okay.. yeah.. still not used to that.",
+        "..This isn’t just a street..",
+        "..It’s a gallery.",
+        "So this is what it used to be like..",
+        "Before it became a full museum.",
+        "Alright."
+    ],
+
+    "1960s": [
+        "—Okay.. that one definitely hits harder.",
+        "..Woah.",
+        "Everything’s louder.. brighter..",
+        "..Yeah. This has to be the 60s.",
+        "Styles are more expressive.. less rigid..",
+        "..More freedom.",
+        "Alright.",
+        "Find what doesn’t belong."
+    ],
+
+    "1980s": [
+        "—Okay.. yeah, that’s definitely getting stronger.",
+        "..Woah.",
+        "Everything’s.. louder.",
+        "Bigger. Flashier.",
+        "And this place..",
+        "..It’s not just a gallery anymore.",
+        "It’s becoming something bigger.",
+        "Alright.",
+        "One more step closer."
+    ],
+
+    "1990s": [
+        "..Alright.",
+        "That felt.. different.",
+        "..This is it.",
+        "The museum.",
+        "No longer just a gallery..",
+        "He finished what he started.",
+        "One last item.",
+        "Then I find her."
+    ]
+}
+
+current_era = "Museum"
+dialogue_text = ""
+dialogue_timer = 0
+
+def enter_era(era_name):
+    global dialogue_text, dialogue_timer
+
+    dialogue_text = era_dialogues[era_name]
+    dialogue_timer = 300  # show for 300 frames
+
+# Call this when the player enters an era
+enter_era(current_era)
+
+# Inside game loop
+if dialogue_timer > 0:
+    font = pygame.font.Font(None, 36)
+    text_surface = font.render(dialogue_text, True, (255, 255, 255))
+    Screen.blit(text_surface, (50, 50))
+    dialogue_timer -= 1
 
 # NPC DATA
 dialogue_data = {
+    # =====================
+    # Museum NPC 0: Manager
+    # =====================
+    ("Museum", 13, 6): {
+        "speaker": "Manager",
+        "dialogue": [
+            {"speaker": "MANAGER", "text": "I heard something break—what happened here?!"},
+            {"speaker": "PLAYER", "text": "I don’t know—I just got here and found it like this."},
+            {"speaker": "MANAGER", "text": "..The display.."},
+            {"speaker": "MANAGER", "text": "The artifacts.."},
+            {"speaker": "PLAYER", "text": "What about them?"},
+            {"speaker": "MANAGER", "text": "They’re gone."},
+            {"speaker": "PLAYER", "text": "..Gone?"},
+            {"speaker": "MANAGER", "text": "Several items. From different sections."},
+            {"speaker": "PLAYER", "text": "Different sections..?"},
+            {"speaker": "MANAGER", "text": "Different eras."},
+            {"speaker": "PLAYER", "text": "So whoever did this.. knew exactly what they were taking."},
+            {"speaker": "MANAGER", "text": "Yes."},
+            {"speaker": "MANAGER", "text": "This wasn’t random. This was planned."},
+            {"speaker": "DEVICE REALIZATION", "text": "???"},
+            {"speaker": "MANAGER", "text": "..Where did you get that?"},
+            {"speaker": "PLAYER", "text": "It was on the floor. Right next to the case."},
+            {"speaker": "MANAGER", "text": "..Let me see."},
+            {"speaker": "MANAGER", "text": "This isn’t from the collection."},
+            {"speaker": "PLAYER", "text": "That’s what I said."},
+            {"speaker": "MANAGER", "text": "And it doesn’t look modern either..."},
+            {"speaker": "PLAYER", "text": "..So what is it?"},
+            {"speaker": "MANAGER", "text": "I think.."},
+            {"speaker": "MANAGER", "text": "This is how they did it."},
+            {"speaker": "PLAYER", "text": "..Did what?"},
+            {"speaker": "MANAGER", "text": "Moved through time."},
+            {"speaker": "PLAYER", "text": "..You’re serious?"},
+            {"speaker": "MANAGER", "text": "The items taken—they’re all from different decades."},
+            {"speaker": "MANAGER", "text": "If someone had access to something like this.."},
+            {"speaker": "PLAYER", "text": "..They wouldn’t need to steal everything at once."},
+            {"speaker": "MANAGER", "text": "They could take them from anywhere. Any time."},
+            {"speaker": "PASSING THE RESPONSIBILITY", "text": "???"},
+            {"speaker": "MANAGER", "text": "You’re his grandson."},
+            {"speaker": "PLAYER", "text": "That doesn’t mean I understand any of this."},
+            {"speaker": "MANAGER", "text": "Your grandfather didn’t just collect clothes."},
+            {"speaker": "MANAGER", "text": "He started with a small gallery.."},
+            {"speaker": "MANAGER", "text": "And turned it into a living timeline of fashion."},
+            {"speaker": "PLAYER", "text": "I know what he built."},
+            {"speaker": "MANAGER", "text": "He studied every era. Lived through them, in his own way."},
+            {"speaker": "MANAGER", "text": "And he taught you, didn’t he?"},
+            {"speaker": "PLAYER", "text": "..Not like that."},
+            {"speaker": "PLAYER", "text": "I just helped around. Watched. Listened."},
+            {"speaker": "MANAGER", "text": "Then you know more than anyone else here."},
+            {"speaker": "PLAYER", "text": "I’m just the night guard."},
+            {"speaker": "MANAGER", "text": "No."},
+            {"speaker": "MANAGER", "text": "You’re the only one who can follow this."},
+            {"speaker": "THE MISSION", "text": "=>"},
+            {"speaker": "PLAYER", "text": "...Follow it where?"},
+            {"speaker": "MANAGER", "text": "Wherever that thing leads."},
+            {"speaker": "PLAYER", "text": "You want me to use this?"},
+            {"speaker": "MANAGER", "text": "If the thief used it to move through time.."},
+            {"speaker": "PLAYER", "text": "..Then I can use it to track them."},
+            {"speaker": "MANAGER", "text": "Exactly."},
+            {"speaker": "PLAYER", "text": "This sounds insane."},
+            {"speaker": "MANAGER", "text": "Maybe it is."},
+            {"speaker": "MANAGER", "text": "But those items matter."},
+            {"speaker": "MANAGER", "text": "They’re not just displays."},
+            {"speaker": "MANAGER", "text": "They’re pieces of history your grandfather preserved."},
+            {"speaker": "PLAYER", "text": "..So whoever did this.."},
+            {"speaker": "PLAYER", "text": "They’re not just stealing."},
+            {"speaker": "PLAYER", "text": "They’re tearing the story apart."},
+            {"speaker": "ACTIVATION", "text": "===>"},
+            {"speaker": "DEVICE", "text": "Temporal system activated."},
+            {"speaker": "PLAYER", "text": "..Yeah, of course it talks."},
+            {"speaker": "DEVICE", "text": "Select destination era."},
+            {"speaker": "PLAYER", "text": "..1920s.."},
+            {"speaker": "PLAYER", "text": "Guess we start at the beginning."},
+            {"speaker": "PLAYER", "text": "..Don’t let me mess this up, grandpa."}
+        ],
+    },
+
+
     # =========================
     # 1920s NPC 1: Elegant Woman
     # =========================
