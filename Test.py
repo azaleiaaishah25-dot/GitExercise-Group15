@@ -107,8 +107,13 @@ for card in cards:
     card.revealed = True
     card.draw(screen)
 
-screen.blit(big_font.render("Memorize!", True, WHITE), (150, 500))
+# NEW: Render the text and dynamically center its bounding box at the top
+memorize_text = big_font.render("Memorize!", True, WHITE)
+memorize_rect = memorize_text.get_rect(center=(WIDTH // 2, 60)) # 60 pixels down from the very top
+screen.blit(memorize_text, memorize_rect)
+
 pygame.display.flip()
+time.sleep(5)
 
 time.sleep(5)
 
