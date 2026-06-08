@@ -120,14 +120,24 @@ while running:
     screen.fill(BLACK)
     current_ticks = pygame.time.get_ticks()
 
-    # EVENTS
+    # --- 1. NON-BLOCKING AUTOMATIC FLIP BACK ---
+    # If 1000 milliseconds (1 second) have passed since a mismatch, flip them back
+    if reveal_time is not None and (current_ticks - reveal_time >= 1000):
+        if first_card and second_card:
+            first_card.revealed = False
+            second_card.revealed = False
+        first_card = None
+        second_card = None
+        reveal_time = None
+
+    # --- 2. EVENT HANDLING ---
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            # ---> NEW: If a mismatch is already face up and you click a 3rd card, 
-            # hide the old wrong pair instantly so you don't have to wait!
+            # If a mismatch is already face up and you click a 3rd card, 
+            # instantly flip the old pair down so the player doesn't have to wait!
             if second_card is not None:
                 first_card.revealed = False
                 second_card.revealed = False
@@ -135,7 +145,7 @@ while running:
                 second_card = None
                 reveal_time = None
 
-            # Now process the new click normally
+            # Process the new card click
             for card in cards:
                 if card.rect.collidepoint(event.pos) and not card.revealed and not card.matched:
                     card.revealed = True
@@ -151,16 +161,16 @@ while running:
                             first_card.matched = True
                             second_card.matched = True
                             matches += 1
-                            # Clear them instantly so they stay face up permanently
+                            # Clear variables instantly so they stay face up permanently
                             first_card = None
                             second_card = None
+                            reveal_time = None
                         else:
-                            # Save the time to hide them after 1 second if the player idle-waits
+                            # Save the timestamp! The game will keep running, 
+                            # and auto-flip these after 1 second unless a 3rd card is clicked.
                             reveal_time = current_ticks
-                            
-    current_ticks = pygame.time.get_ticks()
 
-    # TIMER (UPDATED EVERY FRAME)
+    # --- 3. TIMER CALCULATIONS ---
     elapsed_time = (pygame.time.get_ticks() - start_time) / 1000
     time_left = max(0, time_limit - int(elapsed_time))
 
@@ -171,40 +181,23 @@ while running:
     # GAME OVER BY TIME
     if time_left == 0:
         over_text = big_font.render("Time's Up!", True, RED)
-        screen.blit(over_text, (120, 550))
+        screen.blit(over_text, (WIDTH // 2 - 100, HEIGHT // 2))
         pygame.display.flip()
         pygame.time.delay(2000)
         break
 
-    # CHECK MATCH
-    if first_card and second_card:
-        pygame.time.wait(500)
-
-        if first_card.symbol == second_card.symbol:
-            first_card.matched = True
-            second_card.matched = True
-            matches += 1
-        else:
-            first_card.revealed = False
-            second_card.revealed = False
-
-        first_card = None
-        second_card = None
-
-    # DRAW CARDS
+    # --- 4. DRAW GRAPHICS & TEXT ---
     for card in cards:
         card.draw(screen)
 
-    # SCORE TEXT
-        score_text = small_font.render(f"Matches: {matches} Attempts: {attempts}", True, WHITE)
-        score_rect = score_text.get_rect(center=(WIDTH // 2, HEIGHT - 40))
-        screen.blit(score_text, score_rect)
-
+    score_text = small_font.render(f"Matches: {matches} Attempts: {attempts}", True, WHITE)
+    score_rect = score_text.get_rect(center=(WIDTH // 2, HEIGHT - 40))
+    screen.blit(score_text, score_rect)
 
     # WIN CHECK
     if matches == 8:
-        win_text = big_font.render("You Win!", True, RED)
-        screen.blit(win_text, (150, 250))
+        win_text = big_font.render("You Win!", True, GREEN)
+        screen.blit(win_text, (WIDTH // 2 - 100, HEIGHT // 2 - 50))
         pygame.display.flip()
         pygame.time.delay(2000)
         running = False
