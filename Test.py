@@ -17,10 +17,10 @@ images = [
 ]
 
 symbols = list(range(8)) * 2
-images = [pygame.transform.scale(img, (80, 80)) for img in images]
+images = [pygame.transform.scale(img, (120, 120)) for img in images] 
 
 # Set up display
-WIDTH, HEIGHT = 600, 600
+WIDTH, HEIGHT = 1200, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Memory Matching Game")
 
@@ -35,15 +35,23 @@ big_font = pygame.font.Font(None, 74)
 small_font = pygame.font.Font(None, 36)
 
 # Card settings
-CARD_SIZE = 100
+CARD_SIZE = 140
 MARGIN = 20
 
 def create_card_positions():
     positions = []
-    for i in range(4):
-        for j in range(4):
-            x = MARGIN + j * (CARD_SIZE + MARGIN)
-            y = MARGIN + i * (CARD_SIZE + MARGIN)
+    # Calculate total grid sizes
+    grid_width = (4 * CARD_SIZE) + (3 * MARGIN)
+    grid_height = (4 * CARD_SIZE) + (3 * MARGIN)
+    
+    # Calculate starting offsets to center the grid
+    start_x = (WIDTH - grid_width) // 2
+    start_y = (HEIGHT - grid_height) // 2
+
+    for i in range(4): # Rows
+        for j in range(4): # Columns
+            x = start_x + j * (CARD_SIZE + MARGIN)
+            y = start_y + i * (CARD_SIZE + MARGIN)
             positions.append((x, y))
     return positions
 
@@ -83,8 +91,8 @@ cards = [Card(pairs[i], positions[i]) for i in range(16)]
 # Game variables
 first_card = None
 second_card = None
+reveal_time = None  # <--- ADD THIS LINE
 matches = 0
-attempts = 0
 running = True
 clock = pygame.time.Clock()
 
