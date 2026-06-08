@@ -93,6 +93,7 @@ first_card = None
 second_card = None
 reveal_time = None  # <--- ADD THIS LINE
 matches = 0
+attempts = 0
 running = True
 clock = pygame.time.Clock()
 
@@ -117,6 +118,7 @@ for card in cards:
 # MAIN LOOP
 while running:
     screen.fill(BLACK)
+    current_ticks = pygame.time.get_ticks()
 
     # EVENTS
     for event in pygame.event.get():
@@ -124,16 +126,39 @@ while running:
             running = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if second_card is None:
-                for card in cards:
-                    if card.rect.collidepoint(event.pos) and not card.revealed and not card.matched:
-                        card.revealed = True
+            # ---> NEW: If a mismatch is already face up and you click a 3rd card, 
+            # hide the old wrong pair instantly so you don't have to wait!
+            if second_card is not None:
+                first_card.revealed = False
+                second_card.revealed = False
+                first_card = None
+                second_card = None
+                reveal_time = None
 
-                        if first_card is None:
-                            first_card = card
+            # Now process the new click normally
+            for card in cards:
+                if card.rect.collidepoint(event.pos) and not card.revealed and not card.matched:
+                    card.revealed = True
+
+                    if first_card is None:
+                        first_card = card
+                    else:
+                        second_card = card
+                        attempts += 1
+                        
+                        # Check immediately if they match
+                        if first_card.symbol == second_card.symbol:
+                            first_card.matched = True
+                            second_card.matched = True
+                            matches += 1
+                            # Clear them instantly so they stay face up permanently
+                            first_card = None
+                            second_card = None
                         else:
-                            second_card = card
-                            attempts += 1
+                            # Save the time to hide them after 1 second if the player idle-waits
+                            reveal_time = current_ticks
+                            
+    current_ticks = pygame.time.get_ticks()
 
     # TIMER (UPDATED EVERY FRAME)
     elapsed_time = (pygame.time.get_ticks() - start_time) / 1000
