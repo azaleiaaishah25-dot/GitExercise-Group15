@@ -7,7 +7,7 @@ pygame.init()
 # Screen
 WIDTH, HEIGHT = 1200, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Simon Says - 1980s Security Panel")
+pygame.display.set_caption("1980s era")
 
 # Colors
 RED = (200, 50, 50)
