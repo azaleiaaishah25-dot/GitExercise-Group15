@@ -488,8 +488,6 @@ dialogue_data = {
     },
 }
 
-#testing
-
 item_dialogue_data = {
     ("1920s", 10, 4): {
         "dialogue": [
@@ -507,6 +505,55 @@ item_dialogue_data = {
             {"speaker": "PLAYER", "text": "Nothing can ever be simple."},
             {"speaker": "GAME", "text": "Mini-game starts somewhere here"}
         ],
-        "quest": "boots_recovered"
+        "quest": "gogo_boots_recovered"
     }
+
+
+    ("1950s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Faded..patch..out of place.."},
+            {"speaker": "PLAYER", "text": "Acid wash denim jacket"},
+            {"speaker": "PLAYER", "text": "Definitely not from the 1950s."},
+            {"speaker": "PLAYER", "text": "She's hiding them where they almost blend in."},
+            {"speaker": "PLAYER", "text": "..but not quite."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal jump requires stabilization."},
+            {"speaker": "PLAYER", "text": "Here we go again."},
+            {"speaker": "DEVICE", "text": "Mini-game required for recalibration."},
+            {"speaker": "PLAYER", "text": "Of coure it is."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "Two down."}
+            {"speaker": "PLAYER", "text": "She studies the eras."},
+            {"speaker": "PLAYER", "text": "..but she doesn't fully belong to any of them."},
+            {"speaker": "PLAYER", "text": "And somehow..he was part of all this too."},
+            {"speaker": "DEVICE", "text": "..Next one."},
+        ],
+        "quest": "acid_wash_denim_jacket_recovered"
+    }
+
+     ("1960s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Loose..checkered..out of place.."},
+            {"speaker": "PLAYER", "text": "Flannel shirt."},
+            {"speaker": "PLAYER", "text": "..Definitely not from the 1960s."},
+            {"speaker": "PLAYER", "text": "She's placing them carefully."},
+            {"speaker": "PLAYER", "text": "..but she's not perfect."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "PLAYER", "text": "...Let me guess."},
+            {"speaker": "DEVICE", "text": "Temporal instability detected."},
+            {"speaker": "DEVICE", "text": "Mini-game required for recalibration."},
+            {"speaker": "PLAYER", "text": "Yeah. I firgured."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "Three down."}
+            {"speaker": "PLAYER", "text": "Girl.."},
+            {"speaker": "PLAYER", "text": "Red dress.."},
+            {"speaker": "PLAYER", "text": "Hair tied back.."},
+            {"speaker": "DEVICE", "text": "..Moves carefully."},
+            {"speaker": "PLAYER", "text": "..Observes everything."},
+            {"speaker": "PLAYER", "text": "And she was here too.."},
+            {"speaker": "DEVICE", "text": "Not stopping now."},
+        ],
+        "quest": "acid_wash_denim_jacket_recovered"
+    }
+
 }
