@@ -550,10 +550,38 @@ item_dialogue_data = {
             {"speaker": "PLAYER", "text": "Hair tied back.."},
             {"speaker": "DEVICE", "text": "..Moves carefully."},
             {"speaker": "PLAYER", "text": "..Observes everything."},
-            {"speaker": "PLAYER", "text": "And she was here too.."},
+            {"speaker": "PLAYER", "text": "And he was here too.."},
             {"speaker": "DEVICE", "text": "Not stopping now."},
         ],
-        "quest": "acid_wash_denim_jacket_recovered"
+        "quest": "flannel_shirt_recovered"
+    }
+
+    ("1980s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Short sleeves..simple..out of place.."},
+            {"speaker": "PLAYER", "text": "Bowling shirt."},
+            {"speaker": "PLAYER", "text": "..Definitely not from the 1980s."},
+            {"speaker": "PLAYER", "text": "She's getting better at hiding them."},
+            {"speaker": "PLAYER", "text": "..but not perfectly."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal instability detected."},
+            {"speaker": "PLAYER", "text": "..Yeah, I know the drill."},
+            {"speaker": "DEVICE", "text": "Mini-game required for recalibration."},
+            {"speaker": "PLAYER", "text": "Let's do it."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "Four down."}
+            {"speaker": "PLAYER", "text": "Girl.."},
+            {"speaker": "PLAYER", "text": "Red dress.."},
+            {"speaker": "PLAYER", "text": "Hair tied back.."},
+            {"speaker": "DEVICE", "text": "Black shoes."},
+            {"speaker": "PLAYER", "text": "..Mischiveous."},
+            {"speaker": "PLAYER", "text": "She's not just stealing."},
+            {"speaker": "DEVICE", "text": "...She's playing with time."}
+            {"speaker": "PLAYER", "text": "And he was here.."},
+            {"speaker": "PLAYER", "text": "..Every step of the way."}
+            {"speaker": "DEVICE", "text": "One more."}
+        ],
+        "quest": "bowling_shirt_recovered"
     }
 
 }
