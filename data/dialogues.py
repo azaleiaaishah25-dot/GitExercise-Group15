@@ -503,7 +503,6 @@ item_dialogue_data = {
             {"speaker": "DEVICE", "text": "Mini-game required to calibrate timeline."},
             {"speaker": "PLAYER", "text": "..Of course there's a catch."},
             {"speaker": "PLAYER", "text": "Nothing can ever be simple."},
-            {"speaker": "GAME", "text": "Mini-game starts somewhere here"}
         ],
         "quest": "gogo_boots_recovered"
     }
@@ -526,7 +525,7 @@ item_dialogue_data = {
             {"speaker": "PLAYER", "text": "She studies the eras."},
             {"speaker": "PLAYER", "text": "..but she doesn't fully belong to any of them."},
             {"speaker": "PLAYER", "text": "And somehow..he was part of all this too."},
-            {"speaker": "DEVICE", "text": "..Next one."},
+            {"speaker": "PLAYER", "text": "..Next one."},
         ],
         "quest": "acid_wash_denim_jacket_recovered"
     }
@@ -548,10 +547,9 @@ item_dialogue_data = {
             {"speaker": "PLAYER", "text": "Girl.."},
             {"speaker": "PLAYER", "text": "Red dress.."},
             {"speaker": "PLAYER", "text": "Hair tied back.."},
-            {"speaker": "DEVICE", "text": "..Moves carefully."},
             {"speaker": "PLAYER", "text": "..Observes everything."},
             {"speaker": "PLAYER", "text": "And he was here too.."},
-            {"speaker": "DEVICE", "text": "Not stopping now."},
+            {"speaker": "PLAYER", "text": "Not stopping now."},
         ],
         "quest": "flannel_shirt_recovered"
     }
@@ -573,15 +571,43 @@ item_dialogue_data = {
             {"speaker": "PLAYER", "text": "Girl.."},
             {"speaker": "PLAYER", "text": "Red dress.."},
             {"speaker": "PLAYER", "text": "Hair tied back.."},
-            {"speaker": "DEVICE", "text": "Black shoes."},
+            {"speaker": "PLAYER", "text": "Black shoes."},
             {"speaker": "PLAYER", "text": "..Mischiveous."},
             {"speaker": "PLAYER", "text": "She's not just stealing."},
-            {"speaker": "DEVICE", "text": "...She's playing with time."}
+            {"speaker": "PLAYER", "text": "...She's playing with time."}
             {"speaker": "PLAYER", "text": "And he was here.."},
             {"speaker": "PLAYER", "text": "..Every step of the way."}
-            {"speaker": "DEVICE", "text": "One more."}
+            {"speaker": "PLAYER", "text": "One more."}
         ],
         "quest": "bowling_shirt_recovered"
     }
 
+    ("1990s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Elegant..long..doesn't fit..."},
+            {"speaker": "PLAYER", "text": "Pearl necklace"},
+            {"speaker": "PLAYER", "text": "..Definitely not from the 1990s."},
+            {"speaker": "PLAYER", "text": "That's all of them."},
+            {"speaker": "DEVICE", "text": "Final artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal system stabilizing."},
+            {"speaker": "PLAYER", "text": "..Last one."},
+            {"speaker": "DEVICE", "text": "Final calibration required."},
+            {"speaker": "PLAYER", "text": "Let's finish this."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "...All five."}
+            {"speaker": "PLAYER", "text": "Girl.."},
+            {"speaker": "PLAYER", "text": "Red dress.."},
+            {"speaker": "PLAYER", "text": "Hair tied back.."},
+            {"speaker": "PLAYER", "text": "Black shoes."},
+            {"speaker": "PLAYER", "text": "..Mischiveous."},
+            {"speaker": "PLAYER", "text": "She knew exactly what she was doing."},
+            {"speaker": "PLAYER", "text": "She planned everything."}
+            {"speaker": "PLAYER", "text": "And he.."},
+            {"speaker": "PLAYER", "text": "..left me all the clues I needed."}
+            {"speaker": "DEVICE", "text": "Culprit identification available."}
+            {"speaker": "PLAYER", "text": "..Yeah."}
+            {"speaker": "PLAYER", "text": "I know who it is."}
+        ],
+        "quest": "pearl_necklace_recovered"
+    }
 }
