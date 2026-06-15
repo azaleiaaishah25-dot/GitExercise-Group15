@@ -608,3 +608,126 @@ item_dialogue_data = {
         "quest": "pearl_necklace_recovered"
     }
 }
+
+item_dialogue_data = {
+    ("1920s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Tall.. white.. doesn't belong.."},
+            {"speaker": "PLAYER", "text": "..Go-Go boots."},
+            {"speaker": "PLAYER", "text": "Definitely not from the 1920s."},
+            {"speaker": "PLAYER", "text": "So the thief really is scattering items across time.."},
+            {"speaker": "PLAYER", "text": "..and not even trying to hide the mismatch."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal jump requires stabilization."},
+            {"speaker": "PLAYER", "text": "..Which means?"},
+            {"speaker": "DEVICE", "text": "Mini-game required to calibrate timeline."},
+            {"speaker": "PLAYER", "text": "..Of course there's a catch."},
+            {"speaker": "PLAYER", "text": "Nothing can ever be simple."},
+        ],
+        "quest": "gogo_boots_recovered"
+    },
+
+
+    ("1950s", 10, 4):{
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Faded..patch..out of place.."},
+            {"speaker": "PLAYER", "text": "Acid wash denim jacket"},
+            {"speaker": "PLAYER", "text": "Definitely not from the 1950s."},
+            {"speaker": "PLAYER", "text": "She's hiding them where they almost blend in."},
+            {"speaker": "PLAYER", "text": "..but not quite."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal jump requires stabilization."},
+            {"speaker": "PLAYER", "text": "Here we go again."},
+            {"speaker": "DEVICE", "text": "Mini-game required for recalibration."},
+            {"speaker": "PLAYER", "text": "Of coure it is."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "Two down."},
+            {"speaker": "PLAYER", "text": "She studies the eras."},
+            {"speaker": "PLAYER", "text": "..but she doesn't fully belong to any of them."},
+            {"speaker": "PLAYER", "text": "And somehow..he was part of all this too."},
+            {"speaker": "PLAYER", "text": "..Next one."},
+        ],
+        "quest": "acid_wash_denim_jacket_recovered"
+    },
+
+     ("1960s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Loose..checkered..out of place.."},
+            {"speaker": "PLAYER", "text": "Flannel shirt."},
+            {"speaker": "PLAYER", "text": "..Definitely not from the 1960s."},
+            {"speaker": "PLAYER", "text": "She's placing them carefully."},
+            {"speaker": "PLAYER", "text": "..but she's not perfect."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "PLAYER", "text": "...Let me guess."},
+            {"speaker": "DEVICE", "text": "Temporal instability detected."},
+            {"speaker": "DEVICE", "text": "Mini-game required for recalibration."},
+            {"speaker": "PLAYER", "text": "Yeah. I firgured."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "Three down."},
+            {"speaker": "PLAYER", "text": "Girl.."},
+            {"speaker": "PLAYER", "text": "Red dress.."},
+            {"speaker": "PLAYER", "text": "Hair tied back.."},
+            {"speaker": "PLAYER", "text": "..Observes everything."},
+            {"speaker": "PLAYER", "text": "And he was here too.."},
+            {"speaker": "PLAYER", "text": "Not stopping now."},
+        ],
+        "quest": "flannel_shirt_recovered"
+    },
+
+    ("1980s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Short sleeves..simple..out of place.."},
+            {"speaker": "PLAYER", "text": "Bowling shirt."},
+            {"speaker": "PLAYER", "text": "..Definitely not from the 1980s."},
+            {"speaker": "PLAYER", "text": "She's getting better at hiding them."},
+            {"speaker": "PLAYER", "text": "..but not perfectly."},
+            {"speaker": "DEVICE", "text": "Artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal instability detected."},
+            {"speaker": "PLAYER", "text": "..Yeah, I know the drill."},
+            {"speaker": "DEVICE", "text": "Mini-game required for recalibration."},
+            {"speaker": "PLAYER", "text": "Let's do it."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "Four down."},
+            {"speaker": "PLAYER", "text": "Girl.."},
+            {"speaker": "PLAYER", "text": "Red dress.."},
+            {"speaker": "PLAYER", "text": "Hair tied back.."},
+            {"speaker": "PLAYER", "text": "Black shoes."},
+            {"speaker": "PLAYER", "text": "..Mischiveous."},
+            {"speaker": "PLAYER", "text": "She's not just stealing."},
+            {"speaker": "PLAYER", "text": "...She's playing with time."},
+            {"speaker": "PLAYER", "text": "And he was here.."},
+            {"speaker": "PLAYER", "text": "..Every step of the way."},
+            {"speaker": "PLAYER", "text": "One more."},
+        ],
+        "quest": "bowling_shirt_recovered"
+    },
+
+    ("1990s", 10, 4): {
+        "dialogue": [
+            {"speaker": "PLAYER", "text": "Elegant..long..doesn't fit..."},
+            {"speaker": "PLAYER", "text": "Pearl necklace"},
+            {"speaker": "PLAYER", "text": "..Definitely not from the 1990s."},
+            {"speaker": "PLAYER", "text": "That's all of them."},
+            {"speaker": "DEVICE", "text": "Final artifact recovered."},
+            {"speaker": "DEVICE", "text": "Temporal system stabilizing."},
+            {"speaker": "PLAYER", "text": "..Last one."},
+            {"speaker": "DEVICE", "text": "Final calibration required."},
+            {"speaker": "PLAYER", "text": "Let's finish this."},
+            {"speaker": "DEVICE", "text": "Stabilization complete."},
+            {"speaker": "PLAYER", "text": "...All five."},
+            {"speaker": "PLAYER", "text": "Girl.."},
+            {"speaker": "PLAYER", "text": "Red dress.."},
+            {"speaker": "PLAYER", "text": "Hair tied back.."},
+            {"speaker": "PLAYER", "text": "Black shoes."},
+            {"speaker": "PLAYER", "text": "..Mischiveous."},
+            {"speaker": "PLAYER", "text": "She knew exactly what she was doing."},
+            {"speaker": "PLAYER", "text": "She planned everything."},
+            {"speaker": "PLAYER", "text": "And he.."},
+            {"speaker": "PLAYER", "text": "..left me all the clues I needed."},
+            {"speaker": "DEVICE", "text": "Culprit identification available."},
+            {"speaker": "PLAYER", "text": "..Yeah."},
+            {"speaker": "PLAYER", "text": "I know who it is."},
+        ],
+        "quest": "pearl_necklace_recovered"
+    }
+},
