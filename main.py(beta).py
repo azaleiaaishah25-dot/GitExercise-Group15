@@ -5,6 +5,7 @@ from data.maps import *
 from data.buildings import building_data
 from data.dialogues import dialogue_data, item_dialogue_data, era_dialogues
 from data.quests import quest_descriptions, clue_descriptions
+from data.music import play_music, stop_music, set_music_volume
 
 DB_FILE = "players.json"
 
@@ -116,6 +117,8 @@ QUEST_POPUP_DURATION = 150
 current_era = "Museum"
 game_map = museum_map #Starting at the Museum
 
+play_music(current_era)
+
 #Fog of war 
 visited_map = [[False for _ in range(len(museum_map[0]))] for _ in range(len(museum_map))]
 
@@ -171,6 +174,7 @@ def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
 
     game_map = new_map_array
     current_era = new_era_name
+    play_music(current_era)
 
     player_x = spawn_tile_x * tile_size
     player_y = spawn_tile_y * tile_size
@@ -599,6 +603,10 @@ while running:
                                 if current_clue:
                                     add_clue(current_clue)
                                     current_clue = None
+                elif event.key == pygame.K_m:
+                    pygame.mixer.music.pause()
+                elif event.key == pygame.K_n:
+                    pygame.mixer.music.unpause()
 
     #Menu Part
     if game_state == "menu":
