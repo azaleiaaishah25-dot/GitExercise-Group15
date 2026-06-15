@@ -2,12 +2,10 @@ import pygame
 import sys
 import random
 import time
-
 pygame.init()
 
 #Screen size
-
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 1200, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("1990s Archive Puzzle")
 
@@ -34,7 +32,7 @@ OFFSET_Y = 120
 
 # image loader
 
-image = pygame.image.load("downloads/pearl_necklace.jpg").convert()
+image = pygame.image.load("game_images/pearl_necklace.jpg").convert()
 image = pygame.transform.scale(image, (IMAGE_SIZE, IMAGE_SIZE))
 
 # Split image into pieces
@@ -52,9 +50,15 @@ for row in range(GRID_SIZE):
         ).copy()
 
         tiles.append(tile)
+ #board setup
+
+solved = [1, 2, 3,
+          4, 5, 6,
+          7, 8, 0]
+
+board = solved.copy()
 
 # shuffle shuffle the pieces
-
 def shuffle_board():
 
     global board
@@ -175,3 +179,147 @@ def get_tile_index(pos):
         return row * GRID_SIZE + col
 
     return None
+
+# Moving the tiles
+
+def move_tile(index):
+
+    empty = board.index(0)
+
+    r1, c1 = divmod(index, GRID_SIZE)
+    r2, c2 = divmod(empty, GRID_SIZE)
+
+    if abs(r1 - r2) + abs(c1 - c2) == 1:
+
+        board[index], board[empty] = (
+            board[empty],
+            board[index]
+        )
+# MAIN GAME LOOP
+
+def run_puzzle():
+
+    shuffle_board()
+
+    start_time = time.time()
+
+    while True:
+
+        clock.tick(60)
+
+        draw_board()
+
+        elapsed = time.time() - start_time
+        remaining = max(0, 180 - int(elapsed))
+
+        timer = font_text.render(
+            f"Time Left: {remaining}s",
+            True,
+            BLACK
+        )
+
+        screen.blit(timer, (20, 20))
+
+        pygame.display.flip()
+
+        # -----------------
+        # TIME OUT
+        # -----------------
+        if remaining <= 0:
+
+            screen.fill(WHITE)
+
+            fail = font_title.render(
+                "ARCHIVE CORRUPTED",
+                True,
+                BLACK
+            )
+
+            screen.blit(
+                fail,
+                (
+                    WIDTH//2 - fail.get_width()//2,
+                    HEIGHT//2
+                )
+            )
+
+            pygame.display.flip()
+            pygame.time.wait(3000)
+
+            return "fail"
+
+        # -----------------
+        # WIN
+        # -----------------
+        if is_solved():
+
+            screen.fill(WHITE)
+
+            screen.blit(
+                image,
+                (OFFSET_X, OFFSET_Y)
+            )
+
+            win = font_title.render(
+                "ARCHIVE RESTORED",
+                True,
+                BLACK
+            )
+
+            clue = font_text.render(
+                "Clue Discovered: Pearl Necklace",
+                True,
+                BLACK
+            )
+
+            screen.blit(
+                win,
+                (
+                    WIDTH//2 - win.get_width()//2,
+                    30
+                )
+            )
+
+            screen.blit(
+                clue,
+                (
+                    WIDTH//2 - clue.get_width()//2,
+                    740
+                )
+            )
+
+            pygame.display.flip()
+            pygame.time.wait(4000)
+
+            return "win"
+
+        # -----------------
+        # EVENTS
+        # -----------------
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+                index = get_tile_index(
+                    event.pos
+                )
+
+                if index is not None:
+
+                    move_tile(index)
+
+# =========================
+# RUN
+# =========================
+if __name__ == "__main__":
+
+    result = run_puzzle()
+
+    print(result)
+
+    pygame.quit()
