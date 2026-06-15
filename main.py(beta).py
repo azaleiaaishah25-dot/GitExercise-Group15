@@ -601,10 +601,10 @@ while running:
         draw_main_menu()
         pygame.display.update()
         continue
-    elif game_state == "profiles":         # <-- ADDED THIS FIX
-        draw_profiles_screen()             # <-- ADDED THIS FIX
-        pygame.display.update()            # <-- ADDED THIS FIX
-        continue                           # <-- ADDED THIS FIX
+    elif game_state == "profiles":        
+        draw_profiles_screen()             
+        pygame.display.update()           
+        continue                          
     elif game_state == "credits":
         draw_credits_screen()
         pygame.display.update()
