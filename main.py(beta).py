@@ -127,13 +127,17 @@ speed = 10 #pixels per movement per frame
 
 #4. Images
 player_img = pygame.image.load("Images/main_character_120x120.png").convert_alpha()
-player_img = pygame.transform.scale(player_img, (player_size, player_size))
+player_img = pygame.transform.scale(player_img, (120, 120))
 
 tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
 tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
 
 menu_bg_img = pygame.image.load("Images/game_start.png").convert()
 menu_bg_img = pygame.transform.scale(menu_bg_img, (WIDTH, HEIGHT))
+
+era_backgrounds = {}
+
+era_backgrounds["1920s"] = pygame.image.load("Images/era_1920s_background.jpeg")
 
 
 #5. Functions (Logic)
@@ -728,6 +732,17 @@ while running:
 
     # D. Drawing
     screen.fill((10, 20, 20))
+    
+    if current_era in era_backgrounds:
+        map_pixel_width = len(game_map[0]) * tile_size
+        map_pixel_height = len(game_map) * tile_size
+
+        bg_img = pygame.transform.scale(
+            era_backgrounds[current_era],
+            (map_pixel_width, map_pixel_height)
+        )
+
+        screen.blit(bg_img, (-camera_x, -camera_y))
 
     for row_index, row in enumerate(game_map):
         for col_index, tile in enumerate(row):
@@ -739,11 +754,13 @@ while running:
 
             if -tile_size < screen_x < WIDTH and -tile_size < screen_y < HEIGHT:
                 if tile == "1":
-                    pygame.draw.rect(screen, (90, 90, 90), (screen_x, screen_y, tile_size, tile_size))
+                    if current_era not in era_backgrounds:
+                        pygame.draw.rect(screen, (90, 90, 90), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "2":
                     pygame.draw.rect(screen, (101, 67, 33), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "3":
-                    screen.blit(tree_img, (screen_x, screen_y))
+                     if current_era not in era_backgrounds:
+                        screen.blit(tree_img, (screen_x, screen_y))
                 elif tile == "4":
                     pygame.draw.rect(screen, (200, 150, 50), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "5":
@@ -751,16 +768,22 @@ while running:
                 elif tile == "6":
                     pygame.draw.rect(screen, (255, 20, 147), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "9":
-                    pygame.draw.rect(screen, (101, 67, 33), (screen_x, screen_y, tile_size, tile_size))
+                     if current_era not in era_backgrounds:
+                        pygame.draw.rect(screen, (101, 67, 33), (screen_x, screen_y, tile_size, tile_size))
                 else:
-                    pygame.draw.rect(screen, (200, 200, 200), (screen_x, screen_y, tile_size, tile_size))
+                    if current_era not in era_backgrounds:
+                        pygame.draw.rect(screen, (200, 200, 200), (screen_x, screen_y, tile_size, tile_size))
 
                 # Grid lines
-                pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
+                if current_era not in era_backgrounds:
+                    pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
 
     # Draw Player
-    screen.blit(player_img, (player_x - camera_x, player_y - camera_y))
-
+    screen.blit(
+    player_img,
+    (player_x - camera_x - 30, player_y - camera_y - 30)
+)
+    
     # Mini-map
     mini_tile = 5
     map_width = len(game_map[0]) * mini_tile
