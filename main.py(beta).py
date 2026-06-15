@@ -126,8 +126,8 @@ player_size = 60
 speed = 10 #pixels per movement per frame
 
 #4. Images
-duck_img = pygame.image.load("Images/duck_with_knife.jpg").convert_alpha()
-duck_img = pygame.transform.scale(duck_img, (player_size, player_size))
+player_img = pygame.image.load("Images/main_character_120x120.png").convert_alpha()
+player_img = pygame.transform.scale(player_img, (player_size, player_size))
 
 tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
 tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
@@ -759,7 +759,7 @@ while running:
                 pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
 
     # Draw Player
-    screen.blit(duck_img, (player_x - camera_x, player_y - camera_y))
+    screen.blit(player_img, (player_x - camera_x, player_y - camera_y))
 
     # Mini-map
     mini_tile = 5
