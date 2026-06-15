@@ -78,8 +78,7 @@ dialogue_data = {
     # =====================
     # Museum NPC 0: Manager
     # =====================
-    ("Museum", 13, 6): {
-        "speaker": "Manager",
+    "manager":{
         "dialogue": [
             {"speaker": "MANAGER", "text": "I heard something break—what happened here?!"},
             {"speaker": "PLAYER", "text": "I don’t know—I just got here and found it like this."},
