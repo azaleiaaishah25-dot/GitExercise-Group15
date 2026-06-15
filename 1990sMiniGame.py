@@ -53,3 +53,44 @@ for row in range(GRID_SIZE):
 
         tiles.append(tile)
 
+# shuffle shuffle the pieces
+
+def shuffle_board():
+
+    global board
+
+    board = solved.copy()
+
+    for _ in range(100):
+
+        empty = board.index(0)
+
+        row = empty // GRID_SIZE
+        col = empty % GRID_SIZE
+
+        possible = []
+
+        directions = [
+            (-1, 0),
+            (1, 0),
+            (0, -1),
+            (0, 1)
+        ]
+
+        for dr, dc in directions:
+
+            nr = row + dr
+            nc = col + dc
+
+            if 0 <= nr < GRID_SIZE and 0 <= nc < GRID_SIZE:
+
+                possible.append(
+                    nr * GRID_SIZE + nc
+                )
+
+        swap = random.choice(possible)
+
+        board[empty], board[swap] = (
+            board[swap],
+            board[empty]
+        )
