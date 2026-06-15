@@ -652,6 +652,7 @@ while running:
     player_row = player_y // tile_size
 
     # NPC detection
+    # NPC detection
     can_interact = False
     current_npc = None
 
@@ -660,8 +661,11 @@ while running:
             if 0 <= npc_row < len(game_map) and 0 <= npc_col < len(game_map[0]):
                 if game_map[npc_row][npc_col] == "5":
 
-                    current_npc = (current_era, npc_col, npc_row)
-                    can_interact = True
+                    npc_key = (current_era, npc_col, npc_row)
+
+                    if npc_key in npc_map:
+                        current_npc = npc_map[npc_key]
+                        can_interact = True
 
 
     # Fog of war
