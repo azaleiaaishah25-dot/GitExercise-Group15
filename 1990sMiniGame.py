@@ -94,3 +94,84 @@ def shuffle_board():
             board[swap],
             board[empty]
         )
+    # DRAW PUZZLE
+# =========================
+def draw_board():
+
+    screen.fill(WHITE)
+
+    title = font_title.render(
+        "1990s ARCHIVE RECONSTRUCTION",
+        True,
+        BLACK
+    )
+
+    instructions = font_text.render(
+        "Restore the archive image before time runs out.",
+        True,
+        BLACK
+    )
+
+    screen.blit(title, (140, 20))
+    screen.blit(instructions, (180, 70))
+
+    for i, tile_num in enumerate(board):
+
+        row = i // GRID_SIZE
+        col = i % GRID_SIZE
+
+        x = OFFSET_X + col * TILE_SIZE
+        y = OFFSET_Y + row * TILE_SIZE
+
+        rect = pygame.Rect(
+            x,
+            y,
+            TILE_SIZE,
+            TILE_SIZE
+        )
+
+        if tile_num == 0:
+
+            pygame.draw.rect(
+                screen,
+                BLACK,
+                rect
+            )
+
+        else:
+
+            screen.blit(
+                tiles[tile_num - 1],
+                (x, y)
+            )
+
+            pygame.draw.rect(
+                screen,
+                BLACK,
+                rect,
+                2
+            )
+
+#checking if win
+
+def is_solved():
+    return board == solved
+
+# =========================
+# CLICKED TILE
+# =========================
+def get_tile_index(pos):
+
+    mx, my = pos
+
+    col = (mx - OFFSET_X) // TILE_SIZE
+    row = (my - OFFSET_Y) // TILE_SIZE
+
+    if (
+        0 <= row < GRID_SIZE
+        and
+        0 <= col < GRID_SIZE
+    ):
+        return row * GRID_SIZE + col
+
+    return None
