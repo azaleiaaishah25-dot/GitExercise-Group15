@@ -141,7 +141,9 @@ menu_bg_img = pygame.transform.scale(menu_bg_img, (WIDTH, HEIGHT))
 era_backgrounds = {}
 
 era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg")
-
+era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg")
+era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg")
+era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg")
 
 #5. Functions (Logic)
 
