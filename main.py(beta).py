@@ -43,6 +43,8 @@ def load_profile_data(profile_name):
     completed_quests = db[profile_name]["completed_quests"]
 
 npc_map = {
+    ("Museum", 3, 2): "manager",
+
     ("1920s", 13, 6): "elegant_woman",
     ("1920s", 19, 11): "old_tailor",
     ("1950s", 13, 3): "gallery_host",
@@ -167,6 +169,28 @@ def check_collision(x, y, current_map):
                     return True
 
     return False
+def start_self_dialogue(era_name):
+    global dialogue_active, current_dialogue, dialogue_index
+    global dialogue_text_shown, text_counter
+    global current_quest, current_clue
+
+    if era_name in era_dialogues and era_name not in seen_self_dialogues:
+        current_dialogue = [
+            {"speaker": "PLAYER", "text": line}
+            for line in era_dialogues[era_name]
+        ]
+
+    dialogue_active = True
+    dialogue_index = 0
+    dialogue_text_shown = ""
+    text_counter = 0
+    
+    current_quest = None
+    current_clue = None
+
+    seen_self_dialogues.add(era_name)
+
+
 
 def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
     global game_map, current_era, player_x, player_y, visited_map
@@ -183,22 +207,7 @@ def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
 
     visited_map = [[False for _ in range(len(game_map[0]))] for _ in range(len(game_map))]
 
-    # AUTO SELF-DIALOGUE WHEN ENTERING ERA
-    if new_era_name in era_dialogues and new_era_name not in seen_self_dialogues:
-        current_dialogue = [
-            {"speaker": "PLAYER", "text": line}
-            for line in era_dialogues[new_era_name]
-        ]
-
-        dialogue_active = True
-        dialogue_index = 0
-        dialogue_text_shown = ""
-        text_counter = 0
-
-        current_quest = None
-        current_clue = None
-
-        seen_self_dialogues.add(new_era_name)
+    start_self_dialogue(new_era_name)
 
     pygame.time.delay(80)
 
@@ -504,15 +513,18 @@ while running:
                     if profile_1_btn.collidepoint(event.pos):
                         load_profile_data("Profile_1")
                         game_state = "playing"
+                        start_self_dialogue(current_era)
                         
                     elif profile_2_btn.collidepoint(event.pos):
                         load_profile_data("Profile_2")
                         game_state = "playing"
+                        start_self_dialogue(current_era)
                         
                     elif profile_3_btn.collidepoint(event.pos):
                         load_profile_data("Profile_3")
                         game_state = "playing"
-                        
+                        start_self_dialogue("Profile_3")
+
                     elif back_button.collidepoint(event.pos):
                         game_state = "menu"
 
