@@ -13,7 +13,6 @@ era_dialogues = {
         "I don’t even know where to start..",
         "You made this place feel alive.",
         "..Right now, it just feels empty.",
-        "scene 2 starts here"
     ],
 
     "1920s": [
