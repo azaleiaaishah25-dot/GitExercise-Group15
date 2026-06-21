@@ -9,23 +9,49 @@ from data.music import play_music, stop_music, set_music_volume
 
 DB_FILE = "players.json"
 
+map_lookup = {
+    "Museum": museum_map,
+    "1920s": era_1920s_map,
+    "1950s": era_1950s_map,
+    "1960s": era_1960s_map,
+    "1980s": era_1980s_map,
+    "1990s": era_1990s_map,
+}
+
+npc_map = {
+    ("Museum", 3, 2): "manager",
+
+    ("1920s", 13, 6): "elegant_woman",
+    ("1920s", 19, 11): "old_tailor",
+    ("1950s", 13, 3): "gallery_host",
+    ("1960s", 4, 7): "fashion_enthusiast",
+    ("1980s", 13, 13): "fashion_curator",
+    ("1980s", 14, 2): "archive_staff",
+    ("1990s", 13, 3): "curator_assistant",
+    ("1990s", 13, 12): "visitor",
+}
+
 def load_database():
     if not os.path.exists(DB_FILE):
         return {}
+
     with open(DB_FILE, "r") as file:
         return json.load(file)
-    
+
+
 def save_database(data):
     with open(DB_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
+
 def load_profile_data(profile_name):
-    global player_x, player_y, current_era, active_quests, completed_quests, current_user
-    
+    global player_x, player_y, current_era
+    global active_quests, completed_quests, current_user
+    global game_map, visited_map
+
     db = load_database()
     current_user = profile_name
-    
-    # If this profile doesn't exist yet, create default starting stats
+
     if profile_name not in db:
         db[profile_name] = {
             "player_x": 1500,
@@ -42,18 +68,29 @@ def load_profile_data(profile_name):
     active_quests = db[profile_name]["active_quests"]
     completed_quests = db[profile_name]["completed_quests"]
 
-npc_map = {
-    ("Museum", 3, 2): "manager",
+    game_map = map_lookup.get(current_era, museum_map)
 
-    ("1920s", 13, 6): "elegant_woman",
-    ("1920s", 19, 11): "old_tailor",
-    ("1950s", 13, 3): "gallery_host",
-    ("1960s", 4, 7): "fashion_enthusiast",
-    ("1980s", 13, 13): "fashion_curator",
-    ("1980s", 14, 2): "archive_staff",
-    ("1990s", 13, 3): "curator_assistant",
-    ("1990s", 13, 12): "visitor",
-}
+    visited_map = [
+        [False for _ in range(len(game_map[0]))]
+        for _ in range(len(game_map))
+    ]
+
+    play_music(current_era)
+
+
+def save_current_profile():
+    if current_user == "":
+        return
+
+    db = load_database()
+
+    db[current_user]["player_x"] = player_x
+    db[current_user]["player_y"] = player_y
+    db[current_user]["current_era"] = current_era
+    db[current_user]["active_quests"] = active_quests
+    db[current_user]["completed_quests"] = completed_quests
+
+    save_database(db)
 
 #Master switch 
 pygame.init() 
@@ -69,6 +106,7 @@ font = pygame.font.SysFont(None, 30)
 #Game state
 game_state = "menu"
 debug_mode = False
+current_user = ""
 
 #Menu Fonts
 title_font = pygame.font.SysFont(None, 90)
@@ -119,14 +157,12 @@ QUEST_POPUP_DURATION = 150
 current_era = "Museum"
 game_map = museum_map #Starting at the Museum
 
-play_music(current_era)
 
 #Fog of war 
 visited_map = [[False for _ in range(len(museum_map[0]))] for _ in range(len(museum_map))]
 
 
 #3. Player Variables
-player_size = tile_size
 player_size = 60
 speed = 10 #pixels per movement per frame
 
@@ -180,15 +216,15 @@ def start_self_dialogue(era_name):
             for line in era_dialogues[era_name]
         ]
 
-    dialogue_active = True
-    dialogue_index = 0
-    dialogue_text_shown = ""
-    text_counter = 0
+        ialogue_active = True
+        dialogue_index = 0
+        dialogue_text_shown = ""
+        text_counter = 0
     
-    current_quest = None
-    current_clue = None
+        current_quest = None
+        current_clue = None
 
-    seen_self_dialogues.add(era_name)
+        seen_self_dialogues.add(era_name)
 
 
 
@@ -498,15 +534,7 @@ while running:
                         game_state = "credits"
 
                     elif quit_button.collidepoint(event.pos):
-                        # --- SAVE SYSTEM ---
-                        if current_user != "": # Only save if a profile is loaded
-                            db = load_database()
-                            db[current_user]["player_x"] = player_x
-                            db[current_user]["player_y"] = player_y
-                            db[current_user]["current_era"] = current_era
-                            db[current_user]["active_quests"] = active_quests
-                            db[current_user]["completed_quests"] = completed_quests
-                            save_database(db)
+                        save_current_profile()
                         running = False
 
                 elif game_state == "profiles":
@@ -523,7 +551,7 @@ while running:
                     elif profile_3_btn.collidepoint(event.pos):
                         load_profile_data("Profile_3")
                         game_state = "playing"
-                        start_self_dialogue("Profile_3")
+                        start_self_dialogue(current_era)
 
                     elif back_button.collidepoint(event.pos):
                         game_state = "menu"
@@ -534,15 +562,7 @@ while running:
 
                 elif game_state == "playing":
                     if game_exit_button.collidepoint(event.pos):
-                        # --- SAVE SYSTEM ---
-                        if current_user != "":
-                            db = load_database()
-                            db[current_user]["player_x"] = player_x
-                            db[current_user]["player_y"] = player_y
-                            db[current_user]["current_era"] = current_era
-                            db[current_user]["active_quests"] = active_quests
-                            db[current_user]["completed_quests"] = completed_quests
-                            save_database(db)
+                        save_current_profile()
                         running = False
                 
                 elif game_state == "pause":
@@ -553,15 +573,7 @@ while running:
                         game_state = "menu"
 
                     elif pause_quit_button.collidepoint(event.pos):
-                        # --- SAVE SYSTEM ---
-                        if current_user != "":
-                            db = load_database()
-                            db[current_user]["player_x"] = player_x
-                            db[current_user]["player_y"] = player_y
-                            db[current_user]["current_era"] = current_era
-                            db[current_user]["active_quests"] = active_quests
-                            db[current_user]["completed_quests"] = completed_quests
-                            save_database(db)
+                        save_current_profile()
                         running = False
 
         if game_state == "playing":
@@ -677,21 +689,27 @@ while running:
     player_col = player_x // tile_size
     player_row = player_y // tile_size
 
-    # NPC detection
-    # NPC detection
+
     can_interact = False
     current_npc = None
 
     for npc_row in range(player_row - 1, player_row + 2):
         for npc_col in range(player_col - 1, player_col + 2):
+
             if 0 <= npc_row < len(game_map) and 0 <= npc_col < len(game_map[0]):
+
                 if game_map[npc_row][npc_col] == "5":
-
                     npc_key = (current_era, npc_col, npc_row)
+                    found_npc = npc_map.get(npc_key)
 
-                    if npc_key in npc_map:
-                        current_npc = npc_map[npc_key]
+                    if found_npc:
+                        current_npc = found_npc
                         can_interact = True
+                        break
+
+        if can_interact:
+            break
+
 
 
     # Fog of war
