@@ -20,7 +20,6 @@ map_lookup = {
 
 npc_map = {
     ("Museum", 3, 2): "manager",
-
     ("1920s", 13, 6): "elegant_woman",
     ("1920s", 19, 11): "old_tailor",
     ("1950s", 13, 3): "gallery_host",
@@ -216,7 +215,7 @@ def start_self_dialogue(era_name):
             for line in era_dialogues[era_name]
         ]
 
-        ialogue_active = True
+        dialogue_active = True
         dialogue_index = 0
         dialogue_text_shown = ""
         text_counter = 0
