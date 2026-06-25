@@ -219,7 +219,9 @@ dialogue_data = {
         "quest": "old_tailor_hint"
     },
 
-
+     # ===========================
+    # 1950s NPC 3: Gallery Host
+    # ===========================
     "gallery_host": {
         "dialogue": [
             {"speaker": "GALLERY HOST", "text": "Well, you look a little out of place."},
@@ -250,7 +252,65 @@ dialogue_data = {
         "quest": "clue_acid_wash_denim"
     },
 
+    # ==========================
+    # 1950s NPC 4: Young Visitor
+    # ==========================
+    ("1950s", 13, 3): {
+        "speaker": "Young Visitor",
+        "dialogue": [
+            {"speaker": "YOUNG VISITOR", "text": "Oh wow—your outfit!"},
+            {"speaker": "PLAYER", "text": "..Thanks."},
+            {"speaker": "YOUNG VISITOR", "text": "It’s so different from everything here!"},
+            {"speaker": "PLAYER", "text": "You seem to notice details."},
+            {"speaker": "YOUNG VISITOR", "text": "I love fashion."},
+            {"speaker": "PLAYER", "text": "Then maybe you can help me."},
+            {"speaker": "YOUNG VISITOR", "text": "Sure! What are you looking for?"},
+            {"speaker": "PLAYER", "text": "Something in this gallery that doesn’t belong in this era."},
+            {"speaker": "YOUNG VISITOR", "text": "..Hmm.."},
+            {"speaker": "YOUNG VISITOR", "text": "Well.."},
+            {"speaker": "YOUNG VISITOR", "text": "There was this girl earlier."},
+            {"speaker": "PLAYER", "text": "What about her?"},
+            {"speaker": "YOUNG VISITOR", "text": "She wasn’t looking at the outfits like everyone else."},
+            {"speaker": "YOUNG VISITOR", "text": "She was comparing them."},
+            {"speaker": "PLAYER", "text": "Comparing?"},
+            {"speaker": "YOUNG VISITOR", "text": "Yeah. Like she knew they didn’t match something."},
+            {"speaker": "PLAYER", "text": "Did she take anything?"},
+            {"speaker": "YOUNG VISITOR", "text": "I didn’t see her take anything..."},
+            {"speaker": "YOUNG VISITOR", "text": "But she went past the staff-only section"},
+        ],
+        "quest": "clue_staff-only_section"
+    },
 
+     # =============================
+    # 1950s NPC 5: Gallery Assistant
+    # ==============================
+    ("1950s", 13, 3): {
+        "speaker": "Gallery Assistant",
+        "dialogue": [
+            {"speaker": "GALLERY ASSISTANT", "text": "Visitors aren’t usually allowed back here."},
+            {"speaker": "PLAYER", "text": "I won’t take long."},
+            {"speaker": "GALLERY ASSISTANT", "text": "..You’re not here by accident."},
+            {"speaker": "PLAYER", "text": "No."},
+            {"speaker": "PLAYER", "text": "I’m looking for something that doesn’t belong here."},
+            {"speaker": "GALLERY ASSISTANT", "text": "..Then you think like him."},
+            {"speaker": "PLAYER", "text": "Like who?"},
+            {"speaker": "GALLERY ASSISTANT", "text": "The man who owns this gallery."},
+            {"speaker": "GALLERY ASSISTANT", "text": "He always says.."},
+            {"speaker": "GALLERY ASSISTANT", "text": "‘A piece out of time will always reveal itself.'"},
+            {"speaker": "PLAYER", "text": "..My grandfather."},
+            {"speaker": "GALLERY ASSISTANT", "text": "Then you already know what to look for."},
+            {"speaker": "PLAYER", "text": "A girl came through here, right?"},
+            {"speaker": "GALLERY ASSISTANT", "text": "Yes."},
+            {"speaker": "PLAYER", "text": "What did she have?"},
+            {"speaker": "GALLERY ASSISTANT", "text": "Denim."},
+            {"speaker": "GALLERY ASSISTANT", "text": "But not from this decade."},
+            {"speaker": "GALLERY ASSISTANT", "text": "She tried to hide it among the stored pieces."},
+        ],
+    },
+
+    # ================================
+    # 1960s NPC 6: Fashion Enthusiast
+    # ================================
     "fashion_enthusiast": {
         "dialogue": [
             {"speaker": "FASHION ENTHUSIAST", "text": "You’re staring."},
@@ -292,7 +352,7 @@ dialogue_data = {
     },
 
     # ===========================
-    # 1960s NPC 4: Gallery Staff
+    # 1960s NPC 7: Gallery Staff
     # ===========================
     "gallery_staff": {
         "dialogue": [
@@ -320,85 +380,85 @@ dialogue_data = {
         ],
     },
 
-    # ============================
-    # 1980s NPC 5: Retro Girl
-    # ============================
-    "retro_girl": {
+    # =============================
+    # 1980s NPC 8: Yoga Instructor
+    # =============================
+    "yoga_instructor": {
         "dialogue": [
-            {"speaker": "RETRO GIRL", "text": "If you’re here to admire, don’t stand in front of the display."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "If you’re here to admire, don’t stand in front of the display."},
             {"speaker": "PLAYER", "text": "I’m not here to admire."},
-            {"speaker": "RETRO GIRL", "text": "..Clearly"},
-            {"speaker": "RETRO GIRL", "text": "You stand out more than the exhibits.."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "..Clearly"},
+            {"speaker": "YOGA INSTRUCTOR", "text": "You stand out more than the exhibits.."},
             {"speaker": "PLAYER", "text": "I’m looking for something that doesn’t belong here."},
-            {"speaker": "RETRO GIRL", "text": "..That’s a very specific request."},
-            {"speaker": "RETRO GIRL", "text": "There was someone like that earlier."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "..That’s a very specific request."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "There was someone like that earlier."},
             {"speaker": "PLAYER", "text": "A girl."},
-            {"speaker": "RETRO GIRL", "text": "Yes."},
-            {"speaker": "RETRO GIRL", "text": "She didn’t look at the displays the way others do."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Yes."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "She didn’t look at the displays the way others do."},
             {"speaker": "PLAYER", "text": "How did she look at them?"},
-            {"speaker": "RETRO GIRL", "text": "Like they were pieces on a board."},
-            {"speaker": "RETRO GIRL", "text": "Not art. Not history."},
-            {"speaker": "RETRO GIRL", "text": "..Moves."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Like they were pieces on a board."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Not art. Not history."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "..Moves."},
             {"speaker": "PLAYER", "text": "She’s planning something."},
-            {"speaker": "RETRO GIRL", "text": "She already has."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "She already has."},
             {"speaker": "PLAYER", "text": "What did she look like?"},
-            {"speaker": "RETRO GIRL", "text": "Red dress."},
-            {"speaker": "RETRO GIRL", "text": "Hair tied back."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Red dress."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Hair tied back."},
             {"speaker": "PLAYER", "text": "...Yeah."},
-            {"speaker": "RETRO GIRL", "text": "And her expression.."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "And her expression.."},
             {"speaker": "PLAYER", "text": "What about it?"},
-            {"speaker": "RETRO GIRL", "text": "Confident."},
-            {"speaker": "RETRO GIRL", "text": "Playful."},
-            {"speaker": "RETRO GIRL", "text": "But not harmless."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Confident."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Playful."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "But not harmless."},
             {"speaker": "CLUE", "text": "Clue discovered: Mischiveous Personality"},
             {"speaker": "PLAYER", "text": "..Mischievous."},
-            {"speaker": "RETRO GIRL", "text": "And her shoes-"},
+            {"speaker": "YOGA INSTRUCTOR", "text": "And her shoes-"},
             {"speaker": "PLAYER", "text": "Black?"},
-            {"speaker": "RETRO GIRL", "text": "So you’ve seen her too."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "So you’ve seen her too."},
             {"speaker": "PLAYER", "text": "What was she carrying?"},
-            {"speaker": "RETRO GIRL", "text": "A shirt"},
+            {"speaker": "YOGA INSTRUCTOR", "text": "A shirt"},
             {"speaker": "PLAYER", "text": "What kind?"},
-            {"speaker": "RETRO GIRL", "text": "Short-sleeved."},
-            {"speaker": "RETRO GIRL", "text": "Loose. Casual."},
-            {"speaker": "RETRO GIRL", "text": "Didn’t match anything here."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Short-sleeved."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Loose. Casual."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "Didn’t match anything here."},
             {"speaker": "CLUE", "text": "Clue discovered: Bowling Shirt"},
-            {"speaker": "RETRO GIRL", "text": "She went toward the archive section."},
+            {"speaker": "YOGA INSTRUCTOR", "text": "She went toward the archive section."},
         ],
         "quest": "clue_bowling_shirt"
     },
 
     # ===========================
-    # 1980s NPC 6: Friendly Boy
+    # 1980s NPC 9: Archive Staff
     # ===========================
-    "friendly_boy": {
+    "archive_staff": {
         "dialogue": [
-            {"speaker": "FRIENDLY BOY", "text": "If you’re here to browse, you’re in the wrong section."},
+            {"speaker": "ARCHIVE STAFF", "text": "If you’re here to browse, you’re in the wrong section."},
             {"speaker": "PLAYER", "text": "I’m not browsing."},
-            {"speaker": "FRIENDLY BOY", "text": "..No. You’re searching."},
+            {"speaker": "ARCHIVE STAFF", "text": "..No. You’re searching."},
             {"speaker": "PLAYER", "text": "Yes."},
             {"speaker": "PLAYER", "text": "For something that doesn’t belong in this era."},
-            {"speaker": "FRIENDLY BOY", "text": "..Then you’ve learned from him."},
+            {"speaker": "ARCHIVE STAFF", "text": "..Then you’ve learned from him."},
             {"speaker": "PLAYER", "text": "My grandfather."},
-            {"speaker": "FRIENDLY BOY", "text": "He’s the reason this place changed."},
-            {"speaker": "FRIENDLY BOY", "text": "From a gallery.. into a museum."},
+            {"speaker": "ARCHIVE STAFF", "text": "He’s the reason this place changed."},
+            {"speaker": "ARCHIVE STAFF", "text": "From a gallery.. into a museum."},
             {"speaker": "PLAYER", "text": "..I can see that."},
-            {"speaker": "FRIENDLY BOY", "text": "He always said.."},
-            {"speaker": "FRIENDLY BOY", "text": "Time refines everything.. except what doesn’t belong."},
+            {"speaker": "ARCHIVE STAFF", "text": "He always said.."},
+            {"speaker": "ARCHIVE STAFF", "text": "Time refines everything.. except what doesn’t belong."},
             {"speaker": "PLAYER", "text": "A girl came through here."},
-            {"speaker": "FRIENDLY BOY", "text": "She did."},
+            {"speaker": "ARCHIVE STAFF", "text": "She did."},
             {"speaker": "PLAYER", "text": "What was she carrying?"},
-            {"speaker": "FRIENDLY BOY", "text": "A shirt."},
-            {"speaker": "FRIENDLY BOY", "text": "Lightweight. Short sleeves."},
-            {"speaker": "FRIENDLY BOY", "text": "Too simple for this decade’s style."},
+            {"speaker": "ARCHIVE STAFF", "text": "A shirt."},
+            {"speaker": "ARCHIVE STAFF", "text": "Lightweight. Short sleeves."},
+            {"speaker": "ARCHIVE STAFF", "text": "Too simple for this decade’s style."},
             {"speaker": "PLAYER", "text": "Do you know where is it now?"},
-            {"speaker": "FRIENDLY BOY", "text": "I'm quite unsure about that."},
+            {"speaker": "ARCHIVE STAFF", "text": "I'm quite unsure about that."},
             {"speaker": "PLAYER", "text": "Alright, thank you."},
-            {"speaker": "FRIENDLY BOY", "text": "Your welcome."},
+            {"speaker": "ARCHIVE STAFF", "text": "Your welcome."},
         ],
     },
 
     # ==============================
-    # 1990s NPC 6: Curator Assistant
+    # 1990s NPC 10: Curator Assistant
     # ==============================
     "curator_assistant": {
         "dialogue": [
@@ -430,7 +490,7 @@ dialogue_data = {
     },
 
     # =====================
-    # 1990s NPC 7: Visitor
+    # 1990s NPC 11: Visitor
     # =====================
     "visitor": {
         "dialogue": [
@@ -457,7 +517,7 @@ dialogue_data = {
     },
 
     # ===========================
-    # 1990s NPC 8: Senior Curator
+    # 1990s NPC 12: Senior Curator
     # ===========================
     "senior_curator": {
         "dialogue": [
