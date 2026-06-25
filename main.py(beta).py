@@ -20,13 +20,20 @@ map_lookup = {
 
 npc_map = {
     ("Museum", 3, 2): "manager",
+
     ("1920s", 13, 6): "elegant_woman",
     ("1920s", 19, 11): "old_tailor",
+
     ("1950s", 13, 3): "gallery_host",
+
     ("1960s", 4, 7): "fashion_enthusiast",
+    ("1960s", 23, 7): "gallery_staff",
+
     ("1980s", 13, 13): "fashion_curator",
     ("1980s", 14, 2): "archive_staff",
+
     ("1990s", 13, 3): "curator_assistant",
+    ("1990s", 14, 2): "senior_curator",
     ("1990s", 13, 12): "visitor",
 }
 
@@ -34,8 +41,11 @@ def load_database():
     if not os.path.exists(DB_FILE):
         return {}
 
-    with open(DB_FILE, "r") as file:
-        return json.load(file)
+    try:
+        with open(DB_FILE, "r") as file:
+            return json.load(file)
+    except json.JSONDecodeError:
+        return {}
 
 
 def save_database(data):
@@ -181,6 +191,22 @@ era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg"
 era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg")
 era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg")
 era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg")
+
+def load_npc_image(path):
+    img = pygame.image.load(path).convert_alpha()
+    return pygame.transform.scale(img, (90, 120))
+
+npc_images = {
+    "manager": load_npc_image("Images/manager.jpg"),
+    "elegant_woman": load_npc_image("Images/elegant-woman.jpg"),
+    "rich_gentleman": load_npc_image("Images/rich-gentleman.jpg"),
+    "gallery_host": load_npc_image("Images/gallery-host.jpg"),
+    "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.jpg"),
+    "gallery_staff": load_npc_image("Images/gallery-staff.jpg"),
+    "curator_assistant": load_npc_image("Images/curator-assistant.jpg"),
+    "visitor": load_npc_image("Images/visitor.jpg"),
+    "senior_curator": load_npc_image("Images/senior-curator.jpg"),
+}
 
 #5. Functions (Logic)
 
@@ -803,7 +829,17 @@ while running:
                 elif tile == "4":
                     pygame.draw.rect(screen, (200, 150, 50), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "5":
-                    pygame.draw.rect(screen, (0, 0, 255), (screen_x, screen_y, tile_size, tile_size))
+                    npc_key = (current_era, col_index, row_index)
+                    npc_id = npc_map.get(npc_key)
+
+                    if npc_id in npc_images:
+                        npc_img = npc_images[npc_id]
+                        npc_rect = npc_img.get_rect(
+                            midbottom=(screen_x + tile_size // 2, screen_y + tile_size)
+                        )
+                        screen.blit(npc_img, npc_rect)
+                    else:
+                        pygame.draw.rect(screen, (0, 0, 255), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "6":
                     pygame.draw.rect(screen, (255, 20, 147), (screen_x, screen_y, tile_size, tile_size))
                 elif tile == "9":
