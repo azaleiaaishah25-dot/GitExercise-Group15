@@ -5,5 +5,12 @@
         "current_era": "1950s",
         "active_quests": [],
         "completed_quests": []
+    },
+    "Profile_3": {
+        "player_x": 1500,
+        "player_y": 1600,
+        "current_era": "Museum",
+        "active_quests": [],
+        "completed_quests": []
     }
 }
