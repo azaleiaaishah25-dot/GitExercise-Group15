@@ -183,10 +183,9 @@ dialogue_data = {
             {"speaker": "CLUE", "text": "Clue discovered: Go-Go Boots."},
             {"speaker": "PLAYER", "text": "..That has to be it."},
             {"speaker": "ELEGANT WOMAN", "text": "If you find her, do let me know. I adore a bit of drama."},
-            {"speaker": "PLAYER", "text": "I'll keep that in mind."}
+            {"speaker": "PLAYER", "text": "I'll keep that in mind."},
         ],
-        "quest": "clue_gogo_boots",
-        "clue": "gogo_boots"
+        "quest": "clue_gogo_boots"
     },
 
     # ===========================
@@ -208,14 +207,14 @@ dialogue_data = {
             {"speaker": "RICH GENTLEMAN", "text": "Not just of people.. but of eras."},
             {"speaker": "PLAYER", "text": "..My grandfather."},
             {"speaker": "RICH GENTLEMAN", "text": "Ah. So you know him."},
-            {"speaker": "PLAYER", "text": "He.. used to talk like that."}
+            {"speaker": "PLAYER", "text": "He.. used to talk like that."},
             {"speaker": "RICH GENTLEMAN", "text": "He had an eye for detail."},
             {"speaker": "RICH GENTLEMAN", "text": "And a habit of noticing things others ignored."},
             {"speaker": "RICH GENTLEMAN", "text": "If you're looking for something.."},
             {"speaker": "RICH GENTLEMAN", "text": "Don't just look at what fits in."},
             {"speaker": "RICH GENTLEMAN", "text": "Look for what doesn't."},
             {"speaker": "PLAYER", "text": "..Yeah."},
-            {"speaker": "PLAYER", "text": "That sounds like him."}
+            {"speaker": "PLAYER", "text": "That sounds like him."},
         ],
         "quest": "old_tailor_hint"
     },
@@ -729,4 +728,4 @@ item_dialogue_data = {
         ],
         "quest": "pearl_necklace_recovered"
     }
-},
+}
