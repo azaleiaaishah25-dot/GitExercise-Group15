@@ -1,14 +1,9 @@
 {
     "Profile_1": {
-        "player_x": 1190,
-        "player_y": 550,
-        "current_era": "1960s",
-        "active_quests": [
-            "old_tailor_hint",
-            "clue_gogo_boots",
-            "clue_acid_wash_denim",
-            "clue_flannel_shirt"
-        ],
+        "player_x": 840,
+        "player_y": 720,
+        "current_era": "1950s",
+        "active_quests": [],
         "completed_quests": []
     }
 }
