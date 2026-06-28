@@ -245,6 +245,39 @@ item_images = {
     "boots_4": load_item_image("boots4.jpeg"),
 }
 
+display_item_groups = {
+    "1920s":{
+        "box_col": 20,
+        "box_row": 3,
+        "items": ["boots_1", "boots_2", "boots_3", "boots_4"]
+    },
+
+    "1950s": {
+        "box_col": 4,
+        "box_row": 4,
+        "items": ["1950_pants_1", "1950_pants_2", "1950_pants_3", "1950_pants_4"]
+    },
+    
+    "1960s": {
+        "box_col": 10,
+        "box_row": 4,
+        "items": ["1960_shirt_1", "1960_shirt_2", "1960_shirt_3", "1960_shirt_4"]
+    },
+
+    "1980s": {
+        "box_col": 3,
+        "box_row": 9,
+        "items": ["1980_shirt_1", "1980_shirt_2", "1980_shirt_3", "1980_shirt_4"]
+    },
+
+    "1990s": {
+        "box_col": 19,
+        "box_row": 3,
+        "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"]
+    },
+}
+
+
 npc_images = {
     "manager": load_npc_image("Images/manager.jpg"),
     "elegant_woman": load_npc_image("Images/elegant-woman.jpg"),
@@ -664,6 +697,28 @@ def draw_map_item_pictures():
             item_img = item_images[item["image"]]
             screen.blit(item_img, (screen_x, screen_y))
 
+def draw_display_item_groups():
+    if current_era not in display_item_groups:
+        return
+
+    group = display_item_groups[current_era]
+
+    box_x = group["box_col"] * tile_size - camera_x
+    box_y = group["box_row"] * tile_size - camera_y
+
+    item_size = 55
+    gap = 20
+
+    positions = [
+        (box_x + 10, box_y + 10),
+        (box_x + 10 + item_size + gap, box_y + 10),
+        (box_x + 10, box_y + 10 + item_size + gap),
+        (box_x + 10 + item_size + gap, box_y + 10 + item_size + gap),
+    ]
+
+    for index, item_key in enumerate(group["items"]):
+        item_img = pygame.transform.smoothscale(item_images[item_key], (item_size, item_size))
+        screen.blit(item_img, positions[index])
 
 #6. Main Game Loop
 running = True
@@ -982,7 +1037,7 @@ while running:
                     pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
 
     # Draw Player
-    draw_map_item_pictures()
+    draw_display_item_groups()
 
     screen.blit(
     player_img,
