@@ -6,6 +6,7 @@ from data.buildings import building_data
 from data.dialogues import dialogue_data, item_dialogue_data, era_dialogues
 from data.quests import quest_descriptions, clue_descriptions
 from data.music import play_music, stop_music, set_music_volume
+from minigame_1920s import run_minigame as run_1920s_minigame
 
 DB_FILE = "players.json"
 
@@ -147,6 +148,12 @@ dialogue_index = 0
 dialogue_text_shown = ""
 text_speed = 2
 text_counter = 0
+
+minigame_after_dialogue = None
+
+minigames = {
+    "1920s": run_1920s_minigame
+}
 
 collected_clues = []
 current_clue = None
