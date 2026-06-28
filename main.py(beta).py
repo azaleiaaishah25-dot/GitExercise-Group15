@@ -212,7 +212,7 @@ player_img = pygame.transform.scale(player_img, (120, 120))
 tree_img = pygame.image.load("Images/pixel_tree.jpg").convert_alpha()
 tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
 
-menu_bg_img = pygame.image.load("Images/game_start.png").convert()
+menu_bg_img = pygame.image.load("Images/menu_game.png").convert()
 menu_bg_img = pygame.transform.scale(menu_bg_img, (WIDTH, HEIGHT))
 
 credits_bg_img = pygame.image.load("Images/credits.png").convert()
@@ -461,6 +461,8 @@ def start_self_dialogue(era_name):
     global dialogue_active, current_dialogue, dialogue_index
     global dialogue_text_shown, text_counter
     global current_quest, current_clue
+    global minigame_after_dialogue
+
 
     if era_name in era_dialogues and era_name not in seen_self_dialogues:
         current_dialogue = [
@@ -475,6 +477,10 @@ def start_self_dialogue(era_name):
     
         current_quest = None
         current_clue = None
+
+        #minigame prepration
+        if era_name in minigames:
+            minigame_after_dialogue = era_name
 
         seen_self_dialogues.add(era_name)
 
@@ -522,8 +528,9 @@ def draw_main_menu():
     draw_button(credits_button, "Credits")
     draw_button(quit_button, "Quit")
 
+    
     footer_text = small_font.render(
-        "UI Design Placeholder - Balqish can redesign this screen",
+        "for the fashion and detective enthusiasts. (c) 2024 Style Heist - Group 15",
         True,
         (160, 160, 160)
     )
@@ -1127,6 +1134,24 @@ while running:
 
                             if dialogue_index >= len(current_dialogue):
                                 dialogue_active = False
+
+                                if minigame_after_dialogue:
+                                    selected_era = minigame_after_dialogue
+                                    minigame_after_dialogue = None
+
+                                    minigame_function = minigames.get(selected_era)
+
+                                    if minigame_function:
+                                        minigame_won = minigame_function(screen, clock)
+
+                                        if minigame_won:
+                                            print(
+                                                f"Minigame for {selected_era} completed successfully!"
+                                                )
+                                        else:
+                                            print(
+                                                f"Minigame for {selected_era} failed. Try again."
+                                                )
 
                                 if current_quest:
                                     quest_log[current_quest] = "started"
