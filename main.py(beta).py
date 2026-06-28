@@ -491,10 +491,6 @@ def start_self_dialogue(era_name):
         current_quest = None
         current_clue = None
 
-        #minigame prepration
-        if era_name in minigames:
-            minigame_after_dialogue = era_name
-
         seen_self_dialogues.add(era_name)
 
 
@@ -1097,6 +1093,7 @@ while running:
                                 current_dialogue = npc_data["dialogue"]
                                 current_quest = npc_data.get("quest")
                                 current_clue = npc_data.get("clue")
+                                current_diaalogue_key = current_npc
 
                                 dialogue_active = True
                                 dialogue_index = 0
