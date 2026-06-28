@@ -55,7 +55,7 @@ def save_database(data):
 
 def load_profile_data(profile_name):
     global player_x, player_y, current_era
-    global active_quests, completed_quests, current_user
+    global active_quests, completed_quests, current_user, collected_items
     global game_map, visited_map
 
     db = load_database()
@@ -67,7 +67,8 @@ def load_profile_data(profile_name):
             "player_y": 1600,
             "current_era": "Museum",
             "active_quests": [],
-            "completed_quests": []
+            "completed_quests": [],
+            "collected_items": []
         }
         save_database(db)
 
@@ -76,6 +77,7 @@ def load_profile_data(profile_name):
     current_era = db[profile_name]["current_era"]
     active_quests = db[profile_name]["active_quests"]
     completed_quests = db[profile_name]["completed_quests"]
+    collected_items = db[profile_name].get("collected_items", [])
 
     game_map = map_lookup.get(current_era, museum_map)
 
@@ -98,6 +100,7 @@ def save_current_profile():
     db[current_user]["current_era"] = current_era
     db[current_user]["active_quests"] = active_quests
     db[current_user]["completed_quests"] = completed_quests
+    db[current_user]["collectedd_items"] = collected_items
 
     save_database(db)
 
@@ -149,6 +152,18 @@ collected_clues = []
 current_clue = None
 show_clue_inventory = False
 
+collected_items = []
+current_item_quest = None
+
+show_item_choice = False
+current_item_choice_era = ""
+choice_items_rects = []
+
+wrong_choice_text = ""
+wrong_choice_timer = 0
+
+current_item_quest = None
+
 can_interact = False
 current_npc = None
 
@@ -162,6 +177,14 @@ current_quest = None
 quest_popup_text = ""
 quest_popup_timer = 0
 QUEST_POPUP_DURATION = 150
+
+item_descriptions = {
+    "gogo_boots_recovered": "Go-Go Boots - A stolen artifact recovered from the wrong era.",
+    "acid_wash_denim_jacket_recovered": "Acid Wash Denim Jacket - A fashion piece hidden in the 1950s.",
+    "flannel_shirt_recovered": "Flannel Shirt - A checkered shirt hidden in the 1960s.",
+    "bowling_shirt_recovered": "Bowling Shirt - A casual shirt hidden in the 1980s.",
+    "pearl_necklace_recovered": "Pearl Necklace - The final accessory recovered from the 1990s."
+}
 
 current_era = "Museum"
 game_map = museum_map #Starting at the Museum
@@ -321,6 +344,53 @@ item_images = {
     "boots_2": load_item_image("boots2.jpeg"),
     "boots_3": load_item_image("boots3.jpeg"),
     "boots_4": load_item_image("boots4.jpeg"),
+}
+
+display_item_groups = {
+    "1920s": {
+        "box_col": 20,
+        "box_row": 3,
+        "items": ["boots_1", "boots_2", "boots_3", "boots_4"],
+        "correct_item": "boots_2",
+        "dialogue_key": ("1920s", 10, 4),
+        "artifact_id": "gogo_boots_recovered"
+    },
+
+    "1950s": {
+        "box_col": 4,
+        "box_row": 4,
+        "items": ["1950_pants_1", "1950_pants_2", "1950_pants_3", "1950_pants_4"],
+        "correct_item": "1950_pants_4",
+        "dialogue_key": ("1950s", 10, 4),
+        "artifact_id": "acid_wash_denim_jacket_recovered"
+    },
+
+    "1960s": {
+        "box_col": 10,
+        "box_row": 4,
+        "items": ["1960_shirt_1", "1960_shirt_2", "1960_shirt_3", "1960_shirt_4"],
+        "correct_item": "1960_shirt_1",
+        "dialogue_key": ("1960s", 10, 4),
+        "artifact_id": "flannel_shirt_recovered"
+    },
+
+    "1980s": {
+        "box_col": 3,
+        "box_row": 9,
+        "items": ["1980_shirt_1", "1980_shirt_2", "1980_shirt_3", "1980_shirt_4"],
+        "correct_item": "1980_shirt_1",
+        "dialogue_key": ("1980s", 10, 4),
+        "artifact_id": "bowling_shirt_recovered"
+    },
+
+    "1990s": {
+        "box_col": 19,
+        "box_row": 3,
+        "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"],
+        "correct_item": "1990_necklace_1",
+        "dialogue_key": ("1990s", 10, 4),
+        "artifact_id": "pearl_necklace_recovered"
+    },
 }
 
 map_item_pictures = [
@@ -599,46 +669,82 @@ def add_clue(clue_id):
     if clue_id and clue_id not in collected_clues:
         collected_clues.append(clue_id)
 
+def add_item(item_id):
+    if item_id and item_id not in collected_items:
+        collected_items.append(item_id)
+
 def draw_clue_inventory():
     overlay = pygame.Surface((WIDTH, HEIGHT))
     overlay.set_alpha(220)
     overlay.fill((10, 10, 15))
     screen.blit(overlay, (0, 0))
 
-    title = title_font.render("CLUE INVENTORY", True, (255, 220, 120))
-    title_rect = title.get_rect(center = (WIDTH // 2, 130))
+    title = title_font.render("EVIDENCE INVENTORY", True, (255, 220, 120))
+    title_rect = title.get_rect(center=(WIDTH // 2, 90))
     screen.blit(title, title_rect)
 
     instruction = small_font.render("Press I to close", True, (220, 220, 220))
-    instruction_rect = instruction.get_rect(center = (WIDTH // 2, 130))
+    instruction_rect = instruction.get_rect(center=(WIDTH // 2, 140))
     screen.blit(instruction, instruction_rect)
 
+    inventory_box = pygame.Rect(140, 180, 920, 520)
+    pygame.draw.rect(screen, (25, 25, 30), inventory_box)
+    pygame.draw.rect(screen, (255, 255, 255), inventory_box, 3)
+
+    y = inventory_box.y + 30
+
+    # ==================
+    # CLUES SECTION
+    # ==================
+    clue_title = menu_font.render("CLUES COLLECTED", True, (255, 255, 0))
+    screen.blit(clue_title, (inventory_box.x + 30, y))
+    y += 55
+
     if len(collected_clues) == 0:
-        empty_text = menu_font.render("No clues collected yet.", True, (255, 255, 255))
-        empty_rect = empty_text.get_rect(center=(WIDTH // 2, 260))
-        screen.blit(empty_text, empty_rect)
-        return
+        empty_text = font.render("No clues collected yet.", True, (200, 200, 200))
+        screen.blit(empty_text, (inventory_box.x + 30, y))
+        y += 40
+    else:
+        for clue_id in collected_clues:
+            clue_text = clue_descriptions.get(clue_id, clue_id)
 
-    clue_box = pygame.Rect(170, 180, 860, 500)
-    pygame.draw.rect(screen, (25, 25, 30), clue_box)
-    pygame.draw.rect(screen, (255, 255, 255), clue_box, 3)
+            y = draw_wrapped_text(
+                screen,
+                "- " + clue_text,
+                font,
+                (255, 255, 255),
+                inventory_box.x + 30,
+                y,
+                inventory_box.width - 60
+            )
+            y += 10
 
-    y = clue_box.y + 30
+    y += 30
 
-    for clue_id in collected_clues:
-        clue_text = clue_descriptions.get(clue_id, clue_id)
+    # ==================
+    # ARTIFACT SECTION
+    # ==================
+    item_title = menu_font.render("RECOVERED ARTIFACTS", True, (255, 255, 0))
+    screen.blit(item_title, (inventory_box.x + 30, y))
+    y += 55
 
-        y = draw_wrapped_text(
-            screen,
-            "- " + clue_text,
-            font,
-            (255, 255, 255),
-            clue_box.x + 30,
-            y,
-            clue_box.width - 60
-        )
+    if len(collected_items) == 0:
+        empty_text = font.render("No artifacts recovered yet.", True, (200, 200, 200))
+        screen.blit(empty_text, (inventory_box.x + 30, y))
+    else:
+        for item_id in collected_items:
+            item_text = item_descriptions.get(item_id, item_id)
 
-        y += 20
+            y = draw_wrapped_text(
+                screen,
+                "- " + item_text,
+                font,
+                (255, 255, 255),
+                inventory_box.x + 30,
+                y,
+                inventory_box.width - 60
+            )
+            y += 10
 
 def draw_debug_info():
     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -717,6 +823,164 @@ def draw_display_item_groups():
         item_img = pygame.transform.smoothscale(item_images[item_key], (item_size, item_size))
         screen.blit(item_img, positions[index])
 
+def add_item(item_id):
+    if item_id and item_id not in collected_items:
+        collected_items.append(item_id)
+
+def draw_display_item_groups():
+    if current_era not in display_item_groups:
+        return
+    
+    group = display_item_groups[current_era]
+
+    if group["artifact_id"] in completed_quests:
+        return
+    
+    box_x = group["box_col"] * tile_size - camera_x
+    box_y = group["box_row"] * tile_size - camera_y
+
+    item_size = 55
+    gap = 20
+
+    positions = [
+        (box_x + 10, box_y + 10),
+        (box_x + 10 + item_size + gap, box_y + 10),
+        (box_x + 10, box_y + 10 + item_size + gap),
+        (box_x + 10 + item_size + gap, box_y + 10 + item_size + gap),
+    ]
+
+    for index, item_key in enumerate(group["items"]):
+        item_img = pygame.transform.smoothscale(item_images[item_key], (item_size, item_size))
+        screen.blit(item_img, positions[index])
+
+def get_nearby_item_group():
+    if current_era not in display_item_groups:
+        return None
+    
+    group = display_item_groups[current_era]
+
+    if group["artifact_id"] in completed_quests:
+        return None
+    
+    player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
+
+    box_world_x = group["box_col"] * tile_size
+    box_world_y = group["box_row"] * tile_size
+
+    display_rect = pygame.Rect(box_world_x, box_world_y, 160, 160)
+
+    if player_rect.colliderect(display_rect.inflate(100, 100)):
+        return current_era
+
+    return None
+
+def open_item_choice(era_name):
+    global show_item_choice, current_item_choice_era
+    global wrong_choice_text, wrong_choice_timer
+    
+    show_item_choice = True
+    current_item_choice_era = era_name
+    wrong_choice_text = ""
+    wrong_choice_timer = 0
+
+def choose_artifact_item(item_key):
+    global show_item_choice, wrong_choice_text, wrong_choice_timer
+    global dialogue_active, current_dialogue, dialogue_index
+    global dialogue_text_shown, text_counter
+    global current_item_quest
+
+    if current_item_choice_era not in display_item_groups:
+        return
+    
+    group = display_item_groups[current_item_choice_era]
+
+    if item_key != group["correct_item"]:
+        wrong_choice_text = "Wrong item. This one belongs here. Look for the item"
+        wrong_choice_timer = 120
+        return
+    
+    dialogue_key = group["dialogue_key"]
+
+    if dialogue_key in item_dialogue_data:
+        item_data = item_dialogue_data[dialogue_key]
+
+        current_dialogue = item_data["dialogue"]
+        current_item_quest = item_data.get("quest")
+
+        dialogue_active = True
+        dialogue_index = 0
+        dialogue_text_shown = ""
+        text_counter = 0
+
+        show_item_choice = False
+    
+def draw_item_choice_screen():
+    global choice_item_rects, wrong_choice_timer
+
+    if not show_item_choice:
+        return
+
+    if current_item_choice_era not in display_item_groups:
+        return
+
+    group = display_item_groups[current_item_choice_era]
+
+    overlay = pygame.Surface((WIDTH, HEIGHT))
+    overlay.set_alpha(230)
+    overlay.fill((10, 10, 15))
+    screen.blit(overlay, (0, 0))
+
+    title = title_font.render("CHOOSE THE ARTIFACT", True, (255, 220, 120))
+    title_rect = title.get_rect(center=(WIDTH // 2, 90))
+    screen.blit(title, title_rect)
+
+    instruction = small_font.render(
+        "Click an item or press 1 - 4. Press ESC to cancel.",
+        True,
+        (220, 220, 220)
+    )
+    instruction_rect = instruction.get_rect(center=(WIDTH // 2, 145))
+    screen.blit(instruction, instruction_rect)
+
+    choice_item_rects = []
+
+    # THIS LINE FIXES YOUR ERROR
+    item_size = 120
+
+    positions = [
+        (WIDTH // 2 - 230, 220),
+        (WIDTH // 2 + 90, 220),
+        (WIDTH // 2 - 230, 450),
+        (WIDTH // 2 + 90, 450),
+    ]
+
+    for index, item_key in enumerate(group["items"]):
+        x, y = positions[index]
+
+        item_box = pygame.Rect(x - 20, y - 20, 180, 180)
+
+        pygame.draw.rect(screen, (35, 35, 45), item_box)
+        pygame.draw.rect(screen, (255, 255, 255), item_box, 3)
+
+        item_img = pygame.transform.smoothscale(
+            item_images[item_key],
+            (item_size, item_size)
+        )
+        screen.blit(item_img, (x, y))
+
+        number_text = font.render(str(index + 1), True, (255, 255, 0))
+        screen.blit(number_text, (item_box.x + 10, item_box.y + 10))
+
+        choice_item_rects.append((item_box, item_key))
+
+    if wrong_choice_timer > 0:
+        wrong_surface = font.render(wrong_choice_text, True, (255, 80, 80))
+        wrong_rect = wrong_surface.get_rect(center=(WIDTH // 2, HEIGHT - 80))
+        screen.blit(wrong_surface, wrong_rect)
+
+        wrong_choice_timer -= 1
+
+
 #6. Main Game Loop
 running = True
 while running:
@@ -766,7 +1030,13 @@ while running:
                         game_state = "menu"
 
                 elif game_state == "playing":
-                    if game_exit_button.collidepoint(event.pos):
+                    if show_item_choice:
+                        for rect, item_key in choice_items_rects:
+                            if rect.collidepoint(event.pos):
+                                choose_artifact_item(item_key)
+                                break
+
+                    elif game_exit_button.collidepoint(event.pos):
                         save_current_profile()
                         running = False
                 
@@ -788,24 +1058,46 @@ while running:
                     show_clue_inventory = not show_clue_inventory
 
                 elif event.key == pygame.K_e:
-                    if not dialogue_active and not show_clue_inventory and can_interact:
-                        if current_npc in dialogue_data:
-                            npc_data = dialogue_data[current_npc]
+                    if not dialogue_active and not show_clue_inventory and not show_item_choice:
 
-                            current_dialogue = npc_data["dialogue"]
-                            current_quest = npc_data.get("quest")
-                            current_clue = npc_data.get("clue")
+        
+                        if can_interact:
+                            if current_npc in dialogue_data:
+                                npc_data = dialogue_data[current_npc]
 
-                            dialogue_active = True
-                            dialogue_index = 0
-                            dialogue_text_shown = ""
-                            text_counter = 0
+                                current_dialogue = npc_data["dialogue"]
+                                current_quest = npc_data.get("quest")
+                                current_clue = npc_data.get("clue")
+
+                                dialogue_active = True
+                                dialogue_index = 0
+                                dialogue_text_shown = ""
+                                text_counter = 0
+
+       
+                        elif current_item_group:
+                            open_item_choice(current_item_group)
+                    
+                elif show_item_choice and event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4]:
+                    group = display_item_groups[current_item_choice_era]
+
+                    if event.key == pygame.K_1:
+                        choose_artifact_item(group["items"][0])
+                    elif event.key == pygame.K_2:
+                        choose_artifact_item(group["items"][1])
+                    elif event.key == pygame.K_3:
+                        choose_artifact_item(group["items"][2])
+                    elif event.key == pygame.K_4:
+                        choose_artifact_item(group["items"][3])
 
                 elif event.key == pygame.K_F3:
                     debug_mode = not debug_mode
 
                 elif event.key == pygame.K_ESCAPE:
-                    game_state = "pause"
+                    if show_item_choice:
+                        show_item_choice = False
+                    else:
+                        game_state = "pause"
 
                 elif event.key == pygame.K_SPACE:
                     if dialogue_active and dialogue_index < len(current_dialogue):
@@ -833,7 +1125,13 @@ while running:
 
                                 if current_clue:
                                     add_clue(current_clue)
-                                    current_clue = None
+                                    current_item_quest = None
+
+                                if current_item_quest:
+                                    add_item(current_item_quest)
+                                    complete_quest(current_item_quest)
+                                    current_item_quest = None
+
                 elif event.key == pygame.K_m:
                     pygame.mixer.music.pause()
                 elif event.key == pygame.K_n:
@@ -861,7 +1159,7 @@ while running:
     new_x = player_x
     new_y = player_y
 
-    if not dialogue_active and not show_clue_inventory:
+    if not dialogue_active and not show_clue_inventory and not show_item_choice:
         hotkeys = pygame.key.get_pressed()
 
         if hotkeys[pygame.K_w]:
@@ -914,6 +1212,9 @@ while running:
 
         if can_interact:
             break
+
+    current_item_group = get_nearby_item_group()
+    can_choose_item = current_item_group is not None
 
 
 
@@ -1033,6 +1334,7 @@ while running:
                 if current_era not in era_backgrounds:
                     pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
 
+
     # Draw Player
     draw_display_item_groups()
 
@@ -1074,7 +1376,7 @@ while running:
     fps_label = font.render(f"FPS: {int(clock.get_fps())}", True, (255, 255, 255))
     screen.blit(fps_label, (20, 50))
 
-    if can_interact and not dialogue_active:
+    if (can_interact or can_choose_item) and not dialogue_active and not show_item_choice:
         hint = font.render("Press E", True, (255, 255, 255))
         screen.blit(hint, (player_x - camera_x, player_y - camera_y - 30))
 
@@ -1107,6 +1409,9 @@ while running:
 
     if show_clue_inventory:
         draw_clue_inventory()
+
+    if show_item_choice:
+        draw_item_choice_screen()
         
     pygame.display.update()
 
