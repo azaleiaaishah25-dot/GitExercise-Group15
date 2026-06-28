@@ -185,6 +185,9 @@ tree_img = pygame.transform.scale(tree_img, (tile_size, tile_size))
 menu_bg_img = pygame.image.load("Images/game_start.png").convert()
 menu_bg_img = pygame.transform.scale(menu_bg_img, (WIDTH, HEIGHT))
 
+credits_bg_img = pygame.image.load("Images/credits.png").convert()
+credits_bg_img = pygame.transform.scale(credits_bg_img, (WIDTH, HEIGHT))
+
 era_backgrounds = {}
 
 era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg")
@@ -418,9 +421,9 @@ def draw_main_menu():
     screen.blit(footer_text, footer_rect)
 
 def draw_profiles_screen():
-    screen.blit(menu_bg_img, (0, 0)) # Reusing the main menu background
+    screen.blit(credits_bg_img, (0, 0)) 
     
-    title_text = title_font.render("SELECT PROFILE", True, (255, 220, 120))
+    title_text = title_font.render("SELECT PROFILE", True, (0, 0, 0))
     title_rect = title_text.get_rect(center=(WIDTH // 2, 180))
     screen.blit(title_text, title_rect)
     
@@ -431,9 +434,9 @@ def draw_profiles_screen():
 
 
 def draw_credits_screen():
-    screen.fill((10, 15, 25))
+    screen.blit(credits_bg_img, (0, 0))
 
-    title_text = title_font.render("CREDITS", True, (255, 220, 120))
+    title_text = title_font.render("CREDITS", True, (0, 0, 0))
     title_rect = title_text.get_rect(center=(WIDTH // 2, 140))
     screen.blit(title_text, title_rect)
 
@@ -449,7 +452,7 @@ def draw_credits_screen():
 
     y = 230
     for line in credit_lines:
-        text_surface = menu_font.render(line, True, (255, 255, 255))
+        text_surface = menu_font.render(line, True, (0, 0, 0))
         text_rect = text_surface.get_rect(center=(WIDTH // 2, y))
         screen.blit(text_surface, text_rect)
         y += 45
