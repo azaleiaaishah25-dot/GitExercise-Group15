@@ -155,6 +155,19 @@ minigames = {
     "1920s": run_1920s_minigame
 }
 
+required_npcs_by_era = {
+    "1920s": ["elegant_woman", "old_tailor"],
+    "1950s": ["gallery_host"],
+    "1960s": ["fashion_enthusiast", "gallery_staff"],
+    "1980s": ["fashion_curator", "archive_staff"],
+    "1990s": ["curator_assistant", "senior_curator", "visitor"]
+}
+
+talked_to_npcs = []
+current_dialogue_npc = None
+completed_minigames = []
+
+
 collected_clues = []
 current_clue = None
 show_clue_inventory = False
@@ -527,7 +540,6 @@ def draw_main_menu():
     draw_button(start_button, "Start Game")
     draw_button(credits_button, "Credits")
     draw_button(quit_button, "Quit")
-
     
     footer_text = small_font.render(
         "for the fashion and detective enthusiasts. (c) 2024 Style Heist - Group 15",
