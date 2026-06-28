@@ -1144,23 +1144,45 @@ while running:
                             if dialogue_index >= len(current_dialogue):
                                 dialogue_active = False
 
-                                if minigame_after_dialogue:
-                                    selected_era = minigame_after_dialogue
-                                    minigame_after_dialogue = None
+                                #record the npc after theyve complete their dialogue
+                                if current_dialogue_npc:
+                                    npc_record = f"{current_era}:{current_dialogue_npc}"
 
-                                    minigame_function = minigames.get(selected_era)
+                                    if npc_record not in talked_to_npcs:
+                                        talked_to_npcs.add(npc_record)
 
-                                    if minigame_function:
-                                        minigame_won = minigame_function(screen, clock)
+                                        current_dialogue_npc = None
 
-                                        if minigame_won:
-                                            print(
-                                                f"Minigame for {selected_era} completed successfully!"
-                                                )
+                                        required_npcs = required_npcs_by_era.get(current_era, set())
+
+                                        talked_to_everyone = all (
+                                            f"{current_era}:{npc}" in talked_to_npcs for npc in required_npcs
+                                            for npc_name in required_npcs
+                                        )
+                                        #prepraration for mini game after talking to every npc
+                                        if(
+                                            required_npcs
+                                            and talked_to_everyone
+                                            and current_era not in completed_minigames
+                                        ):
+                                            minigames_after_dialogue = current_era
+                                    
+                                    #start the games like hunger games
+                                    if minigames_after_dialogue:
+                                        selected_era = minigames_after_dialogue
+                                        minigames_after_dialogue = None
+
+                                        minigame_function = minigames.get(selected_era)
+                                    
+                                        if minigame_function:
+                                            minigame_won = minigame_function(screen, clock)
+
+                                            if minigame_won:
+                                                completed_minigames.append(selected_era)
+                                                print (f"{selected_era}mini game completed.")
                                         else:
-                                            print(
-                                                f"Minigame for {selected_era} failed. Try again."
-                                                )
+                                            print(f"{selected_era}mini game failed.")
+
 
                                 if current_quest:
                                     quest_log[current_quest] = "started"
