@@ -208,6 +208,120 @@ npc_images = {
     "senior_curator": load_npc_image("Images/senior-curator.jpg"),
 }
 
+ITEM_FOLDER = os.path.join("Images")
+
+def load_item_image(filename, width=65, height=65):
+    path = os.path.join(ITEM_FOLDER, filename)
+    img = pygame.image.load(path).convert_alpha()
+    return pygame.transform.smoothscale(img, (width, height))
+
+item_images = {
+    "1950_pants_1": load_item_image("1950pants.jpeg"),
+    "1950_pants_2": load_item_image("1950pants2.jpeg"),
+    "1950_pants_3": load_item_image("1950pants3.jpeg"),
+    "1950_pants_4": load_item_image("1950pants4.jpeg"),
+
+    "1960_shirt_1": load_item_image("1960shirt1.jpeg"),
+    "1960_shirt_2": load_item_image("1960shirt2.jpeg"),
+    "1960_shirt_3": load_item_image("1960shirt3.jpeg"),
+    "1960_shirt_4": load_item_image("1960shirt4.jpeg"),
+
+    "1980_shirt_1": load_item_image("1980shirt1.jpeg"),
+    "1980_shirt_2": load_item_image("1980shirt2.jpeg"),
+    "1980_shirt_3": load_item_image("1980shirt3.jpeg"),
+    "1980_shirt_4": load_item_image("1980shirt4.jpeg"),
+
+    "1990_necklace_1": load_item_image("1990necklace1.jpeg"),
+    "1990_necklace_2": load_item_image("1990necklace2.jpeg"),
+    "1990_necklace_3": load_item_image("1990necklace3.jpeg"),
+    "1990_necklace_4": load_item_image("1990necklace4.jpeg"),
+
+    "boots_1": load_item_image("boots1.jpeg"),
+    "boots_2": load_item_image("boots2.jpeg"),
+    "boots_3": load_item_image("boots3.jpeg"),
+    "boots_4": load_item_image("boots4.jpeg"),
+}
+
+npc_images = {
+    "manager": load_npc_image("Images/manager.jpg"),
+    "elegant_woman": load_npc_image("Images/elegant-woman.jpg"),
+    "rich_gentleman": load_npc_image("Images/rich-gentleman.jpg"),
+    "gallery_host": load_npc_image("Images/gallery-host.jpg"),
+    "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.jpg"),
+    "gallery_staff": load_npc_image("Images/gallery-staff.jpg"),
+    "curator_assistant": load_npc_image("Images/curator-assistant.jpg"),
+    "visitor": load_npc_image("Images/visitor.jpg"),
+    "senior_curator": load_npc_image("Images/senior-curator.jpg"),
+}
+
+
+ITEM_FOLDER = os.path.join("Images")
+
+def load_item_image(filename, width=65, height=65):
+    path = os.path.join(ITEM_FOLDER, filename)
+    img = pygame.image.load(path).convert_alpha()
+    return pygame.transform.smoothscale(img, (width, height))
+
+
+item_images = {
+    "1950_pants_1": load_item_image("1950pants.jpeg"),
+    "1950_pants_2": load_item_image("1950pants2.jpeg"),
+    "1950_pants_3": load_item_image("1950pants3.jpeg"),
+    "1950_pants_4": load_item_image("1950pants4.jpeg"),
+
+    "1960_shirt_1": load_item_image("1960shirt1.jpeg"),
+    "1960_shirt_2": load_item_image("1960shirt2.jpeg"),
+    "1960_shirt_3": load_item_image("1960shirt3.jpeg"),
+    "1960_shirt_4": load_item_image("1960shirt4.jpeg"),
+
+    "1980_shirt_1": load_item_image("1980shirt1.jpeg"),
+    "1980_shirt_2": load_item_image("1980shirt2.jpeg"),
+    "1980_shirt_3": load_item_image("1980shirt3.jpeg"),
+    "1980_shirt_4": load_item_image("1980shirt4.jpeg"),
+
+    "1990_necklace_1": load_item_image("1990necklace1.jpeg"),
+    "1990_necklace_2": load_item_image("1990necklace2.jpeg"),
+    "1990_necklace_3": load_item_image("1990necklace3.jpeg"),
+    "1990_necklace_4": load_item_image("1990necklace4.jpeg"),
+
+    "boots_1": load_item_image("boots1.jpeg"),
+    "boots_2": load_item_image("boots2.jpeg"),
+    "boots_3": load_item_image("boots3.jpeg"),
+    "boots_4": load_item_image("boots4.jpeg"),
+}
+
+map_item_pictures = [
+    # 1920s shoes display
+    {"era": "1920s", "image": "boots_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "boots_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
+    {"era": "1920s", "image": "boots_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
+    {"era": "1920s", "image": "boots_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+
+    # 1950s denim display
+    {"era": "1950s", "image": "1950_pants_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
+    {"era": "1950s", "image": "1950_pants_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
+    {"era": "1950s", "image": "1950_pants_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
+    {"era": "1950s", "image": "1950_pants_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+
+    # 1960s shirt display
+    {"era": "1960s", "image": "1960_shirt_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
+    {"era": "1960s", "image": "1960_shirt_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
+    {"era": "1960s", "image": "1960_shirt_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
+    {"era": "1960s", "image": "1960_shirt_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+
+    # 1980s shirt display
+    {"era": "1980s", "image": "1980_shirt_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
+    {"era": "1980s", "image": "1980_shirt_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
+    {"era": "1980s", "image": "1980_shirt_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
+    {"era": "1980s", "image": "1980_shirt_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+
+    # 1990s necklace display
+    {"era": "1990s", "image": "1990_necklace_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
+    {"era": "1990s", "image": "1990_necklace_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
+    {"era": "1990s", "image": "1990_necklace_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
+    {"era": "1990s", "image": "1990_necklace_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+]
+
 #5. Functions (Logic)
 
 def check_collision(x, y, current_map):
@@ -250,7 +364,6 @@ def start_self_dialogue(era_name):
         current_clue = None
 
         seen_self_dialogues.add(era_name)
-
 
 
 def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
@@ -535,6 +648,18 @@ def draw_debug_info():
         text_surface = small_font.render(line, True, (255, 255, 255))
         screen.blit(text_surface, (debug_box.x + 15, y))
         y += 25
+
+def draw_map_item_pictures():
+    for item in map_item_pictures:
+        if item["era"] == current_era:
+            world_x = item["col"] * tile_size + item["offset_x"]
+            world_y = item["row"] * tile_size + item["offset_y"]
+
+            screen_x = world_x - camera_x
+            screen_y = world_y - camera_y
+
+            item_img = item_images[item["image"]]
+            screen.blit(item_img, (screen_x, screen_y))
 
 
 #6. Main Game Loop
@@ -854,6 +979,8 @@ while running:
                     pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
 
     # Draw Player
+    draw_map_item_pictures()
+
     screen.blit(
     player_img,
     (player_x - camera_x - 30, player_y - camera_y - 30)
