@@ -1,10 +1,12 @@
 {
     "Profile_1": {
-        "player_x": 840,
-        "player_y": 720,
+        "player_x": 550,
+        "player_y": 820,
         "current_era": "1950s",
         "active_quests": [],
-        "completed_quests": []
+        "completed_quests": [
+            "acid_wash_denim_jacket_recovered"
+        ]
     },
     "Profile_3": {
         "player_x": 1500,
