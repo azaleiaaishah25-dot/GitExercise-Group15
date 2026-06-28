@@ -477,8 +477,8 @@ def draw_credits_screen():
         "Style Heist - Group 15",
         "Sample Line",
         "Programming / Game Systems: Alvin",
-        "UI Design Contributor: Balqish",
-        "Dialogue / Story Contributor: Azaleia",
+        "UI Design Contributor: Azaleia",
+        "Dialogue / Story Contributor: Balqish",
         "",
         "Built using Python and Pygame"
     ]
