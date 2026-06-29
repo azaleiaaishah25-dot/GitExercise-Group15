@@ -23,7 +23,7 @@ npc_map = {
     ("Museum", 3, 2): "manager",
 
     ("1920s", 13, 6): "elegant_woman",
-    ("1920s", 19, 11): "old_tailor",
+    ("1920s", 19, 11): "rich_gentleman",
 
     ("1950s", 13, 3): "gallery_host",
 
@@ -101,7 +101,7 @@ def save_current_profile():
     db[current_user]["current_era"] = current_era
     db[current_user]["active_quests"] = active_quests
     db[current_user]["completed_quests"] = completed_quests
-    db[current_user]["collectedd_items"] = collected_items
+    db[current_user]["collected_items"] = collected_items
 
     save_database(db)
 
@@ -156,7 +156,7 @@ minigames = {
 }
 
 required_npcs_by_era = {
-    "1920s": ["elegant_woman", "old_tailor"],
+    "1920s": ["elegant_woman", "rich_gentleman"],
     "1950s": ["gallery_host"],
     "1960s": ["fashion_enthusiast", "gallery_staff"],
     "1980s": ["fashion_curator", "archive_staff"],
@@ -450,6 +450,20 @@ map_item_pictures = [
 
 #5. Functions (Logic)
 
+def teleport_is_unlocked(era_name):
+    #museum portal must remain available to enter 1920s
+    if era_name == "Museum":
+        return True
+    group = display_item_groups.get(era_name)
+
+    if not group:
+        return False
+    artifact_collected =group ["artifact_id"] in collected_items
+    minigame_completed = era_name in completed_minigames
+
+    return artifact_collected and minigame_completed
+
+
 def check_collision(x, y, current_map):
     player_rect = pygame.Rect(x, y, player_size, player_size)
 
@@ -470,6 +484,7 @@ def check_collision(x, y, current_map):
                     return True
 
     return False
+
 def start_self_dialogue(era_name):
     global dialogue_active, current_dialogue, dialogue_index
     global dialogue_text_shown, text_counter
@@ -878,11 +893,23 @@ def draw_display_item_groups():
         item_img = pygame.transform.smoothscale(item_images[item_key], (item_size, item_size))
         screen.blit(item_img, positions[index])
 
+def has_talked_to_all_npcs(era_name):
+    required_npcs = required_npcs_by_era.get(era_name, [])
+
+    return bool(required_npcs) and all (
+        f"{era_name}:{npc_name}" in talked_to_npcs
+        for npc_name in required_npcs
+    )
+
 def get_nearby_item_group():
     if current_era not in display_item_groups:
         return None
     
     group = display_item_groups[current_era]
+
+    #player has to talk to every npc first before going to find the artifacts
+    if not has_talked_to_all_npcs(current_era):
+        return None
 
     if group["artifact_id"] in completed_quests:
         return None
@@ -996,7 +1023,7 @@ def draw_item_choice_screen():
         number_text = font.render(str(index + 1), True, (255, 255, 0))
         screen.blit(number_text, (item_box.x + 10, item_box.y + 10))
 
-        choice_item_rects.append((item_box, item_key))
+        choice_items_rects.append((item_box, item_key))
 
     if wrong_choice_timer > 0:
         wrong_surface = font.render(wrong_choice_text, True, (255, 80, 80))
@@ -1093,7 +1120,7 @@ while running:
                                 current_dialogue = npc_data["dialogue"]
                                 current_quest = npc_data.get("quest")
                                 current_clue = npc_data.get("clue")
-                                current_diaalogue_key = current_npc
+                                current_dialogue_npc = current_npc
 
                                 dialogue_active = True
                                 dialogue_index = 0
@@ -1149,39 +1176,21 @@ while running:
                                     npc_record = f"{current_era}:{current_dialogue_npc}"
 
                                     if npc_record not in talked_to_npcs:
-                                        talked_to_npcs.add(npc_record)
+                                        talked_to_npcs.append(npc_record)
 
                                         current_dialogue_npc = None
-
-                                        required_npcs = required_npcs_by_era.get(current_era, set())
-
-                                        talked_to_everyone = all (
-                                            f"{current_era}:{npc}" in talked_to_npcs for npc in required_npcs
-                                            for npc_name in required_npcs
-                                        )
-                                        #prepraration for mini game after talking to every npc
-                                        if(
-                                            required_npcs
-                                            and talked_to_everyone
-                                            and current_era not in completed_minigames
-                                        ):
-                                            minigames_after_dialogue = current_era
                                     
-                                    #start the games like hunger games
-                                    if minigames_after_dialogue:
-                                        selected_era = minigames_after_dialogue
-                                        minigames_after_dialogue = None
-
-                                        minigame_function = minigames.get(selected_era)
+                                
+                                        minigame_function = minigames.get(current_era)
                                     
                                         if minigame_function:
                                             minigame_won = minigame_function(screen, clock)
 
                                             if minigame_won:
-                                                completed_minigames.append(selected_era)
-                                                print (f"{selected_era}mini game completed.")
+                                                completed_minigames.append(current_era)
+                                                print (f"{current_era}mini game completed.")
                                         else:
-                                            print(f"{selected_era}mini game failed.")
+                                            print(f"{current_era}mini game failed.")
 
 
                                 if current_quest:
@@ -1194,9 +1203,19 @@ while running:
                                     current_item_quest = None
 
                                 if current_item_quest:
+                                    recovered_item = current_item_quest
+
                                     add_item(current_item_quest)
                                     complete_quest(current_item_quest)
                                     current_item_quest = None
+
+                                    if(
+                                        has_talked_to_all_npcs(current_era)
+                                        and current_era in minigames
+                                        and current_era not in completed_minigames
+                                    ):
+                                        minigame_function = minigames[current_era]
+                                        minigame_won = minigame_function(screen, clock)
 
                 elif event.key == pygame.K_m:
                     pygame.mixer.music.pause()
@@ -1301,7 +1320,8 @@ while running:
     if 0 <= tile_row < len(game_map) and 0 <= tile_col < len(game_map[0]):
         current_tile = game_map[tile_row][tile_col]
 
-        if current_tile == "4":
+        if current_tile == "4" and teleport_is_unlocked(current_era):
+
             if current_era == "Museum":
                 transition_to(era_1920s_map, "1920s", 14, 12)
             elif current_era == "1920s":
@@ -1374,7 +1394,19 @@ while running:
                      if current_era not in era_backgrounds:
                         screen.blit(tree_img, (screen_x, screen_y))
                 elif tile == "4":
-                    pygame.draw.rect(screen, (200, 150, 50), (screen_x, screen_y, tile_size, tile_size))
+                    if teleport_is_unlocked(current_era):
+                        pygame.draw.rect(
+                            screen,
+                            (200,150,50),
+                            (screen_x, screen_y, tile_size, tile_size)
+                        )
+                    elif current_era not in era_backgrounds:
+                        pygame.draw.rect(
+                            screen,
+                            (100, 100, 100),
+                            (screen_x, screen_y, tile_size, tile_size)
+                        )
+                    
                 elif tile == "5":
                     npc_key = (current_era, col_index, row_index)
                     npc_id = npc_map.get(npc_key)
@@ -1425,7 +1457,7 @@ while running:
 
                 if tile == "1":
                     pygame.draw.rect(screen, (150, 150, 150), (mini_x, mini_y, mini_tile, mini_tile))
-                elif tile == "4":
+                elif tile == "4" and teleport_is_unlocked(current_era):
                     pygame.draw.rect(screen, (200, 150, 50), (mini_x, mini_y, mini_tile, mini_tile))
                 else:
                     pygame.draw.rect(screen, (70, 70, 70), (mini_x, mini_y, mini_tile, mini_tile))
@@ -1486,4 +1518,4 @@ pygame.quit()
 #Summary on what I have done in my part for the games:
 #Refactored the Architecture, Resolution Upgrade
 #Mega Map Installation, Museum and 1920s Jazz Age, Scrolling Camera, Camera Clamping
-#Teleportation System, Fog of War Mini-Map, Scene Transitions
+#Teleportation System, Fog of War Mini-Map, Scene Transitio
