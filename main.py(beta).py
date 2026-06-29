@@ -709,7 +709,7 @@ def add_clue(clue_id):
     if clue_id and clue_id not in collected_clues:
         collected_clues.append(clue_id)
 
-def add_item(item_id):
+def add_items(item_id):
     if item_id and item_id not in collected_items:
         collected_items.append(item_id)
 
@@ -1175,24 +1175,12 @@ while running:
                                 if current_dialogue_npc:
                                     npc_record = f"{current_era}:{current_dialogue_npc}"
 
-                                    if npc_record not in talked_to_npcs:
-                                        talked_to_npcs.append(npc_record)
+                                if npc_record not in talked_to_npcs:
+                                    talked_to_npcs.append(npc_record)
 
-                                        current_dialogue_npc = None
-                                    
-                                
-                                        minigame_function = minigames.get(current_era)
-                                    
-                                        if minigame_function:
-                                            minigame_won = minigame_function(screen, clock)
-
-                                            if minigame_won:
-                                                completed_minigames.append(current_era)
-                                                print (f"{current_era}mini game completed.")
-                                        else:
-                                            print(f"{current_era}mini game failed.")
-
-
+                                    current_dialogue_npc = None
+                                #add quest from the npc dialogue
+                                 
                                 if current_quest:
                                     quest_log[current_quest] = "started"
                                     add_quest(current_quest)
@@ -1200,7 +1188,7 @@ while running:
 
                                 if current_clue:
                                     add_clue(current_clue)
-                                    current_item_quest = None
+                                    current_clue = None
 
                                 if current_item_quest:
                                     recovered_item = current_item_quest
@@ -1216,6 +1204,12 @@ while running:
                                     ):
                                         minigame_function = minigames[current_era]
                                         minigame_won = minigame_function(screen, clock)
+                                        if minigame_won:
+                                            completed_minigames.append(current_era)
+                                            print(f"Minigame for {current_era} completed!")
+                                        else:
+                                            print(f"Minigame for {current_era} failed. Try again   .")
+
 
                 elif event.key == pygame.K_m:
                     pygame.mixer.music.pause()
