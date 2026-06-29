@@ -233,6 +233,7 @@ credits_bg_img = pygame.transform.scale(credits_bg_img, (WIDTH, HEIGHT))
 
 era_backgrounds = {}
 
+era_backgrounds["Museum"] = pygame.image.load("Images/museum_map.jpeg")
 era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg")
 era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg")
 era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg")
