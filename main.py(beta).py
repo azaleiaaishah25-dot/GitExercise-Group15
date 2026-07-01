@@ -218,6 +218,7 @@ visited_map = [[False for _ in range(len(museum_map[0]))] for _ in range(len(mus
 player_size = 60
 speed = 10 #pixels per movement per frame
 
+
 #4. Images
 player_img = pygame.image.load("Images/main_character_120x120.png").convert_alpha()
 player_img = pygame.transform.scale(player_img, (120, 120))
@@ -233,7 +234,7 @@ credits_bg_img = pygame.transform.scale(credits_bg_img, (WIDTH, HEIGHT))
 
 era_backgrounds = {}
 
-era_backgrounds["Museum"] = pygame.image.load("Images/museum_map.jpeg")
+era_backgrounds["Museum"] = pygame.image.load("Images/museum_map.jpeg").convert()
 era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg")
 era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg")
 era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg")
@@ -1176,10 +1177,11 @@ while running:
                                 if current_dialogue_npc:
                                     npc_record = f"{current_era}:{current_dialogue_npc}"
 
-                                if npc_record not in talked_to_npcs:
-                                    talked_to_npcs.append(npc_record)
+                                    if npc_record not in talked_to_npcs:
+                                        talked_to_npcs.append(npc_record)
 
                                     current_dialogue_npc = None
+
                                 #add quest from the npc dialogue
                                  
                                 if current_quest:
