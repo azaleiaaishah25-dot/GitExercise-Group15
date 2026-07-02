@@ -235,10 +235,17 @@ credits_bg_img = pygame.transform.scale(credits_bg_img, (WIDTH, HEIGHT))
 era_backgrounds = {}
 
 era_backgrounds["Museum"] = pygame.image.load("Images/museum_map.jpeg").convert()
-era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg")
-era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg")
-era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg")
-era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg")
+era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg").convert()
+era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg").convert()
+era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg").convert()
+era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg").convert()
+
+scaled_era_backgrounds = {}
+for era_name,bg_img in era_backgrounds.items():
+    era_map = map_lookup [era_name]
+
+    map_pixel_width = len(era_map[0]) * tile_size
+    scaled_era_backgrounds[era_name] = pygame.transform.scale(bg_img, (map_pixel_width, len(era_map) * tile_size))
 
 def load_npc_image(path):
     img = pygame.image.load(path).convert_alpha()
@@ -1362,15 +1369,8 @@ while running:
     # D. Drawing
     screen.fill((10, 20, 20))
     
-    if current_era in era_backgrounds:
-        map_pixel_width = len(game_map[0]) * tile_size
-        map_pixel_height = len(game_map) * tile_size
-
-        bg_img = pygame.transform.scale(
-            era_backgrounds[current_era],
-            (map_pixel_width, map_pixel_height)
-        )
-
+    if current_era in scaled_era_backgrounds:
+        bg_img = scaled_era_backgrounds[current_era]
         screen.blit(bg_img, (-camera_x, -camera_y))
 
     for row_index, row in enumerate(game_map):
@@ -1456,7 +1456,7 @@ while running:
                     pygame.draw.rect(screen, (150, 150, 150), (mini_x, mini_y, mini_tile, mini_tile))
                 elif tile == "4" and teleport_is_unlocked(current_era):
                     pygame.draw.rect(screen, (200, 150, 50), (mini_x, mini_y, mini_tile, mini_tile))
-                else:
+                
                     pygame.draw.rect(screen, (70, 70, 70), (mini_x, mini_y, mini_tile, mini_tile))
 
     player_mini_x = start_x + (player_x // tile_size) * mini_tile
