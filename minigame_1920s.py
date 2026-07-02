@@ -46,8 +46,68 @@ def _show_result(screen, clock, text, color, duration=2000):
 
     return True
 
+def show_instructions_page(screen,clock,title,instructions):
+    WIDTH,HEIGHT =screen.get_size()
+
+    title_font = pygame.font.Font(None, 74)
+    instruction_font = pygame.font.Font(None, 36)
+    small_font = pygame.font.Font(None, 24)
+
+    waiting = True
+    while waiting:
+        clock.tick(60)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    waiting = False
+            elif event.type == pygame.K_ESCAPE:
+                return False
+        screen.fill((15, 15, 25))
+
+        card_rect = pygame.Rect(160, 120, WIDTH - 320, HEIGHT - 240)
+        pygame.draw.rect(screen, (30, 30, 45), card_rect)
+        pygame.draw.rect(screen, (255, 220, 120), card_rect, 4)
+
+        title_surface = title_font.render(title, True, (255, 220, 120))
+        title_rect = title_surface.get_rect(center=(WIDTH // 2, 180))
+        screen.blit(title_surface, title_rect)
+
+        y = 260
+        for line in instructions:
+            text_surface = instruction_font.render(line, True, (255, 255, 255))
+            text_rect = text_surface.get_rect(center=(WIDTH // 2, y))
+            screen.blit(text_surface, text_rect)
+            y += 45
+
+        start_text = small_font.render("Press SPACE to start | Press ESC to cancel", True, (200, 200, 200))
+        start_rect = start_text.get_rect(center=(WIDTH // 2, HEIGHT - 170))
+        screen.blit(start_text, start_rect)
+
+        pygame.display.update()
+
+    return True
+        
 
 def run_minigame(screen, clock):
+    instruction_ok = show_instructions_page(
+        screen,
+        clock,
+        "1920s Timeline Calibration",
+        [
+            "The timeline is unstable.",
+            "Complete the challenge to unlock the next era.",
+            "Use the controls shown in the mini-game.",
+            "Win the mini-game to continue your investigation."
+        ]
+    )
+
+    if not instruction_ok:
+        return False
+
     """Run the 1920s memory game and return True only when the player wins."""
     width, height = screen.get_size()
     big_font = pygame.font.Font(None, 74)
