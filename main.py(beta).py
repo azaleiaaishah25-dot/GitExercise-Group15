@@ -218,6 +218,7 @@ visited_map = [[False for _ in range(len(museum_map[0]))] for _ in range(len(mus
 player_size = 60
 speed = 10 #pixels per movement per frame
 
+
 #4. Images
 player_img = pygame.image.load("Images/main_character_120x120.png").convert_alpha()
 player_img = pygame.transform.scale(player_img, (120, 120))
@@ -233,11 +234,18 @@ credits_bg_img = pygame.transform.scale(credits_bg_img, (WIDTH, HEIGHT))
 
 era_backgrounds = {}
 
-era_backgrounds["Museum"] = pygame.image.load("Images/museum_map.jpeg")
-era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg")
-era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg")
-era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg")
-era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg")
+era_backgrounds["Museum"] = pygame.image.load("Images/museum_map.jpeg").convert()
+era_backgrounds["1920s"] = pygame.image.load("Images/eras_1920s_Background.jpeg").convert()
+era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg").convert()
+era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg").convert()
+era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg").convert()
+
+scaled_era_backgrounds = {}
+for era_name,bg_img in era_backgrounds.items():
+    era_map = map_lookup [era_name]
+
+    map_pixel_width = len(era_map[0]) * tile_size
+    scaled_era_backgrounds[era_name] = pygame.transform.scale(bg_img, (map_pixel_width, len(era_map) * tile_size))
 
 def load_npc_image(path):
     img = pygame.image.load(path).convert_alpha()
@@ -710,7 +718,7 @@ def add_clue(clue_id):
     if clue_id and clue_id not in collected_clues:
         collected_clues.append(clue_id)
 
-def add_item(item_id):
+def add_items(item_id):
     if item_id and item_id not in collected_items:
         collected_items.append(item_id)
 
@@ -1179,21 +1187,10 @@ while running:
                                     if npc_record not in talked_to_npcs:
                                         talked_to_npcs.append(npc_record)
 
-                                        current_dialogue_npc = None
-                                    
-                                
-                                        minigame_function = minigames.get(current_era)
-                                    
-                                        if minigame_function:
-                                            minigame_won = minigame_function(screen, clock)
+                                    current_dialogue_npc = None
 
-                                            if minigame_won:
-                                                completed_minigames.append(current_era)
-                                                print (f"{current_era}mini game completed.")
-                                        else:
-                                            print(f"{current_era}mini game failed.")
-
-
+                                #add quest from the npc dialogue
+                                 
                                 if current_quest:
                                     quest_log[current_quest] = "started"
                                     add_quest(current_quest)
@@ -1201,7 +1198,7 @@ while running:
 
                                 if current_clue:
                                     add_clue(current_clue)
-                                    current_item_quest = None
+                                    current_clue = None
 
                                 if current_item_quest:
                                     recovered_item = current_item_quest
@@ -1217,6 +1214,12 @@ while running:
                                     ):
                                         minigame_function = minigames[current_era]
                                         minigame_won = minigame_function(screen, clock)
+                                        if minigame_won:
+                                            completed_minigames.append(current_era)
+                                            print(f"Minigame for {current_era} completed!")
+                                        else:
+                                            print(f"Minigame for {current_era} failed. Try again   .")
+
 
                 elif event.key == pygame.K_m:
                     pygame.mixer.music.pause()
@@ -1366,15 +1369,8 @@ while running:
     # D. Drawing
     screen.fill((10, 20, 20))
     
-    if current_era in era_backgrounds:
-        map_pixel_width = len(game_map[0]) * tile_size
-        map_pixel_height = len(game_map) * tile_size
-
-        bg_img = pygame.transform.scale(
-            era_backgrounds[current_era],
-            (map_pixel_width, map_pixel_height)
-        )
-
+    if current_era in scaled_era_backgrounds:
+        bg_img = scaled_era_backgrounds[current_era]
         screen.blit(bg_img, (-camera_x, -camera_y))
 
     for row_index, row in enumerate(game_map):
@@ -1460,7 +1456,7 @@ while running:
                     pygame.draw.rect(screen, (150, 150, 150), (mini_x, mini_y, mini_tile, mini_tile))
                 elif tile == "4" and teleport_is_unlocked(current_era):
                     pygame.draw.rect(screen, (200, 150, 50), (mini_x, mini_y, mini_tile, mini_tile))
-                else:
+                
                     pygame.draw.rect(screen, (70, 70, 70), (mini_x, mini_y, mini_tile, mini_tile))
 
     player_mini_x = start_x + (player_x // tile_size) * mini_tile
