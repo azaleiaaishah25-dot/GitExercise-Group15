@@ -1,10 +1,6 @@
-from operator import index
-
 import pygame as pg
-import sys
 import time
 import random
-
 
 
 pg.init()
@@ -13,6 +9,7 @@ pg.init()
 WIDTH, HEIGHT = 600, 600
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("Tic Tac Toe - Speed Mode")
+clock = pg.time.Clock()
 
 # Colors
 WHITE = (255, 255, 255)
@@ -32,9 +29,13 @@ current_player = "X"
 # Timer
 TURN_TIME = 3
 start_time = time.time()
+BOT_DELAY = 0.5
+bot_waiting = False
+bot_start_time = 0
 
 font = pg.font.SysFont(None, 80)
 small_font = pg.font.SysFont(None, 40)
+tiny_font = pg.font.SysFont(None, 20)
 
 
 def draw_board():
@@ -74,15 +75,20 @@ def check_winner():
 
 def reset_game():
     global board, current_player, start_time
+    global bot_waiting, bot_start_time
+
     board = [""] * 9
     current_player = "X"
     start_time = time.time()
+    bot_waiting = False
+    bot_start_time = 0
 
 
 running = True
 winner = None
 
 while running:
+    clock.tick(60)
     draw_board()
 
     winner = check_winner()
@@ -99,13 +105,15 @@ while running:
         start_time = time.time()
 
     if current_player == "O" and winner is None:
-        empty_spots = [i for i, spot in enumerate(board) if spot == ""]
+        if time.time() - bot_start_time >= BOT_DELAY:
+            empty_spots = [ i for i, spot in enumerate(board) if spot == ""]
 
         if empty_spots:
             bot_choice = random.choice(empty_spots)
             board[bot_choice] = "O"
 
             current_player = "X"
+            bot_waiting = False
             start_time = time.time()
 
     winner = check_winner()
@@ -122,7 +130,6 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
-            sys.exit()
 
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_r:
@@ -133,9 +140,13 @@ while running:
             col = x // 200
             index = row * 3 + col
             
-            if board[index] == "":
+            if 0 <= index < 9 and board[index] == "":
                 board[index] = "X"
                 current_player = "O"
                 start_time = time.time()
-                
+                bot_waiting = True
+                bot_start_time = time.time()
+
+                start_time = time.time()
+
 pg.quit()
