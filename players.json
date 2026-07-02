@@ -1,10 +1,17 @@
 {
     "Profile_1": {
-        "player_x": 1500,
-        "player_y": 1600,
-        "current_era": "Museum",
-        "active_quests": [],
-        "completed_quests": [],
-        "collected_items": []
+        "player_x": 840,
+        "player_y": 720,
+        "current_era": "1950s",
+        "active_quests": [
+            "clue_gogo_boots",
+            "old_tailor_hint"
+        ],
+        "completed_quests": [
+            "gogo_boots_recovered"
+        ],
+        "collected_items": [
+            "gogo_boots_recovered"
+        ]
     }
 }
