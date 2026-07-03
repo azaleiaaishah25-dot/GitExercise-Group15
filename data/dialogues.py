@@ -183,9 +183,10 @@ dialogue_data = {
             {"speaker": "CLUE", "text": "Clue discovered: Go-Go Boots."},
             {"speaker": "PLAYER", "text": "..That has to be it."},
             {"speaker": "ELEGANT WOMAN", "text": "If you find her, do let me know. I adore a bit of drama."},
-            {"speaker": "PLAYER", "text": "I'll keep that in mind."},
+            {"speaker": "PLAYER", "text": "I'll keep that in mind."}
         ],
-        "quest": "clue_gogo_boots"
+        "quest": "clue_gogo_boots",
+        "clue": "gogo_boots"
     },
 
     # ===========================
@@ -214,7 +215,7 @@ dialogue_data = {
             {"speaker": "RICH GENTLEMAN", "text": "Don't just look at what fits in."},
             {"speaker": "RICH GENTLEMAN", "text": "Look for what doesn't."},
             {"speaker": "PLAYER", "text": "..Yeah."},
-            {"speaker": "PLAYER", "text": "That sounds like him."},
+            {"speaker": "PLAYER", "text": "That sounds like him."}
         ],
         "quest": "old_tailor_hint"
     },
@@ -789,3 +790,98 @@ item_dialogue_data = {
         "quest": "pearl_necklace_recovered"
     }
 }
+
+ending_intro_dialogue = [
+    # ===================================
+    # INTRODUCTION CULPRIT IDENTIFICATION   
+    # ===================================
+    {"speaker": "PLAYER", "text": "...All of them."},
+    {"speaker": "PLAYER", "text": "Five different eras."},
+    {"speaker": "PLAYER", "text": "One person behind it all."},
+    {"speaker": "DEVICE", "text": "Culprit identification required."},
+    {"speaker": "DEVICE", "text": "Review identification clues."},
+]
+
+suspect_dialogues = {
+    "Suspect A": [
+        "Suspect A: Wait… what?",
+        "Suspect A: You think it was me?",
+        "Suspect A: I’ve been here the whole time…"
+    ],
+
+    "Suspect B": [
+        "Suspect B: …Took you long enough.",
+        "Suspect B: So?",
+        "Suspect B: Are you going to say it?"
+    ],
+
+     "Suspect C": [
+        "Suspect C: Hey—don’t look at me.",
+        "Suspect C: I don’t even know what’s going on.",
+    ],
+
+    "Suspect D": [
+        "Suspect D: This is a waste of time.",
+        "Suspect D: I’ve got nothing to do with this.",
+    ]
+}
+
+final_good_ending_dialogue = [
+    "DEVICE: Culprit confirmed.",
+    "DEVICE: All artifacts ready for restoration.",
+    "PLAYER: ...It's over."
+]
+
+restoration_start_dialogue = [
+    "DEVICE: Culprit confirmed.",
+    "DEVICE: All artifacts ready for restoration.",
+    "PLAYER: ...Then there is one thing left to do.",
+    "PLAYER: I need to return them to their rightful places."
+]
+
+restore_item_dialogues = {
+    "1920s_pearl_necklace": [
+        "PLAYER: This piece belongs with the era that started it all.",
+        "PLAYER: Back where you belong."
+    ],
+
+    "1950s_nbowling_shirt": [
+        "PLAYER: Next one…",
+        "PLAYER: The 1950s shirt is finally back.",
+        "PLAYER: One more part of history fixed."
+    ],
+
+    "1960s_gogo_boots": [
+        "PLAYER: …And here too.",
+        "PLAYER: The Youthquake era can breathe again."
+    ],
+
+    "1980s_denim_jacket": [
+        "PLAYER: The denim jacket returns to the 1980s exhibit.",
+        "PLAYER: Loud, bold, and impossible to ignore."
+    ],
+
+    "1990s_flannel": [
+        "PLAYER: …Last one.",
+        "PLAYER: The 1990s piece is restored.",
+        "DEVICE: Final artifact restored."
+    ]
+}
+
+ending_outro_dialogue = [
+    # ================
+    # MANAGER ARRIVES   
+    # ================
+    {"speaker": "MANAGER", "text": "...There you are."},
+    {"speaker": "MANAGER", "text": "...You did it."},
+    {"speaker": "PLAYER", "text": "Everything's back where it belongs."},
+    {"speaker": "MANAGER", "text": "I can see that."},
+    {"speaker": "MANAGER", "text": "You know..."},
+    {"speaker": "MANAGER", "text": "This place meant everything to your grandfather."},
+    {"speaker": "PLAYER", "text": "...I know."},
+    {"speaker": "MANAGER", "text": "And now..."},
+    {"speaker": "MANAGER", "text": "...you've protected it."},
+    {"speaker": "MANAGER", "text": "He would be proud of you."},
+    {"speaker": "PLAYER", "text": "...I think he already is."},
+    {"speaker": "DEVICE", "text": "Temporal stability restored."},
+]
