@@ -9,7 +9,7 @@ from data.music import play_music, stop_music, set_music_volume
 from minigame_1920s import run_minigame as run_1920s_minigame
 from minigame_1950s import run_minigame as run_1950s_minigame
 from minigame_1960s import run_minigame as run_1960s_minigame
-
+from minigame_1980s import run_minigame as run_1980s_minigame
 
 DB_FILE = "players.json"
 
@@ -158,6 +158,7 @@ minigames = {
     "1920s": run_1920s_minigame,
     "1950s": run_1950s_minigame,
     "1960s": run_1960s_minigame
+    "1980s": run_1980s_minigame
 }
 
 required_npcs_by_era = {
