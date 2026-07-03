@@ -157,7 +157,7 @@ minigame_after_dialogue = None
 minigames = {
     "1920s": run_1920s_minigame,
     "1950s": run_1950s_minigame,
-    "1960s": run_1960s_minigame
+    "1960s": run_1960s_minigame,
     "1980s": run_1980s_minigame
 }
 
