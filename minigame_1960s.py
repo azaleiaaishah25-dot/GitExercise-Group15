@@ -100,7 +100,8 @@ def run_minigame(screen, clock):
                 screen.blit(text, text.get_rect(center=(WIDTH // 2, y)))
                 y += 45
 
-            controls = medium_font.render("Use W A S D", True, PINK)
+            
+            controls = medium_font.render("Use A S W D", True, PINK)
             screen.blit(controls, controls.get_rect(center=(WIDTH // 2, card.y + 390)))
 
             start = small_font.render("Press SPACE to start | ESC to cancel", True, (200, 200, 200))
