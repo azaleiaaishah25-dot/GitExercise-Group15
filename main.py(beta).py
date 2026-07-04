@@ -516,10 +516,27 @@ map_item_pictures = [
     {"era": "1920s", "image": "1920_clothing_9", "col": 26, "row": 15, "offset_x": 0, "offset_y": 0},
 
     # 1950s denim display
-    {"era": "1950s", "image": "1950_pants_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
-    {"era": "1950s", "image": "1950_pants_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
-    {"era": "1950s", "image": "1950_pants_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
-    {"era": "1950s", "image": "1950_pants_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+    {"era": "1950s", "image": "1950_pants_1", "col": 5, "row": 6, "offset_x": 0, "offset_y": 0},
+    {"era": "1950s", "image": "1950_pants_2", "col": 5, "row": 6, "offset_x": 75, "offset_y": 0},
+    {"era": "1950s", "image": "1950_pants_3", "col": 5, "row": 6, "offset_x": 0, "offset_y": 75},
+    {"era": "1950s", "image": "1950_pants_4", "col": 5, "row": 6, "offset_x": 75, "offset_y": 75},
+
+    # 1950s clothing display
+    # Left display box
+    {"era": "1950s", "image": "1950_clothing_4", "col": 5, "row": 10, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_5", "col": 7, "row": 10, "offset_x": 10, "offset_y": -10},
+
+    # Right display box
+    {"era": "1950s", "image": "1950_clothing_6", "col": 20, "row": 5, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_7", "col": 22, "row": 5, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_8", "col": 21, "row": 6, "offset_x": 10, "offset_y": -10},
+
+    {"era": "1950s", "image": "1950_clothing_9", "col": 20, "row": 8, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_10", "col": 22, "row": 8, "offset_x": 10, "offset_y": -10},
+
+    {"era": "1950s", "image": "1950_clothing_1", "col": 19, "row": 10, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_2", "col": 21, "row": 10, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_3", "col": 23, "row": 10, "offset_x": 10, "offset_y": -10},
 
     # 1960s shirt display
     {"era": "1960s", "image": "1960_shirt_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
