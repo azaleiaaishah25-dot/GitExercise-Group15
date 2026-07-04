@@ -494,23 +494,26 @@ display_item_groups = {
 
 map_item_pictures = [
     # 1920s shoes display
-    {"era": "1920s", "image": "boots_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "boots_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
-    {"era": "1920s", "image": "boots_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
-    {"era": "1920s", "image": "boots_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+    {"era": "1920s", "image": "boots_1", "col": 25, "row": 3, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "boots_2", "col": 25, "row": 3, "offset_x": 75, "offset_y": 0},
+    {"era": "1920s", "image": "boots_3", "col": 25, "row": 3, "offset_x": 0, "offset_y": 75},
+    {"era": "1920s", "image": "boots_4", "col": 25, "row": 3, "offset_x": 75, "offset_y": 75},
 
     # 1920s clothing display
-    {"era": "1920s", "image": "1920clothing1", "col": 3, "row": 3, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "1920clothing2", "col": 5, "row": 3, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "1920clothing3", "col": 7, "row": 3, "offset_x": 0, "offset_y": 0},
+    # Top-left box
+    {"era": "1920s", "image": "1920_clothing_1", "col": 3, "row": 3, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920_clothing_2", "col": 5, "row": 3, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920_clothing_3", "col": 7, "row": 3, "offset_x": 0, "offset_y": 0},
 
-    {"era": "1920s", "image": "1920clothing4", "col": 3, "row": 10, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "1920clothing5", "col": 5, "row": 10, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "1920clothing6", "col": 7, "row": 10, "offset_x": 0, "offset_y": 0},
+    # Bottom-left box
+    {"era": "1920s", "image": "1920_clothing_4", "col": 3, "row": 15, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920_clothing_5", "col": 5, "row": 15, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920_clothing_6", "col": 7, "row": 15, "offset_x": 0, "offset_y": 0},
 
-    {"era": "1920s", "image": "1920clothing7", "col": 15, "row": 10, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "1920clothing8", "col": 17, "row": 10, "offset_x": 0, "offset_y": 0},
-    {"era": "1920s", "image": "1920clothing9", "col": 19, "row": 10, "offset_x": 0, "offset_y": 0},
+    # Bottom-right box
+    {"era": "1920s", "image": "1920_clothing_7", "col": 22, "row": 15, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920_clothing_8", "col": 24, "row": 15, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920_clothing_9", "col": 26, "row": 15, "offset_x": 0, "offset_y": 0},
 
     # 1950s denim display
     {"era": "1950s", "image": "1950_pants_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
@@ -920,13 +923,19 @@ def draw_debug_info():
 def draw_map_item_pictures():
     for item in map_item_pictures:
         if item["era"] == current_era:
+            image_key = item["image"]
+
+            if image_key not in item_images:
+                print("Missing image key:", image_key)
+                continue
+
             world_x = item["col"] * tile_size + item["offset_x"]
             world_y = item["row"] * tile_size + item["offset_y"]
 
             screen_x = world_x - camera_x
             screen_y = world_y - camera_y
 
-            item_img = item_images[item["image"]]
+            item_img = item_images[image_key]
             screen.blit(item_img, (screen_x, screen_y))
 
 def draw_display_item_groups():
@@ -1510,12 +1519,13 @@ while running:
                     pygame.draw.rect(screen, (0, 0, 0), (screen_x, screen_y, tile_size, tile_size), 1)
 
 
-    # Draw Player
-    draw_display_item_groups()
+   # Draw map item pictures
+    draw_map_item_pictures()
 
+    # Draw Player
     screen.blit(
-    player_img,
-    (player_x - camera_x - 30, player_y - camera_y - 30)
+        player_img,
+        (player_x - camera_x - 30, player_y - camera_y - 30)
 )
     
     # Mini-map
