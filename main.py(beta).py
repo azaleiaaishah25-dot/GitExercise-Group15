@@ -29,8 +29,8 @@ npc_map = {
     ("1920s", 19, 11): "rich_gentleman",
 
     ("1950s", 13, 4): "gallery_host",
-    ("1950", 23, 6): "young_visitor",
-    ("1950", 9, 9): "gallery_assistant",
+    ("1950s", 22, 7): "young_visitor",
+    ("1950s", 9, 9): "gallery_assistant",
 
     ("1960s", 4, 7): "fashion_enthusiast",
     ("1960s", 23, 7): "gallery_staff",
@@ -165,9 +165,9 @@ minigames = {
 
 required_npcs_by_era = {
     "1920s": ["elegant_woman", "rich_gentleman"],
-    "1950s": ["gallery_host"],
+    "1950s": ["gallery_host", "young_visitor", "gallery_assistant"],
     "1960s": ["fashion_enthusiast", "gallery_staff"],
-    "1980s": ["fashion_curator", "archive_staff"],
+    "1980s": ["yoga_instructor", "archive_staff"],
     "1990s": ["curator_assistant", "senior_curator", "visitor"]
 }
 
@@ -1622,4 +1622,4 @@ pygame.quit()
 #Summary on what I have done in my part for the games:
 #Refactored the Architecture, Resolution Upgrade
 #Mega Map Installation, Museum and 1920s Jazz Age, Scrolling Camera, Camera Clamping
-#Teleportation System, Fog of War Mini-Map, Scene Transitio
+#Teleportation System, Fog of War Mini-Map, Scene Transition
