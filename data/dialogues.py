@@ -243,21 +243,21 @@ dialogue_data = {
             {"speaker": "GALLERY HOST", "text": "..Her pants."},
             {"speaker": "PLAYER", "text": "What about them?"},
             {"speaker": "GALLERY HOST", "text": "They didn’t match the rest of the era."},
-            {"speaker": "GALLERY HOST", "text": "Faded in patches.. uneven coloring."},
+            {"speaker": "GALLERY HOST", "text": "Faded jacket with patches.. uneven coloring."},
             {"speaker": "GALLERY HOST", "text": "Almost like they were.. damaged on purpose."},
-            {"speaker": "CLUE", "text": "Clue discovered: Acid Wash Denim"},
+            {"speaker": "CLUE", "text": "Clue discovered: Acid Wash Denim Jacket"},
             {"speaker": "PLAYER", "text": "..That’s it."},
             {"speaker": "GALLERY HOST", "text": "She wandered deeper into the gallery after that."},
             {"speaker": "GALLERY HOST", "text": "Towards the back exhibits."},
         ],
-        "quest": "clue_acid_wash_denim"
+        "quest": "clue_acid_wash_denim_jacket",
+        "clue": "acid_wash_denim_jacket"
     },
 
     # ==========================
     # 1950s NPC 4: Young Visitor
     # ==========================
-    ("1950s", 13, 3): {
-        "speaker": "Young Visitor",
+    "young_visitor": {
         "dialogue": [
             {"speaker": "YOUNG VISITOR", "text": "Oh wow—your outfit!"},
             {"speaker": "PLAYER", "text": "..Thanks."},
@@ -279,14 +279,13 @@ dialogue_data = {
             {"speaker": "YOUNG VISITOR", "text": "I didn’t see her take anything..."},
             {"speaker": "YOUNG VISITOR", "text": "But she went past the staff-only section"},
         ],
-        "quest": "clue_staff-only_section"
+        "clue": "staff-only_section",
     },
 
-     # =============================
+    # =============================
     # 1950s NPC 5: Gallery Assistant
     # ==============================
-    ("1950s", 13, 3): {
-        "speaker": "Gallery Assistant",
+    "gallery_assistant": {
         "dialogue": [
             {"speaker": "GALLERY ASSISTANT", "text": "Visitors aren’t usually allowed back here."},
             {"speaker": "PLAYER", "text": "I won’t take long."},

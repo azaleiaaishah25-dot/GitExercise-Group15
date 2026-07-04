@@ -28,7 +28,9 @@ npc_map = {
     ("1920s", 13, 6): "elegant_woman",
     ("1920s", 19, 11): "rich_gentleman",
 
-    ("1950s", 13, 3): "gallery_host",
+    ("1950s", 13, 4): "gallery_host",
+    ("1950", 23, 6): "young_visitor",
+    ("1950", 9, 9): "gallery_assistant",
 
     ("1960s", 4, 7): "fashion_enthusiast",
     ("1960s", 23, 7): "gallery_staff",
@@ -266,10 +268,8 @@ npc_images = {
     "gallery_host": load_npc_image("Images/gallery-host.png"),
     "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.png"),
     "gallery_staff": load_npc_image("Images/gallery-staff.png"),
-
     "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
     "archive_staff": load_npc_image("Images/archive-staff.png"),
-
     "curator_assistant": load_npc_image("Images/curator-assistant.png"),
     "visitor": load_npc_image("Images/visitor.png"),
     "senior_curator": load_npc_image("Images/senior-curator.png"),
@@ -450,7 +450,7 @@ display_item_groups = {
         "box_col": 20,
         "box_row": 3,
         "items": ["boots_1", "boots_2", "boots_3", "boots_4"],
-        "correct_item": "boots_2",
+        "correct_item": "boots_1",
         "dialogue_key": ("1920s", 10, 4),
         "artifact_id": "gogo_boots_recovered"
     },
@@ -529,7 +529,7 @@ map_item_pictures = [
     # Right display box
     {"era": "1950s", "image": "1950_clothing_6", "col": 20, "row": 5, "offset_x": 10, "offset_y": -10},
     {"era": "1950s", "image": "1950_clothing_7", "col": 22, "row": 5, "offset_x": 10, "offset_y": -10},
-    {"era": "1950s", "image": "1950_clothing_8", "col": 21, "row": 6, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_8", "col": 21, "row": 5, "offset_x": 10, "offset_y": -10},
 
     {"era": "1950s", "image": "1950_clothing_9", "col": 20, "row": 8, "offset_x": 10, "offset_y": -10},
     {"era": "1950s", "image": "1950_clothing_10", "col": 22, "row": 8, "offset_x": 10, "offset_y": -10},
