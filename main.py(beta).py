@@ -260,7 +260,7 @@ def load_npc_image(path):
 npc_images = {
     "manager": load_npc_image("Images/manager.png"),
     "culprit": load_npc_image("Images/culprit.png"),
-    "player": load_npc_image("Images/player.png"),
+    "player": load_npc_image("Images/main_character_120x120.png"),
     "elegant_woman": load_npc_image("Images/elegant-woman.png"),
     "rich_gentleman": load_npc_image("Images/rich-gentleman.png"),
     "gallery_host": load_npc_image("Images/gallery-host.png"),
@@ -353,7 +353,7 @@ npc_images = {
     "visitor": load_npc_image("Images/visitor.png"),
     "senior_curator": load_npc_image("Images/senior-curator.png"),
     "culprit": load_npc_image("Images/culprit.png"),
-    "player": load_npc_image("Images/player.png"),
+    "player": load_npc_image("Images/main_character_120x120.png"),
     "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
     "archive_staff": load_npc_image("Images/archive-staff.png"),
     "culprit_A": load_npc_image("Images/culprit-a.png"),
