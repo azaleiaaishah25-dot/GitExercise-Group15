@@ -18,8 +18,8 @@ map_lookup = {
     "1920s": era_1920s_map,
     "1950s": era_1950s_map,
     "1960s": era_1960s_map,
-    "1980s": era_1980s_map,
-    "1990s": era_1990s_map,
+    "1980s": era_1980s_map
+    
 }
 
 npc_map = {
@@ -33,7 +33,7 @@ npc_map = {
     ("1960s", 4, 7): "fashion_enthusiast",
     ("1960s", 23, 7): "gallery_staff",
 
-    ("1980s", 13, 13): "fashion_curator",
+    ("1980s", 13, 13): "yoga_instructor",
     ("1980s", 14, 2): "archive_staff",
 
     ("1990s", 13, 3): "curator_assistant",
@@ -158,14 +158,15 @@ minigames = {
     "1920s": run_1920s_minigame,
     "1950s": run_1950s_minigame,
     "1960s": run_1960s_minigame,
-    "1980s": run_1980s_minigame
+    "1980s": run_1980s_minigame,
+    
 }
 
 required_npcs_by_era = {
     "1920s": ["elegant_woman", "rich_gentleman"],
     "1950s": ["gallery_host"],
     "1960s": ["fashion_enthusiast", "gallery_staff"],
-    "1980s": ["fashion_curator", "archive_staff"],
+    "1980s": ["yoga_instructor", "archive_staff"],
     "1990s": ["curator_assistant", "senior_curator", "visitor"]
 }
 
@@ -259,8 +260,6 @@ def load_npc_image(path):
 
 npc_images = {
     "manager": load_npc_image("Images/manager.png"),
-    "culprit": load_npc_image("Images/culprit.png"),
-    "player": load_npc_image("Images/player.png"),
     "elegant_woman": load_npc_image("Images/elegant-woman.png"),
     "rich_gentleman": load_npc_image("Images/rich-gentleman.png"),
     "gallery_host": load_npc_image("Images/gallery-host.png"),
@@ -269,13 +268,7 @@ npc_images = {
     "curator_assistant": load_npc_image("Images/curator-assistant.png"),
     "visitor": load_npc_image("Images/visitor.png"),
     "senior_curator": load_npc_image("Images/senior-curator.png"),
-    "fashion_curator": load_npc_image("Images/fashion-curator.png"),
-    "archive_staff": load_npc_image("Images/archive-staff.png"),
-    "culprit_A": load_npc_image("Images/culprit_a.png"),
-    "culprit_C": load_npc_image("Images/culprit_c.png"),
-    "culprit_D": load_npc_image("Images/culprit_d.png"),
-    "young_visitor": load_npc_image("Images/young-visitor.png"),
-    "gallery_assistant": load_npc_image("Images/gallery-assistant.png"),
+    "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
 }
 
 ITEM_FOLDER = os.path.join("Images")
@@ -342,28 +335,6 @@ display_item_groups = {
         "box_row": 3,
         "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"]
     },
-}
-
-
-npc_images = {
-    "manager": load_npc_image("Images/manager.png"),
-    "elegant_woman": load_npc_image("Images/elegant-woman.png"),
-    "rich_gentleman": load_npc_image("Images/rich-gentleman.png"),
-    "gallery_host": load_npc_image("Images/gallery-host.png"),
-    "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.png"),
-    "gallery_staff": load_npc_image("Images/gallery-staff.png"),
-    "curator_assistant": load_npc_image("Images/curator-assistant.png"),
-    "visitor": load_npc_image("Images/visitor.png"),
-    "senior_curator": load_npc_image("Images/senior-curator.png"),
-    "culprit": load_npc_image("Images/culprit.png"),
-    "player": load_npc_image("Images/player.png"),
-    "fashion_curator": load_npc_image("Images/fashion-curator.png"),
-    "archive_staff": load_npc_image("Images/archive-staff.png"),
-    "culprit_A": load_npc_image("Images/culprit_a.png"),
-    "culprit_C": load_npc_image("Images/culprit_c.png"),
-    "culprit_D": load_npc_image("Images/culprit_d.png"),
-    "young_visitor": load_npc_image("Images/young-visitor.png"),
-    "gallery_assistant": load_npc_image("Images/gallery-assistant.png"),
 }
 
 
