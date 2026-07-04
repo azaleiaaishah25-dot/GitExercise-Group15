@@ -529,7 +529,7 @@ map_item_pictures = [
     # Right display box
     {"era": "1950s", "image": "1950_clothing_6", "col": 20, "row": 5, "offset_x": 10, "offset_y": -10},
     {"era": "1950s", "image": "1950_clothing_7", "col": 22, "row": 5, "offset_x": 10, "offset_y": -10},
-    {"era": "1950s", "image": "1950_clothing_8", "col": 21, "row": 6, "offset_x": 10, "offset_y": -10},
+    {"era": "1950s", "image": "1950_clothing_8", "col": 21, "row": 5, "offset_x": 10, "offset_y": -10},
 
     {"era": "1950s", "image": "1950_clothing_9", "col": 20, "row": 8, "offset_x": 10, "offset_y": -10},
     {"era": "1950s", "image": "1950_clothing_10", "col": 22, "row": 8, "offset_x": 10, "offset_y": -10},
