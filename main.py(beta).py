@@ -33,7 +33,7 @@ npc_map = {
     ("1960s", 4, 7): "fashion_enthusiast",
     ("1960s", 23, 7): "gallery_staff",
 
-    ("1980s", 13, 13): "fashion_curator",
+    ("1980s", 13, 13): "yoga_instructor",
     ("1980s", 14, 2): "archive_staff",
 
     ("1990s", 13, 3): "curator_assistant",
@@ -166,7 +166,7 @@ required_npcs_by_era = {
     "1920s": ["elegant_woman", "rich_gentleman"],
     "1950s": ["gallery_host"],
     "1960s": ["fashion_enthusiast", "gallery_staff"],
-    "1980s": ["fashion_curator", "archive_staff"],
+    "1980s": ["yoga_instructor", "archive_staff"],
     "1990s": ["curator_assistant", "senior_curator", "visitor"]
 }
 
@@ -268,6 +268,7 @@ npc_images = {
     "curator_assistant": load_npc_image("Images/curator-assistant.png"),
     "visitor": load_npc_image("Images/visitor.png"),
     "senior_curator": load_npc_image("Images/senior-curator.png"),
+    "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
 }
 
 ITEM_FOLDER = os.path.join("Images")
@@ -334,19 +335,6 @@ display_item_groups = {
         "box_row": 3,
         "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"]
     },
-}
-
-
-npc_images = {
-    "manager": load_npc_image("Images/manager.png"),
-    "elegant_woman": load_npc_image("Images/elegant-woman.png"),
-    "rich_gentleman": load_npc_image("Images/rich-gentleman.png"),
-    "gallery_host": load_npc_image("Images/gallery-host.png"),
-    "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.png"),
-    "gallery_staff": load_npc_image("Images/gallery-staff.png"),
-    "curator_assistant": load_npc_image("Images/curator-assistant.png"),
-    "visitor": load_npc_image("Images/visitor.png"),
-    "senior_curator": load_npc_image("Images/senior-curator.png"),
 }
 
 
