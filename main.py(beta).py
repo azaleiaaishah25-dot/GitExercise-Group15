@@ -33,7 +33,11 @@ npc_map = {
     ("1960s", 4, 7): "fashion_enthusiast",
     ("1960s", 23, 7): "gallery_staff",
 
+<<<<<<< HEAD
     ("1980s", 13, 13): "fashion_curator",
+=======
+    ("1980s", 14, 13): "yoga_instructor",
+>>>>>>> 8a883a3633a098f42df8eed59265848324b3a3cc
     ("1980s", 14, 2): "archive_staff",
 
     ("1990s", 13, 3): "curator_assistant",
@@ -266,9 +270,14 @@ npc_images = {
     "gallery_host": load_npc_image("Images/gallery-host.png"),
     "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.png"),
     "gallery_staff": load_npc_image("Images/gallery-staff.png"),
+
+    "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
+    "archive_staff": load_npc_image("Images/archive-staff.png"),
+
     "curator_assistant": load_npc_image("Images/curator-assistant.png"),
     "visitor": load_npc_image("Images/visitor.png"),
     "senior_curator": load_npc_image("Images/senior-curator.png"),
+<<<<<<< HEAD
     "fashion_curator": load_npc_image("Images/fashion-curator.png"),
     "archive_staff": load_npc_image("Images/archive-staff.png"),
     "culprit_A": load_npc_image("Images/culprit_a.png"),
@@ -276,6 +285,8 @@ npc_images = {
     "culprit_D": load_npc_image("Images/culprit_d.png"),
     "young_visitor": load_npc_image("Images/young-visitor.png"),
     "gallery_assistant": load_npc_image("Images/gallery-assistant.png"),
+=======
+>>>>>>> 8a883a3633a098f42df8eed59265848324b3a3cc
 }
 
 ITEM_FOLDER = os.path.join("Images")
