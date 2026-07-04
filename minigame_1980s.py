@@ -49,11 +49,11 @@ def run_minigame(screen, clock):
 
     message = ""
 
-    def show_instructions_card():
-        waiting = True
+def show_instructions_card():
+    waiting = True
 
-        while waiting:
-            clock.tick(60)
+    while waiting:
+        clock.tick(60)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -65,8 +65,8 @@ def run_minigame(screen, clock):
                 elif event.key == pygame.K_ESCAPE:
                     return False
                 
-    screen.fill(18,18,20)
-
+        screen.fill((18, 18, 20))
+        
     card = pygame.Rect(WIDTH // 2 - 360, HEIGHT // 2 - 260, 720, 520)
     pygame.draw.rect(screen, (35, 35, 50), card)
     pygame.draw.rect(screen, GOLD, card, 4)
