@@ -829,12 +829,7 @@ suspect_dialogues = {
 final_good_ending_dialogue = [
     "DEVICE: Culprit confirmed.",
     "DEVICE: All artifacts ready for restoration.",
-    "PLAYER: ...It's over."
-]
-
-restoration_start_dialogue = [
-    "DEVICE: Culprit confirmed.",
-    "DEVICE: All artifacts ready for restoration.",
+    "PLAYER: ...It's over.",
     "PLAYER: ...Then there is one thing left to do.",
     "PLAYER: I need to return them to their rightful places."
 ]
@@ -845,7 +840,7 @@ restore_item_dialogues = {
         "PLAYER: Back where you belong."
     ],
 
-    "1950s_nbowling_shirt": [
+    "1950s_bowling_shirt": [
         "PLAYER: Next one…",
         "PLAYER: The 1950s shirt is finally back.",
         "PLAYER: One more part of history fixed."
