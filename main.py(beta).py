@@ -356,9 +356,9 @@ npc_images = {
     "player": load_npc_image("Images/player.png"),
     "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
     "archive_staff": load_npc_image("Images/archive-staff.png"),
-    "culprit_A": load_npc_image("Images/culprit_a.png"),
-    "culprit_C": load_npc_image("Images/culprit_c.png"),
-    "culprit_D": load_npc_image("Images/culprit_d.png"),
+    "culprit_A": load_npc_image("Images/culprit-a.png"),
+    "culprit_C": load_npc_image("Images/culprit-c.png"),
+    "culprit_D": load_npc_image("Images/culprit-d.png"),
     "young_visitor": load_npc_image("Images/young-visitor.png"),
     "gallery_assistant": load_npc_image("Images/gallery-assistant.png"),
 }
@@ -401,7 +401,6 @@ item_images = {
     "1960_clothing_7": load_item_image("1960clothing7.jpg"),
     "1960_clothing_8": load_item_image("1960clothing8.jpg"),
     "1960_clothing_9": load_item_image("1960clothing9.jpg"),
-    "1960_clothing_10": load_item_image("1960clothing10.jpg"),
 
     "1980_shirt_1": load_item_image("1980shirt1.jpeg"),
     "1980_shirt_2": load_item_image("1980shirt2.jpeg"),
@@ -416,7 +415,6 @@ item_images = {
     "1980_clothing_7": load_item_image("1980clothing7.jpg"),
     "1980_clothing_8": load_item_image("1980clothing8.jpg"),
     "1980_clothing_9": load_item_image("1980clothing9.jpg"),
-    "1980_clothing_10": load_item_image("1980clothing10.jpg"),
 
     "1990_necklace_1": load_item_image("1990necklace1.jpeg"),
     "1990_necklace_2": load_item_image("1990necklace2.jpeg"),
@@ -436,15 +434,15 @@ item_images = {
     "boots_2": load_item_image("boots2.jpeg"),
     "boots_3": load_item_image("boots3.jpeg"),
     "boots_4": load_item_image("boots4.jpeg"),
-    "1920_clothing_1": load_item_image("1920_clothing_1.jpg"),
-    "1920_clothing_2": load_item_image("1920_clothing_2.jpg"),
-    "1920_clothing_3": load_item_image("1920_clothing_3.jpg"),
-    "1920_clothing_4": load_item_image("1920_clothing_4.jpg"),
-    "1920_clothing_5": load_item_image("1920_clothing_5.jpg"),
-    "1920_clothing_6": load_item_image("1920_clothing_6.jpg"),
-    "1920_clothing_7": load_item_image("1920_clothing_7.jpg"),
-    "1920_clothing_8": load_item_image("1920_clothing_8.jpg"),
-    "1920_clothing_9": load_item_image("1920_clothing_9.jpg"),
+    "1920_clothing_1": load_item_image("1920clothing1.jpg"),
+    "1920_clothing_2": load_item_image("1920clothing2.jpg"),
+    "1920_clothing_3": load_item_image("1920clothing3.jpg"),
+    "1920_clothing_4": load_item_image("1920clothing4.jpg"),
+    "1920_clothing_5": load_item_image("1920clothing5.jpg"),
+    "1920_clothing_6": load_item_image("1920clothing6.jpg"),
+    "1920_clothing_7": load_item_image("1920clothing7.jpg"),
+    "1920_clothing_8": load_item_image("1920clothing8.jpg"),
+    "1920_clothing_9": load_item_image("1920clothing9.jpg"),
 }
 
 display_item_groups = {
