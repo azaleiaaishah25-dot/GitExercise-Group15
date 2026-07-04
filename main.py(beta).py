@@ -499,6 +499,19 @@ map_item_pictures = [
     {"era": "1920s", "image": "boots_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
     {"era": "1920s", "image": "boots_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
 
+    # 1920s clothing display
+    {"era": "1920s", "image": "1920clothing1", "col": 3, "row": 3, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920clothing2", "col": 5, "row": 3, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920clothing3", "col": 7, "row": 3, "offset_x": 0, "offset_y": 0},
+
+    {"era": "1920s", "image": "1920clothing4", "col": 3, "row": 10, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920clothing5", "col": 5, "row": 10, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920clothing6", "col": 7, "row": 10, "offset_x": 0, "offset_y": 0},
+
+    {"era": "1920s", "image": "1920clothing7", "col": 15, "row": 10, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920clothing8", "col": 17, "row": 10, "offset_x": 0, "offset_y": 0},
+    {"era": "1920s", "image": "1920clothing9", "col": 19, "row": 10, "offset_x": 0, "offset_y": 0},
+
     # 1950s denim display
     {"era": "1950s", "image": "1950_pants_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
     {"era": "1950s", "image": "1950_pants_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
