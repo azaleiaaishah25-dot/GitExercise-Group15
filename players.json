@@ -1,8 +1,8 @@
 {
     "Profile_2": {
-        "player_x": 1500,
-        "player_y": 1600,
-        "current_era": "Museum",
+        "player_x": 540,
+        "player_y": 590,
+        "current_era": "Bank",
         "active_quests": [],
         "completed_quests": [],
         "collected_items": []
