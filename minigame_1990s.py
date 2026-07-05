@@ -209,7 +209,7 @@ def run_minigame(screen, clock):
     # =========================
     # SHUFFLE BOARD
     # =========================
-       def shuffle_board():
+    def shuffle_board():
         nonlocal board
 
         while True:
@@ -240,3 +240,33 @@ def run_minigame(screen, clock):
                 swap_index = random.choice(possible_moves)
 
                 board[empty_index], board[swap_index] = board[swap_index], board[empty_index]
+                if board != solved:
+                    break
+
+    # =========================
+    # DRAW BOARD
+    # =========================
+    def draw_board(remaining_time, preview_active):
+        screen.fill(WHITE)
+
+        draw_center_text("1990s ARCHIVE RECONSTRUCTION", font_title, BLACK, 45)
+        draw_center_text("Restore the archive image before time runs out.", font_text, BLACK, 90)
+
+        timer_text = font_text.render(f"Time Left: {remaining_time}s", True, BLACK)
+        screen.blit(timer_text, (30, 25))
+
+        moves_text = font_text.render(f"Moves: {moves}", True, BLACK)
+        screen.blit(moves_text, (30, 60))
+
+        help_text = font_small.render("P = Preview | ESC = Exit", True, BLACK)
+        screen.blit(help_text, (WIDTH - help_text.get_width() - 30, 35))
+
+        for index, tile_num in enumerate(board):
+            row = index // GRID_SIZE
+            col = index % GRID_SIZE
+
+            x = OFFSET_X + col * TILE_SIZE
+            y = OFFSET_Y + row * TILE_SIZE
+
+            tile_rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
+            
