@@ -81,7 +81,7 @@ def run_minigame(screen, clock):
 
     image = pygame.transform.scale(image, (IMAGE_SIZE, IMAGE_SIZE))
     
-        # =========================
+    # =========================
     # SPLIT IMAGE INTO TILES
     # =========================
     tiles = []
@@ -131,3 +131,37 @@ def run_minigame(screen, clock):
     def draw_panel(rect):
         pygame.draw.rect(screen, PANEL, rect)
         pygame.draw.rect(screen, GOLD, rect, 3)
+
+    # =========================
+    # START SCREEN
+    # =========================
+    def start_screen():
+        while True:
+            clock.tick(60)
+            screen.fill(DARK)
+
+            draw_center_text("1990s ARCHIVE PUZZLE", font_title, GOLD, 100)
+
+            panel_rect = pygame.Rect(WIDTH // 2 - 430, 170, 860, 440)
+            draw_panel(panel_rect)
+
+            y = panel_rect.y + 35
+
+            y = draw_wrapped_text(
+                "The archive image has been corrupted. Reconstruct the image to recover the final stolen artifact from the 1990s timeline.",
+                font_text,
+                WHITE,
+                panel_rect.x + 40,
+                y,
+                panel_rect.width - 80
+            )
+            y += 25
+
+            instructions = [
+                "• Click a tile next to the empty space to move it.",
+                "• Arrange the picture back into the correct order.",
+                "• Press P to preview the original image.",
+                "• Press ESC to quit the puzzle.",
+                "• Complete it before the timer runs out."
+            ]
+            
