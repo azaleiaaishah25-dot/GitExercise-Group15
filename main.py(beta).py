@@ -589,10 +589,26 @@ map_item_pictures = [
     {"era": "1980s", "image": "1980_clothing_9", "col": 25, "row": 12, "offset_x": 10, "offset_y": -10},
 
     # 1990s necklace display
-    {"era": "1990s", "image": "1990_necklace_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
-    {"era": "1990s", "image": "1990_necklace_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
-    {"era": "1990s", "image": "1990_necklace_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
-    {"era": "1990s", "image": "1990_necklace_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+    {"era": "1990s", "image": "1990_necklace_1", "col": 5, "row": 6, "offset_x": 0, "offset_y": 0},
+    {"era": "1990s", "image": "1990_necklace_2", "col": 5, "row": 6, "offset_x": 75, "offset_y": 0},
+    {"era": "1990s", "image": "1990_necklace_3", "col": 5, "row": 6, "offset_x": 0, "offset_y": 75},
+    {"era": "1990s", "image": "1990_necklace_4", "col": 5, "row": 6, "offset_x": 75, "offset_y": 75},
+
+    # Left side (below box)
+    {"era": "1990s", "image": "1990_clothing_1", "col": 5, "row": 9, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_2", "col": 7, "row": 9, "offset_x": 10, "offset_y": -10},
+
+    # Right side display area
+    {"era": "1990s", "image": "1990_clothing_5", "col": 20, "row": 6, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_6", "col": 22, "row": 6, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_7", "col": 23, "row": 7, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_8", "col": 20, "row": 8, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_3", "col": 22, "row": 8, "offset_x": 10, "offset_y": -10},
+
+    # Right side (below box)
+    {"era": "1990s", "image": "1990_clothing_9", "col": 20, "row": 9, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_4", "col": 22, "row": 9, "offset_x": 10, "offset_y": -10},
+
 ]
 
 #5. Functions (Logic)
