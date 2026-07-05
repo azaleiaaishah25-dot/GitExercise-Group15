@@ -164,4 +164,79 @@ def run_minigame(screen, clock):
                 "• Press ESC to quit the puzzle.",
                 "• Complete it before the timer runs out."
             ]
-            
+
+            for line in instructions:
+                rendered = font_text.render(line, True, WHITE)
+                screen.blit(rendered, (panel_rect.x + 40, y))
+                y += 42
+
+            draw_center_text("Press SPACE to Start", font_subtitle, GOLD, 690)
+
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        return True
+
+                    if event.key == pygame.K_ESCAPE:
+                        return False
+
+    # =========================
+    # COUNTDOWN
+    # =========================
+    def countdown_screen():
+            for count in ["3", "2", "1", "GO!"]:
+                start_tick = pygame.time.get_ticks()
+
+            while pygame.time.get_ticks() - start_tick < 700:
+                clock.tick(60)
+                screen.fill(DARK)
+
+                draw_center_text(count, font_title, GOLD, HEIGHT // 2)
+
+                pygame.display.flip()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+    # =========================
+    # SHUFFLE BOARD
+    # =========================
+       def shuffle_board():
+        nonlocal board
+
+        while True:
+            board = solved.copy()
+
+            for _ in range(150):
+                empty_index = board.index(0)
+
+                empty_row = empty_index // GRID_SIZE
+                empty_col = empty_index % GRID_SIZE
+
+                possible_moves = []
+
+                directions = [
+                    (-1, 0),
+                    (1, 0),
+                    (0, -1),
+                    (0, 1)
+                ]
+
+                for row_change, col_change in directions:
+                    new_row = empty_row + row_change
+                    new_col = empty_col + col_change
+
+                    if 0 <= new_row < GRID_SIZE and 0 <= new_col < GRID_SIZE:
+                        possible_moves.append(new_row * GRID_SIZE + new_col)
+
+                swap_index = random.choice(possible_moves)
+
+                board[empty_index], board[swap_index] = board[swap_index], board[empty_index]
