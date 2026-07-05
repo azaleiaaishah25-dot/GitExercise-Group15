@@ -248,6 +248,7 @@ era_backgrounds["1950s"] = pygame.image.load("Images/eras_1950s_Backgrounds.jpeg
 era_backgrounds["1960s"] = pygame.image.load("Images/eras_1960s_Backgrounds.jpeg").convert()
 era_backgrounds["1980s"] = pygame.image.load("Images/eras_1980s_Backgrounds.jpeg").convert()
 
+
 scaled_era_backgrounds = {}
 for era_name,bg_img in era_backgrounds.items():
     era_map = map_lookup [era_name]
@@ -455,9 +456,9 @@ display_item_groups = {
         "artifact_id": "gogo_boots_recovered"
     },
 
-    "1950s": {
-        "box_col": 4,
-        "box_row": 4,
+     "1950s": {
+        "box_col": 5,
+        "box_row": 6,
         "items": ["1950_pants_1", "1950_pants_2", "1950_pants_3", "1950_pants_4"],
         "correct_item": "1950_pants_4",
         "dialogue_key": ("1950s", 10, 4),
@@ -474,8 +475,8 @@ display_item_groups = {
     },
 
     "1980s": {
-        "box_col": 3,
-        "box_row": 9,
+        "box_col": 10,
+        "box_row": 4,
         "items": ["1980_shirt_1", "1980_shirt_2", "1980_shirt_3", "1980_shirt_4"],
         "correct_item": "1980_shirt_1",
         "dialogue_key": ("1980s", 10, 4),
@@ -483,13 +484,15 @@ display_item_groups = {
     },
 
     "1990s": {
-        "box_col": 19,
-        "box_row": 3,
+        "box_col": 10,
+        "box_row": 4,
         "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"],
         "correct_item": "1990_necklace_1",
         "dialogue_key": ("1990s", 10, 4),
         "artifact_id": "pearl_necklace_recovered"
     },
+
+
 }
 
 map_item_pictures = [
@@ -1082,7 +1085,7 @@ def choose_artifact_item(item_key):
         show_item_choice = False
     
 def draw_item_choice_screen():
-    global choice_item_rects, wrong_choice_timer
+    global choice_items_rects, wrong_choice_timer
 
     if not show_item_choice:
         return
@@ -1109,9 +1112,8 @@ def draw_item_choice_screen():
     instruction_rect = instruction.get_rect(center=(WIDTH // 2, 145))
     screen.blit(instruction, instruction_rect)
 
-    choice_item_rects = []
+    choice_items_rects = []
 
-    # THIS LINE FIXES YOUR ERROR
     item_size = 120
 
     positions = [
