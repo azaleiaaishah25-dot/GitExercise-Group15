@@ -81,3 +81,53 @@ def run_minigame(screen, clock):
 
     image = pygame.transform.scale(image, (IMAGE_SIZE, IMAGE_SIZE))
     
+        # =========================
+    # SPLIT IMAGE INTO TILES
+    # =========================
+    tiles = []
+
+    for row in range(GRID_SIZE):
+        for col in range(GRID_SIZE):
+            tile_rect = pygame.Rect(
+                col * TILE_SIZE,
+                row * TILE_SIZE,
+                TILE_SIZE,
+                TILE_SIZE
+            )
+
+            tile = image.subsurface(tile_rect).copy()
+            tiles.append(tile)
+
+    # =========================
+    # HELPER FUNCTIONS
+    # =========================
+    def draw_center_text(text, font, color, y):
+        rendered = font.render(text, True, color)
+        rect = rendered.get_rect(center=(WIDTH // 2, y))
+        screen.blit(rendered, rect)
+
+    def draw_wrapped_text(text, font, color, x, y, max_width, line_gap=8):
+        words = text.split(" ")
+        line = ""
+
+        for word in words:
+            test_line = line + word + " "
+
+            if font.size(test_line)[0] <= max_width:
+                line = test_line
+            else:
+                rendered = font.render(line.strip(), True, color)
+                screen.blit(rendered, (x, y))
+                y += font.get_height() + line_gap
+                line = word + " "
+
+        if line:
+            rendered = font.render(line.strip(), True, color)
+            screen.blit(rendered, (x, y))
+            y += font.get_height() + line_gap
+
+        return y
+
+    def draw_panel(rect):
+        pygame.draw.rect(screen, PANEL, rect)
+        pygame.draw.rect(screen, GOLD, rect, 3)
