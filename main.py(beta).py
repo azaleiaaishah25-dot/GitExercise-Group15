@@ -32,7 +32,7 @@ npc_map = {
     ("1950s", 22, 7): "young_visitor",
     ("1950s", 9, 9): "gallery_assistant",
 
-    ("1960s", 4, 7): "fashion_enthusiast",
+    ("1960s", 5, 7): "fashion_enthusiast",
     ("1960s", 23, 7): "gallery_staff",
 
     ("1980s", 14, 13): "yoga_instructor",
@@ -542,16 +542,46 @@ map_item_pictures = [
     {"era": "1950s", "image": "1950_clothing_3", "col": 23, "row": 10, "offset_x": 10, "offset_y": -10},
 
     # 1960s shirt display
-    {"era": "1960s", "image": "1960_shirt_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
-    {"era": "1960s", "image": "1960_shirt_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
-    {"era": "1960s", "image": "1960_shirt_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
-    {"era": "1960s", "image": "1960_shirt_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+    {"era": "1960s", "image": "1960_shirt_1", "col": 12, "row": 6, "offset_x": 0, "offset_y": 0},
+    {"era": "1960s", "image": "1960_shirt_2", "col": 14, "row": 6, "offset_x": 0, "offset_y": 0},
+    {"era": "1960s", "image": "1960_shirt_3", "col": 12, "row": 8, "offset_x": 0, "offset_y": 0},
+    {"era": "1960s", "image": "1960_shirt_4", "col": 14, "row": 8, "offset_x": 0, "offset_y": 0},
+
+    # Left side mannequins
+    {"era": "1960s", "image": "1960_clothing_1", "col": 3, "row": 5, "offset_x": 10, "offset_y": -10},
+    {"era": "1960s", "image": "1960_clothing_2", "col": 3, "row": 7, "offset_x": 10, "offset_y": -10},
+    {"era": "1960s", "image": "1960_clothing_3", "col": 3, "row": 9, "offset_x": 10, "offset_y": -10},
+
+    # Right side mannequins
+    {"era": "1960s", "image": "1960_clothing_5", "col": 26, "row": 5, "offset_x": 10, "offset_y": -10},
+    {"era": "1960s", "image": "1960_clothing_6", "col": 26, "row": 7, "offset_x": 10, "offset_y": -10},
+    {"era": "1960s", "image": "1960_clothing_7", "col": 26, "row": 9, "offset_x": 10, "offset_y": -10},
+
+    # Next to the box
+    {"era": "1960s", "image": "1960_clothing_4", "col": 17, "row": 5, "offset_x": 10, "offset_y": -10},
+    {"era": "1960s", "image": "1960_clothing_8", "col": 17, "row": 7, "offset_x": 10, "offset_y": -10},
+    {"era": "1960s", "image": "1960_clothing_9", "col": 17, "row": 9, "offset_x": 10, "offset_y": -10},
 
     # 1980s shirt display
-    {"era": "1980s", "image": "1980_shirt_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
-    {"era": "1980s", "image": "1980_shirt_2", "col": 10, "row": 4, "offset_x": 75, "offset_y": 0},
-    {"era": "1980s", "image": "1980_shirt_3", "col": 10, "row": 4, "offset_x": 0, "offset_y": 75},
-    {"era": "1980s", "image": "1980_shirt_4", "col": 10, "row": 4, "offset_x": 75, "offset_y": 75},
+    {"era": "1980s", "image": "1980_shirt_1", "col": 3, "row": 3, "offset_x": 0, "offset_y": 0},
+    {"era": "1980s", "image": "1980_shirt_2", "col": 5, "row": 3, "offset_x": 75, "offset_y": 0},
+    {"era": "1980s", "image": "1980_shirt_3", "col": 3, "row": 4, "offset_x": 0, "offset_y": 75},
+    {"era": "1980s", "image": "1980_shirt_4", "col": 5, "row": 4, "offset_x": 75, "offset_y": 75},
+
+    # Top-right display area
+    {"era": "1980s", "image": "1980_clothing_1", "col": 21, "row": 3, "offset_x": 10, "offset_y": -10},
+    {"era": "1980s", "image": "1980_clothing_2", "col": 23, "row": 5, "offset_x": 10, "offset_y": -10},
+    {"era": "1980s", "image": "1980_clothing_3", "col": 25, "row": 3, "offset_x": 10, "offset_y": -10},
+
+    # Bottom-left display area
+    {"era": "1980s", "image": "1980_clothing_4", "col": 3, "row": 12, "offset_x": 10, "offset_y": -10},
+    {"era": "1980s", "image": "1980_clothing_5", "col": 5, "row": 14, "offset_x": 10, "offset_y": -10},
+    {"era": "1980s", "image": "1980_clothing_6", "col": 7, "row": 12, "offset_x": 10, "offset_y": -10},
+
+    # Bottom-right display area
+    {"era": "1980s", "image": "1980_clothing_7", "col": 21, "row": 12, "offset_x": 10, "offset_y": -10},
+    {"era": "1980s", "image": "1980_clothing_8", "col": 23, "row": 14, "offset_x": 10, "offset_y": -10},
+    {"era": "1980s", "image": "1980_clothing_9", "col": 25, "row": 12, "offset_x": 10, "offset_y": -10},
 
     # 1990s necklace display
     {"era": "1990s", "image": "1990_necklace_1", "col": 10, "row": 4, "offset_x": 0, "offset_y": 0},
