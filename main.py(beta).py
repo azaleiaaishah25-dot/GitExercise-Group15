@@ -10,6 +10,7 @@ from minigame_1920s import run_minigame as run_1920s_minigame
 from minigame_1950s import run_minigame as run_1950s_minigame
 from minigame_1960s import run_minigame as run_1960s_minigame
 from minigame_1980s import run_minigame as run_1980s_minigame
+from minigame_1990s import run_minigame as run_1990s_minigame
 
 DB_FILE = "players.json"
 
@@ -160,7 +161,8 @@ minigames = {
     "1920s": run_1920s_minigame,
     "1950s": run_1950s_minigame,
     "1960s": run_1960s_minigame,
-    "1980s": run_1980s_minigame
+    "1980s": run_1980s_minigame,
+    "1990s": run_1990s_minigame
 }
 
 required_npcs_by_era = {
@@ -170,6 +172,7 @@ required_npcs_by_era = {
     "1980s": ["yoga_instructor", "archive_staff"],
     "1990s": ["curator_assistant", "senior_curator", "visitor"]
 }
+# talking to npc  area before getting to clues and mini game to time travel
 
 talked_to_npcs = []
 current_dialogue_npc = None
@@ -198,6 +201,7 @@ current_npc = None
 quest_log = {}
 
 #Quest System
+
 active_quests = []
 completed_quests = []
 current_quest = None
@@ -309,7 +313,7 @@ item_images = {
     "boots_3": load_item_image("boots3.jpeg"),
     "boots_4": load_item_image("boots4.jpeg"),
 }
-
+# choice item for each era, the player will choose one of these items to take back to the museum
 display_item_groups = {
     "1920s":{
         "box_col": 20,
