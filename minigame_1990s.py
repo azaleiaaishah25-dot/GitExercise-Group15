@@ -269,4 +269,192 @@ def run_minigame(screen, clock):
             y = OFFSET_Y + row * TILE_SIZE
 
             tile_rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
-            
+            if tile_num == 0:
+                pygame.draw.rect(screen, BLACK, tile_rect)
+            else:
+                screen.blit(tiles[tile_num - 1], (x, y))
+                pygame.draw.rect(screen, BLACK, tile_rect, 2)
+
+        if preview_active:
+            overlay = pygame.Surface((WIDTH, HEIGHT))
+            overlay.set_alpha(235)
+            overlay.fill(DARK)
+            screen.blit(overlay, (0, 0))
+
+            draw_center_text("IMAGE PREVIEW", font_title, GOLD, 75)
+
+            screen.blit(image, (OFFSET_X, OFFSET_Y))
+            pygame.draw.rect(
+                screen,
+                GOLD,
+                pygame.Rect(OFFSET_X, OFFSET_Y, IMAGE_SIZE, IMAGE_SIZE),
+                4
+            )
+
+            draw_center_text("Release P to continue the puzzle", font_text, WHITE, 735)
+
+    # =========================
+    # CHECK SOLVED
+    # =========================
+    def is_solved():
+        return board == solved
+
+    # =========================
+    # GET CLICKED TILE
+    # =========================
+    def get_tile_index(mouse_pos):
+        mouse_x, mouse_y = mouse_pos
+
+        col = (mouse_x - OFFSET_X) // TILE_SIZE
+        row = (mouse_y - OFFSET_Y) // TILE_SIZE
+
+        if 0 <= row < GRID_SIZE and 0 <= col < GRID_SIZE:
+            return row * GRID_SIZE + col
+
+        return None
+
+    # =========================
+    # MOVE TILE
+    # =========================
+    def move_tile(index):
+        nonlocal moves
+
+        empty_index = board.index(0)
+
+        tile_row, tile_col = divmod(index, GRID_SIZE)
+        empty_row, empty_col = divmod(empty_index, GRID_SIZE)
+
+        distance = abs(tile_row - empty_row) + abs(tile_col - empty_col)
+
+        if distance == 1:
+            board[index], board[empty_index] = board[empty_index], board[index]
+            moves += 1
+     # =========================
+    # END SCREEN
+    # =========================
+    def end_screen(title_text, subtitle_text, title_color, show_final_image):
+        start_tick = pygame.time.get_ticks()
+
+        while pygame.time.get_ticks() - start_tick < 3500:
+            clock.tick(60)
+            screen.fill(DARK)
+
+            draw_center_text(title_text, font_title, title_color, 85)
+
+            if show_final_image:
+                screen.blit(image, (OFFSET_X, OFFSET_Y))
+                pygame.draw.rect(
+                    screen,
+                    GOLD,
+                    pygame.Rect(OFFSET_X, OFFSET_Y, IMAGE_SIZE, IMAGE_SIZE),
+                    4
+                )
+            else:
+                panel_rect = pygame.Rect(WIDTH // 2 - 350, 250, 700, 180)
+                draw_panel(panel_rect)
+                draw_center_text(subtitle_text, font_text, WHITE, HEIGHT // 2)
+
+            if show_final_image:
+                draw_center_text(subtitle_text, font_text, WHITE, 735)
+
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+     # =========================
+    # START MINIGAME
+    # =========================
+    if not start_screen():
+        return False
+
+    countdown_screen()
+
+    shuffle_board()
+    start_time = time.time()
+
+    # =========================
+    # MAIN LOOP
+    # =========================
+    while True:
+        clock.tick(60)
+
+        elapsed_time = time.time() - start_time
+        remaining_time = max(0, TOTAL_TIME - int(elapsed_time))
+
+        keys = pygame.key.get_pressed()
+        preview_active = keys[pygame.K_p]
+
+        draw_board(remaining_time, preview_active)
+        pygame.display.flip()
+
+        # =========================
+        # TIME OUT
+        # =========================
+        if remaining_time <= 0:
+            end_screen(
+                "ARCHIVE CORRUPTED",
+                "The archive clue was lost. Try again.",
+                RED,
+                False
+            )
+        return False
+
+        # =========================
+        # WIN
+        # =========================
+        if is_solved():
+            end_screen(
+                "ARCHIVE RESTORED",
+                "Clue Discovered: Pearl Necklace",
+                GREEN,
+                True
+            )
+
+            return True
+
+        # =========================
+        # EVENTS
+        # =========================
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    end_screen(
+                        "PUZZLE EXITED",
+                        "You left the archive puzzle.",
+                        RED,
+                     False
+                    )
+
+                    return False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and not preview_active:
+                    clicked_index = get_tile_index(event.pos)
+
+                    if clicked_index is not None:
+                         move_tile(clicked_index)
+
+
+# =========================
+# TEST MODE ONLY
+# =========================
+if __name__ == "__main__":
+    pygame.init()
+
+    WIDTH, HEIGHT = 1200, 800
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("1990s Archive Puzzle")
+
+    clock = pygame.time.Clock()
+
+    result = run_minigame(screen, clock)
+
+    print(result)
+
+    pygame.quit()   
