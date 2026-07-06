@@ -1,13 +1,14 @@
 {
     "Profile_1": {
-        "player_x": 840,
-        "player_y": 420,
+        "player_x": 590,
+        "player_y": 430,
         "current_era": "1980s",
         "active_quests": [
             "clue_gogo_boots",
             "old_tailor_hint",
             "clue_acid_wash_denim_jacket",
-            "clue_flannel_shirt"
+            "clue_flannel_shirt",
+            "clue_bowling_shirt"
         ],
         "completed_quests": [
             "gogo_boots_recovered",
@@ -26,7 +27,9 @@
             "1950s:gallery_host",
             "1950s:young_visitor",
             "1960s:fashion_enthusiast",
-            "1960s:gallery_staff"
+            "1960s:gallery_staff",
+            "1980s:archive_staff",
+            "1980s:yoga_instructor"
         ],
         "completed_minigames": [
             "1920s",
@@ -36,14 +39,15 @@
         "collected_clues": [
             "gogo_boots",
             "acid_wash_denim_jacket",
-            "staff-only_section"
+            "staff-only_section",
+            "bowling_shirt"
         ],
         "seen_self_dialogues": [
             "1980s",
-            "Museum",
             "1960s",
-            "1920s",
-            "1950s"
+            "1950s",
+            "Museum",
+            "1920s"
         ]
     }
 }
