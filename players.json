@@ -1,42 +1,49 @@
 {
-    "Profile_3": {
-        "player_x": 1500,
-        "player_y": 1600,
-        "current_era": "Museum",
-        "active_quests": [],
-        "completed_quests": [],
-        "collected_items": []
-    },
-    "Profile_2": {
-        "player_x": 1500,
-        "player_y": 1600,
-        "current_era": "Museum",
-        "active_quests": [],
-        "completed_quests": [],
-        "collected_items": []
-    },
     "Profile_1": {
-        "player_x": 1260,
-        "player_y": 540,
-        "current_era": "1990s",
+        "player_x": 840,
+        "player_y": 420,
+        "current_era": "1980s",
         "active_quests": [
             "clue_gogo_boots",
             "old_tailor_hint",
             "clue_acid_wash_denim_jacket",
-            "clue_flannel_shirt",
-            "clue_bowling_shirt"
+            "clue_flannel_shirt"
         ],
         "completed_quests": [
             "gogo_boots_recovered",
             "acid_wash_denim_jacket_recovered",
-            "flannel_shirt_recovered",
-            "bowling_shirt_recovered"
+            "flannel_shirt_recovered"
         ],
         "collected_items": [
             "gogo_boots_recovered",
             "acid_wash_denim_jacket_recovered",
-            "flannel_shirt_recovered",
-            "bowling_shirt_recovered"
+            "flannel_shirt_recovered"
+        ],
+        "talked_to_npcs": [
+            "1920s:elegant_woman",
+            "1920s:rich_gentleman",
+            "1950s:gallery_assistant",
+            "1950s:gallery_host",
+            "1950s:young_visitor",
+            "1960s:fashion_enthusiast",
+            "1960s:gallery_staff"
+        ],
+        "completed_minigames": [
+            "1920s",
+            "1950s",
+            "1960s"
+        ],
+        "collected_clues": [
+            "gogo_boots",
+            "acid_wash_denim_jacket",
+            "staff-only_section"
+        ],
+        "seen_self_dialogues": [
+            "1980s",
+            "Museum",
+            "1960s",
+            "1920s",
+            "1950s"
         ]
     }
 }
