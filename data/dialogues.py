@@ -668,4 +668,4 @@ item_dialogue_data = {
         ],
         "quest": "pearl_necklace_recovered"
     }
-},
+}
