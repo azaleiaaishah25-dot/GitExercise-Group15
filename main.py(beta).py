@@ -197,7 +197,6 @@ current_clue = None
 show_clue_inventory = False
 
 collected_items = []
-current_item_quest = None
 
 show_item_choice = False
 current_item_choice_era = ""
@@ -1501,6 +1500,7 @@ while running:
 
    # Draw map item pictures
     draw_map_item_pictures()
+    draw_display_item_groups()
 
     # Draw Player
     screen.blit(
