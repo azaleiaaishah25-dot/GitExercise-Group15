@@ -40,7 +40,7 @@ npc_map = {
     ("1980s", 14, 2): "archive_staff",
 
     ("1990s", 13, 3): "curator_assistant",
-    ("1990s", 14, 2): "senior_curator",
+    ("1990s", 10, 5): "senior_curator",
     ("1990s", 13, 12): "visitor",
 }
 
@@ -525,8 +525,8 @@ map_item_pictures = [
     {"era": "1990s", "image": "1990_necklace_4", "col": 5, "row": 6, "offset_x": 75, "offset_y": 75},
 
     # Left side (below box)
-    {"era": "1990s", "image": "1990_clothing_1", "col": 5, "row": 9, "offset_x": 10, "offset_y": -10},
-    {"era": "1990s", "image": "1990_clothing_2", "col": 7, "row": 9, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_1", "col": 5, "row": 10, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_2", "col": 7, "row": 10, "offset_x": 10, "offset_y": -10},
 
     # Right side display area
     {"era": "1990s", "image": "1990_clothing_5", "col": 20, "row": 6, "offset_x": 10, "offset_y": -10},
@@ -536,8 +536,8 @@ map_item_pictures = [
     {"era": "1990s", "image": "1990_clothing_3", "col": 22, "row": 8, "offset_x": 10, "offset_y": -10},
 
     # Right side (below box)
-    {"era": "1990s", "image": "1990_clothing_9", "col": 20, "row": 9, "offset_x": 10, "offset_y": -10},
-    {"era": "1990s", "image": "1990_clothing_4", "col": 22, "row": 9, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_9", "col": 20, "row": 10, "offset_x": 10, "offset_y": -10},
+    {"era": "1990s", "image": "1990_clothing_4", "col": 22, "row": 10, "offset_x": 10, "offset_y": -10},
 
 ]
 
