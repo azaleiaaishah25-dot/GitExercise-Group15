@@ -190,8 +190,8 @@ def run_minigame(screen, clock):
     # COUNTDOWN
     # =========================
     def countdown_screen():
-            for count in ["3", "2", "1", "GO!"]:
-                start_tick = pygame.time.get_ticks()
+        for count in ["3", "2", "1", "GO!"]:
+            start_tick = pygame.time.get_ticks()
 
             while pygame.time.get_ticks() - start_tick < 700:
                 clock.tick(60)
@@ -212,36 +212,41 @@ def run_minigame(screen, clock):
     def shuffle_board():
         nonlocal board
 
-        while True:
-            board = solved.copy()
+        board = solved.copy()
+        last_empty_index = None
 
-            for _ in range(150):
-                empty_index = board.index(0)
+        for _ in range(150):
+            empty_index = board.index(0)
 
-                empty_row = empty_index // GRID_SIZE
-                empty_col = empty_index % GRID_SIZE
+            empty_row = empty_index // GRID_SIZE
+            empty_col = empty_index % GRID_SIZE
 
-                possible_moves = []
+            possible_moves = []
 
-                directions = [
-                    (-1, 0),
-                    (1, 0),
-                    (0, -1),
-                    (0, 1)
-                ]
+            directions = [
+                (-1, 0),
+                (1, 0),
+                (0, -1),
+                (0, 1)
+            ]
 
-                for row_change, col_change in directions:
-                    new_row = empty_row + row_change
-                    new_col = empty_col + col_change
+            for row_change, col_change in directions:
+                new_row = empty_row + row_change
+                new_col = empty_col + col_change
 
-                    if 0 <= new_row < GRID_SIZE and 0 <= new_col < GRID_SIZE:
-                        possible_moves.append(new_row * GRID_SIZE + new_col)
+                if 0 <= new_row < GRID_SIZE and 0 <= new_col < GRID_SIZE:
+                    possible_moves.append(new_row * GRID_SIZE + new_col)
 
-                swap_index = random.choice(possible_moves)
+            if last_empty_index in possible_moves and len(possible_moves) > 1:
+                possible_moves.remove(last_empty_index)
 
-                board[empty_index], board[swap_index] = board[swap_index], board[empty_index]
-                if board != solved:
-                    break
+            swap_index = random.choice(possible_moves)
+
+            board[empty_index], board[swap_index] = board[swap_index], board[empty_index]
+            last_empty_index = empty_index
+
+        if board == solved:
+            board[7], board[8] = board[8], board[7]
 
     # =========================
     # DRAW BOARD
@@ -399,7 +404,8 @@ def run_minigame(screen, clock):
                 RED,
                 False
             )
-        return False
+
+            return False
 
         # =========================
         # WIN
