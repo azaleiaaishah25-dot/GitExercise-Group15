@@ -489,8 +489,8 @@ display_item_groups = {
     },
 
     "1990s": {
-        "box_col": 10,
-        "box_row": 4,
+        "box_col": 5,
+        "box_row": 6,
         "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"],
         "correct_item": "1990_necklace_1",
         "dialogue_key": ("1990s", 10, 4),
