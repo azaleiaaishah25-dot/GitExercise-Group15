@@ -1,37 +1,31 @@
 {
     "Profile_1": {
-        "player_x": 840,
-        "player_y": 420,
-        "current_era": "1980s",
+        "player_x": 630,
+        "player_y": 290,
+        "current_era": "1950s",
         "active_quests": [
             "clue_gogo_boots",
             "old_tailor_hint",
-            "clue_acid_wash_denim_jacket",
-            "clue_flannel_shirt"
+            "clue_acid_wash_denim_jacket"
         ],
         "completed_quests": [
             "gogo_boots_recovered",
-            "acid_wash_denim_jacket_recovered",
-            "flannel_shirt_recovered"
+            "acid_wash_denim_jacket_recovered"
         ],
         "collected_items": [
             "gogo_boots_recovered",
-            "acid_wash_denim_jacket_recovered",
-            "flannel_shirt_recovered"
+            "acid_wash_denim_jacket_recovered"
         ],
         "talked_to_npcs": [
             "1920s:elegant_woman",
             "1920s:rich_gentleman",
             "1950s:gallery_assistant",
             "1950s:gallery_host",
-            "1950s:young_visitor",
-            "1960s:fashion_enthusiast",
-            "1960s:gallery_staff"
+            "1950s:young_visitor"
         ],
         "completed_minigames": [
             "1920s",
-            "1950s",
-            "1960s"
+            "1950s"
         ],
         "collected_clues": [
             "gogo_boots",
@@ -39,11 +33,9 @@
             "staff-only_section"
         ],
         "seen_self_dialogues": [
-            "1980s",
+            "1950s",
             "Museum",
-            "1960s",
-            "1920s",
-            "1950s"
+            "1920s"
         ]
     }
 }
