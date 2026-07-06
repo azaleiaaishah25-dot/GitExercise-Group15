@@ -64,6 +64,7 @@ def load_profile_data(profile_name):
     global player_x, player_y, current_era
     global active_quests, completed_quests, current_user, collected_items
     global game_map, visited_map
+    global talked_to_npcs, completed_minigames, collected_clues, seen_self_dialogues
 
     db = load_database()
     current_user = profile_name
@@ -75,7 +76,11 @@ def load_profile_data(profile_name):
             "current_era": "Museum",
             "active_quests": [],
             "completed_quests": [],
-            "collected_items": []
+            "collected_items": [],
+            "talked_to_npcs": [],
+            "completed_minigames": [],
+            "collected_clues": [],
+            "seen_self_dialogues": []
         }
         save_database(db)
 
@@ -85,6 +90,10 @@ def load_profile_data(profile_name):
     active_quests = db[profile_name]["active_quests"]
     completed_quests = db[profile_name]["completed_quests"]
     collected_items = db[profile_name].get("collected_items", [])
+    talked_to_npcs = db[profile_name].get("talked_to_npcs", [])
+    completed_minigames = db[profile_name].get("completed_minigames", [])
+    collected_clues = db[profile_name].get("collected_clues", [])
+    seen_self_dialogues = set(db[profile_name].get("seen_self_dialogues", []))
 
     game_map = map_lookup.get(current_era, museum_map)
 
@@ -108,6 +117,10 @@ def save_current_profile():
     db[current_user]["active_quests"] = active_quests
     db[current_user]["completed_quests"] = completed_quests
     db[current_user]["collected_items"] = collected_items
+    db[current_user]["talked_to_npcs"] = talked_to_npcs
+    db[current_user]["completed_minigames"] = completed_minigames
+    db[current_user]["collected_clues"] = collected_clues
+    db[current_user]["seen_self_dialogues"] = list(seen_self_dialogues)
 
     save_database(db)
 
@@ -264,88 +277,6 @@ for era_name,bg_img in era_backgrounds.items():
 def load_npc_image(path):
     img = pygame.image.load(path).convert_alpha()
     return pygame.transform.scale(img, (90, 120))
-
-npc_images = {
-    "manager": load_npc_image("Images/manager.png"),
-    "culprit": load_npc_image("Images/culprit.png"),
-    "player": load_npc_image("Images/main_character_120x120.png"),
-    "elegant_woman": load_npc_image("Images/elegant-woman.png"),
-    "rich_gentleman": load_npc_image("Images/rich-gentleman.png"),
-    "gallery_host": load_npc_image("Images/gallery-host.png"),
-    "fashion_enthusiast": load_npc_image("Images/fashion-enthusiast.png"),
-    "gallery_staff": load_npc_image("Images/gallery-staff.png"),
-    "yoga_instructor": load_npc_image("Images/yoga-instructor.png"),
-    "archive_staff": load_npc_image("Images/archive-staff.png"),
-    "curator_assistant": load_npc_image("Images/curator-assistant.png"),
-    "visitor": load_npc_image("Images/visitor.png"),
-    "senior_curator": load_npc_image("Images/senior-curator.png"),
-}
-
-ITEM_FOLDER = os.path.join("Images")
-
-def load_item_image(filename, width=65, height=65):
-    path = os.path.join(ITEM_FOLDER, filename)
-    img = pygame.image.load(path).convert_alpha()
-    return pygame.transform.smoothscale(img, (width, height))
-
-item_images = {
-    "1950_pants_1": load_item_image("1950pants.jpeg"),
-    "1950_pants_2": load_item_image("1950pants2.jpeg"),
-    "1950_pants_3": load_item_image("1950pants3.jpeg"),
-    "1950_pants_4": load_item_image("1950pants4.jpeg"),
-
-    "1960_shirt_1": load_item_image("1960shirt1.jpeg"),
-    "1960_shirt_2": load_item_image("1960shirt2.jpeg"),
-    "1960_shirt_3": load_item_image("1960shirt3.jpeg"),
-    "1960_shirt_4": load_item_image("1960shirt4.jpeg"),
-
-    "1980_shirt_1": load_item_image("1980shirt1.jpeg"),
-    "1980_shirt_2": load_item_image("1980shirt2.jpeg"),
-    "1980_shirt_3": load_item_image("1980shirt3.jpeg"),
-    "1980_shirt_4": load_item_image("1980shirt4.jpeg"),
-
-    "1990_necklace_1": load_item_image("1990necklace1.jpeg"),
-    "1990_necklace_2": load_item_image("1990necklace2.jpeg"),
-    "1990_necklace_3": load_item_image("1990necklace3.jpeg"),
-    "1990_necklace_4": load_item_image("1990necklace4.jpeg"),
-
-    "boots_1": load_item_image("boots1.jpeg"),
-    "boots_2": load_item_image("boots2.jpeg"),
-    "boots_3": load_item_image("boots3.jpeg"),
-    "boots_4": load_item_image("boots4.jpeg"),
-}
-# choice item for each era, the player will choose one of these items to take back to the museum
-display_item_groups = {
-    "1920s":{
-        "box_col": 20,
-        "box_row": 3,
-        "items": ["boots_1", "boots_2", "boots_3", "boots_4"]
-    },
-
-    "1950s": {
-        "box_col": 4,
-        "box_row": 4,
-        "items": ["1950_pants_1", "1950_pants_2", "1950_pants_3", "1950_pants_4"]
-    },
-    
-    "1960s": {
-        "box_col": 10,
-        "box_row": 4,
-        "items": ["1960_shirt_1", "1960_shirt_2", "1960_shirt_3", "1960_shirt_4"]
-    },
-
-    "1980s": {
-        "box_col": 3,
-        "box_row": 9,
-        "items": ["1980_shirt_1", "1980_shirt_2", "1980_shirt_3", "1980_shirt_4"]
-    },
-
-    "1990s": {
-        "box_col": 19,
-        "box_row": 3,
-        "items": ["1990_necklace_1", "1990_necklace_2", "1990_necklace_3", "1990_necklace_4"]
-    },
-}
 
 
 npc_images = {
@@ -1009,28 +940,6 @@ def draw_map_item_pictures():
             item_img = item_images[image_key]
             screen.blit(item_img, (screen_x, screen_y))
 
-def draw_display_item_groups():
-    if current_era not in display_item_groups:
-        return
-
-    group = display_item_groups[current_era]
-
-    box_x = group["box_col"] * tile_size - camera_x
-    box_y = group["box_row"] * tile_size - camera_y
-
-    item_size = 55
-    gap = 20
-
-    positions = [
-        (box_x + 10, box_y + 10),
-        (box_x + 10 + item_size + gap, box_y + 10),
-        (box_x + 10, box_y + 10 + item_size + gap),
-        (box_x + 10 + item_size + gap, box_y + 10 + item_size + gap),
-    ]
-
-    for index, item_key in enumerate(group["items"]):
-        item_img = pygame.transform.smoothscale(item_images[item_key], (item_size, item_size))
-        screen.blit(item_img, positions[index])
 
 def add_item(item_id):
     if item_id and item_id not in collected_items:
@@ -1209,6 +1118,7 @@ while running:
     # A. Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            save_current_profile()
             running = False
 
         #Menu Part
