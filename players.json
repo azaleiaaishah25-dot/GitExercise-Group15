@@ -16,11 +16,27 @@
         "collected_items": []
     },
     "Profile_1": {
-        "player_x": 1500,
-        "player_y": 1600,
-        "current_era": "Museum",
-        "active_quests": [],
-        "completed_quests": [],
-        "collected_items": []
+        "player_x": 1260,
+        "player_y": 540,
+        "current_era": "1990s",
+        "active_quests": [
+            "clue_gogo_boots",
+            "old_tailor_hint",
+            "clue_acid_wash_denim_jacket",
+            "clue_flannel_shirt",
+            "clue_bowling_shirt"
+        ],
+        "completed_quests": [
+            "gogo_boots_recovered",
+            "acid_wash_denim_jacket_recovered",
+            "flannel_shirt_recovered",
+            "bowling_shirt_recovered"
+        ],
+        "collected_items": [
+            "gogo_boots_recovered",
+            "acid_wash_denim_jacket_recovered",
+            "flannel_shirt_recovered",
+            "bowling_shirt_recovered"
+        ]
     }
 }
