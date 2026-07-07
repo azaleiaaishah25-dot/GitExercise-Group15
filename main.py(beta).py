@@ -40,7 +40,7 @@ npc_map = {
     ("1980s", 14, 2): "archive_staff",
 
     ("1990s", 13, 3): "curator_assistant",
-    ("1990s", 10, 5): "senior_curator",
+    ("1990s", 14, 2): "senior_curator",
     ("1990s", 13, 12): "visitor",
 }
 
@@ -183,7 +183,7 @@ required_npcs_by_era = {
     "1950s": ["gallery_host", "young_visitor", "gallery_assistant"],
     "1960s": ["fashion_enthusiast", "gallery_staff"],
     "1980s": ["yoga_instructor", "archive_staff"],
-    "1990s": ["curator_assistant", "senior_curator", "visitor"]
+    "1990s": ["curator_assistant", "visitor"]
 }
 # talking to npc  area before getting to clues and mini game to time travel
 
