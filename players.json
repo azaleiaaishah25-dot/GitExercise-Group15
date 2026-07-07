@@ -1,21 +1,20 @@
 {
     "Profile_1": {
-        "player_x": 340,
-        "player_y": 370,
-        "current_era": "1990s",
-        "active_quests": [
+        "player_x": 1800,
+        "player_y": 900,
+        "current_era": "Museum",
+        "active_quests": [],
+        "completed_quests": [
             "clue_gogo_boots",
             "old_tailor_hint",
-            "clue_acid_wash_denim_jacket",
-            "clue_flannel_shirt",
-            "clue_bowling_shirt",
-            "clue_pearl_necklace"
-        ],
-        "completed_quests": [
             "gogo_boots_recovered",
+            "clue_acid_wash_denim_jacket",
             "acid_wash_denim_jacket_recovered",
+            "clue_flannel_shirt",
             "flannel_shirt_recovered",
+            "clue_bowling_shirt",
             "bowling_shirt_recovered",
+            "clue_pearl_necklace",
             "pearl_necklace_recovered"
         ],
         "collected_items": [
@@ -26,24 +25,24 @@
             "pearl_necklace_recovered"
         ],
         "talked_to_npcs": [
-            "Museum:manager",
             "1920s:elegant_woman",
             "1920s:rich_gentleman",
-            "1950s:gallery_host",
             "1950s:gallery_assistant",
+            "1950s:gallery_host",
             "1950s:young_visitor",
-            "1960s:gallery_staff",
             "1960s:fashion_enthusiast",
+            "1960s:gallery_staff",
             "1980s:archive_staff",
             "1980s:yoga_instructor",
-            "1990s:curator_assistant",
-            "1990s:visitor"
+            "1990s:visitor",
+            "1990s:curator_assistant"
         ],
         "completed_minigames": [
             "1920s",
             "1950s",
             "1960s",
-            "1980s"
+            "1980s",
+            "1990s"
         ],
         "collected_clues": [
             "gogo_boots",
@@ -54,12 +53,14 @@
             "pearl_necklace"
         ],
         "seen_self_dialogues": [
-            "1990s",
+            "1920s",
+            "Museum",
+            "1980s",
             "1950s",
             "1960s",
-            "1920s",
-            "1980s",
-            "Museum"
-        ]
+            "1990s"
+        ],
+        "culprit_identified": true,
+        "ending_started": true
     }
 }
