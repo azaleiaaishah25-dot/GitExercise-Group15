@@ -1,5 +1,6 @@
 {
     "Profile_1": {
+<<<<<<< HEAD
         "player_x": 590,
         "player_y": 430,
         "current_era": "1980s",
@@ -9,32 +10,42 @@
             "clue_acid_wash_denim_jacket",
             "clue_flannel_shirt",
             "clue_bowling_shirt"
+=======
+        "player_x": 630,
+        "player_y": 290,
+        "current_era": "1950s",
+        "active_quests": [
+            "clue_gogo_boots",
+            "old_tailor_hint",
+            "clue_acid_wash_denim_jacket"
+>>>>>>> 14ae5ccb1ad4ec2de80d72fa1c476d8ddd1a74e0
         ],
         "completed_quests": [
             "gogo_boots_recovered",
-            "acid_wash_denim_jacket_recovered",
-            "flannel_shirt_recovered"
+            "acid_wash_denim_jacket_recovered"
         ],
         "collected_items": [
             "gogo_boots_recovered",
-            "acid_wash_denim_jacket_recovered",
-            "flannel_shirt_recovered"
+            "acid_wash_denim_jacket_recovered"
         ],
         "talked_to_npcs": [
             "1920s:elegant_woman",
             "1920s:rich_gentleman",
             "1950s:gallery_assistant",
             "1950s:gallery_host",
+<<<<<<< HEAD
             "1950s:young_visitor",
             "1960s:fashion_enthusiast",
             "1960s:gallery_staff",
             "1980s:archive_staff",
             "1980s:yoga_instructor"
+=======
+            "1950s:young_visitor"
+>>>>>>> 14ae5ccb1ad4ec2de80d72fa1c476d8ddd1a74e0
         ],
         "completed_minigames": [
             "1920s",
-            "1950s",
-            "1960s"
+            "1950s"
         ],
         "collected_clues": [
             "gogo_boots",
@@ -43,8 +54,11 @@
             "bowling_shirt"
         ],
         "seen_self_dialogues": [
+<<<<<<< HEAD
             "1980s",
             "1960s",
+=======
+>>>>>>> 14ae5ccb1ad4ec2de80d72fa1c476d8ddd1a74e0
             "1950s",
             "Museum",
             "1920s"
