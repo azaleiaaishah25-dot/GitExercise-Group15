@@ -1020,28 +1020,33 @@ def choose_artifact_item(item_key):
 
     if current_item_choice_era not in display_item_groups:
         return
-    
+
     group = display_item_groups[current_item_choice_era]
 
     if item_key != group["correct_item"]:
-        wrong_choice_text = "Wrong item. This one belongs here. Look for the item"
+        wrong_choice_text = "Wrong item. This one belongs here. Look for the misplaced artifact."
         wrong_choice_timer = 120
         return
-    
+
     dialogue_key = group["dialogue_key"]
 
-    if dialogue_key in item_dialogue_data:
-        item_data = item_dialogue_data[dialogue_key]
+    if dialogue_key not in item_dialogue_data:
+        print("ERROR: Missing item dialogue key:", dialogue_key)
+        print("item_dialogue_data type:", type(item_dialogue_data))
+        return
 
-        current_dialogue = item_data["dialogue"]
-        current_item_quest = item_data.get("quest")
+    item_data = item_dialogue_data[dialogue_key]
 
-        dialogue_active = True
-        dialogue_index = 0
-        dialogue_text_shown = ""
-        text_counter = 0
+    current_dialogue = item_data["dialogue"]
+    current_item_quest = item_data.get("quest", group["artifact_id"])
 
-        show_item_choice = False
+    dialogue_active = True
+    dialogue_index = 0
+    dialogue_text_shown = ""
+    text_counter = 0
+
+    show_item_choice = False
+       
     
 def draw_item_choice_screen():
     global choice_items_rects, wrong_choice_timer
@@ -1500,7 +1505,7 @@ while running:
 
    # Draw map item pictures
     draw_map_item_pictures()
-    draw_display_item_groups()
+
 
     # Draw Player
     screen.blit(
