@@ -1,7 +1,7 @@
 {
     "Profile_1": {
-        "player_x": 610,
-        "player_y": 400,
+        "player_x": 340,
+        "player_y": 370,
         "current_era": "1990s",
         "active_quests": [
             "clue_gogo_boots",
@@ -15,26 +15,29 @@
             "gogo_boots_recovered",
             "acid_wash_denim_jacket_recovered",
             "flannel_shirt_recovered",
-            "bowling_shirt_recovered"
+            "bowling_shirt_recovered",
+            "pearl_necklace_recovered"
         ],
         "collected_items": [
             "gogo_boots_recovered",
             "acid_wash_denim_jacket_recovered",
             "flannel_shirt_recovered",
-            "bowling_shirt_recovered"
+            "bowling_shirt_recovered",
+            "pearl_necklace_recovered"
         ],
         "talked_to_npcs": [
+            "Museum:manager",
             "1920s:elegant_woman",
             "1920s:rich_gentleman",
-            "1950s:gallery_assistant",
             "1950s:gallery_host",
+            "1950s:gallery_assistant",
             "1950s:young_visitor",
             "1960s:gallery_staff",
             "1960s:fashion_enthusiast",
-            "1980s:yoga_instructor",
             "1980s:archive_staff",
-            "1990s:visitor",
-            "1990s:curator_assistant"
+            "1980s:yoga_instructor",
+            "1990s:curator_assistant",
+            "1990s:visitor"
         ],
         "completed_minigames": [
             "1920s",
@@ -46,17 +49,17 @@
             "gogo_boots",
             "acid_wash_denim_jacket",
             "staff-only_section",
-            "bowling_shirt",
             "flannel_shirt",
+            "bowling_shirt",
             "pearl_necklace"
         ],
         "seen_self_dialogues": [
-            "1960s",
-            "1980s",
-            "Museum",
             "1990s",
+            "1950s",
+            "1960s",
             "1920s",
-            "1950s"
+            "1980s",
+            "Museum"
         ]
     }
 }
