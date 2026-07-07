@@ -669,3 +669,61 @@ item_dialogue_data = {
         "quest": "pearl_necklace_recovered"
     }
 }
+
+ending_intro_dialogue = [
+    # ===================================
+    # INTRODUCTION CULPRIT IDENTIFICATION   
+    # ===================================
+    {"speaker": "PLAYER", "text": "...All of them."},
+    {"speaker": "PLAYER", "text": "Five different eras."},
+    {"speaker": "PLAYER", "text": "One person behind it all."},
+    {"speaker": "DEVICE", "text": "Culprit identification required."},
+]
+
+ending_conclusion_dialogue = [
+    # ===================================
+    # CONCLUSION CULPRIT IDENTIFICATION   
+    # ===================================
+    {"speaker": "DEVICE", "text": "Culprit identification complete."},
+]
+
+ending_outro_dialogue = [
+    # ===================================
+    # OUTRO CULPRIT IDENTIFICATION   
+    # ===================================
+    {"speaker": "PLAYER", "text": "...I know who it is."},
+    {"speaker": "PLAYER", "text": "She was clever."},
+    {"speaker": "PLAYER", "text": "She knew exactly what she was doing."},
+    {"speaker": "PLAYER", "text": "...And he left me all the clues I needed."},
+    {"speaker": "DEVICE", "text": "Culprit identification complete."},
+]
+
+grandfather_final_dialogue = [
+    {"speaker": "GRANDFATHER", "text": "Clothes carry time within them."},
+    {"speaker": "PLAYER", "text": "...Grandpa?"},
+    {"speaker": "GRANDFATHER", "text": "And time... reveals those who pay attention."},
+    {"speaker": "PLAYER", "text": "...I followed the clues."},
+    {"speaker": "GRANDFATHER", "text": "I know."},
+    {"speaker": "PLAYER", "text": "...I almost didn't see it."},
+    {"speaker": "GRANDFATHER", "text": "But you did."},
+    {"speaker": "GRANDFATHER", "text": "You didn't just protect this place..."},
+    {"speaker": "GRANDFATHER", "text": "You understood it."},
+    {"speaker": "PLAYER", "text": "...I tried."},
+    {"speaker": "GRANDFATHER", "text": "And that's enough."},
+    {"speaker": "PLAYER", "text": "...Thank you."},
+]
+
+manager_final_dialogue = [
+    {"speaker": "MANAGER", "text": "...There you are."},
+    {"speaker": "MANAGER", "text": "...You did it."},
+    {"speaker": "PLAYER", "text": "Everything's back where it belongs."},
+    {"speaker": "MANAGER", "text": "I can see that."},
+    {"speaker": "MANAGER", "text": "You know..."},
+    {"speaker": "MANAGER", "text": "This place meant everything to your grandfather."},
+    {"speaker": "PLAYER", "text": "...I know."},
+    {"speaker": "MANAGER", "text": "And now..."},
+    {"speaker": "MANAGER", "text": "...you've protected it."},
+    {"speaker": "MANAGER", "text": "He would be proud of you."},
+    {"speaker": "PLAYER", "text": "...I think he already is."},
+    {"speaker": "DEVICE", "text": "Temporal stability restored."},
+]
