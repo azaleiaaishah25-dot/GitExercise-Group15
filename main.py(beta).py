@@ -3,7 +3,15 @@ import json
 import os
 from data.maps import * 
 from data.buildings import building_data
-from data.dialogues import dialogue_data, item_dialogue_data, era_dialogues
+from data.dialogues import(
+    dialogue_data,
+    item_dialogue_data,
+    era_dialogues,
+    ending_intro_dialogue,
+    ending_outro_dialogue,
+    grandfather_final_dialogue,
+    manager_final_dialogue
+)
 from data.quests import quest_descriptions, clue_descriptions
 from data.music import play_music, stop_music, set_music_volume
 from minigame_1920s import run_minigame as run_1920s_minigame
@@ -65,6 +73,7 @@ def load_profile_data(profile_name):
     global active_quests, completed_quests, current_user, collected_items
     global game_map, visited_map
     global talked_to_npcs, completed_minigames, collected_clues, seen_self_dialogues
+    global culprit_identified, ending_started
 
     db = load_database()
     current_user = profile_name
@@ -80,7 +89,9 @@ def load_profile_data(profile_name):
             "talked_to_npcs": [],
             "completed_minigames": [],
             "collected_clues": [],
-            "seen_self_dialogues": []
+            "seen_self_dialogues": [],
+            "culprit_identified": False,
+            "ending_started": False
         }
         save_database(db)
 
@@ -94,6 +105,11 @@ def load_profile_data(profile_name):
     completed_minigames = db[profile_name].get("completed_minigames", [])
     collected_clues = db[profile_name].get("collected_clues", [])
     seen_self_dialogues = set(db[profile_name].get("seen_self_dialogues", []))
+    keep_only_new_era_quests(current_era)
+
+    culprit_identified = db[profile_name].get("culprit_identified", False)
+    ending_started = db[profile_name].get("ending_started", False)
+
 
     game_map = map_lookup.get(current_era, museum_map)
 
@@ -121,6 +137,8 @@ def save_current_profile():
     db[current_user]["completed_minigames"] = completed_minigames
     db[current_user]["collected_clues"] = collected_clues
     db[current_user]["seen_self_dialogues"] = list(seen_self_dialogues)
+    db[current_user]["culprit_identified"] = culprit_identified
+    db[current_user]["ending_started"] = ending_started
 
     save_database(db)
 
@@ -207,6 +225,47 @@ wrong_choice_timer = 0
 
 current_item_quest = None
 
+show_culprit_choice = False
+culprit_choice_rects = []
+wrong_culprit_text = ""
+wrong_culprit_timer = 0
+culprit_identified = False
+ending_started = False
+dialogue_after_action = None
+show_ending_screen = False
+
+CORRECT_CULPRIT_ID = "A"
+
+culprit_choices = [
+    {
+        "id": "A",
+        "name": "Girl in Red",
+        "image": "culprit",
+        "hint": "Red dress, black hair, black shoes. Matches all clues.",
+    },
+
+    {
+        "id": "B",
+        "name": "Denim Suspect",
+        "image": "culprit_A",
+        "hint": "Wearing a jacket, but does not match all clues.",
+    },
+
+    {
+        "id": "C",
+        "name": "Hat Suspect",
+        "image": "culprit_C",
+        "hint": "The hat stands out, but the clues do not fully match.",
+    },
+
+    {
+        "id": "D",
+        "name": "Wrong Shoes Suspect",
+        "image": "culprit_D",
+        "hint": "Similar red dress, but the shoes do not match.",
+    },
+]
+
 can_interact = False
 current_npc = None
 
@@ -255,6 +314,9 @@ menu_bg_img = pygame.transform.scale(menu_bg_img, (WIDTH, HEIGHT))
 
 credits_bg_img = pygame.image.load("Images/credits.png").convert()
 credits_bg_img = pygame.transform.scale(credits_bg_img, (WIDTH, HEIGHT))
+
+ending_img = pygame.image.load("Images/ending_picture.jpg").convert()
+ending_img = pygame.transform.scale(ending_img, (WIDTH, HEIGHT))
 
 era_backgrounds = {}
 
@@ -578,6 +640,88 @@ def check_collision(x, y, current_map):
 
     return False
 
+def start_dialogue(dialogue_lines, after_action=None):
+    global dialogue_active, current_dialogue, dialogue_index
+    global dialogue_text_shown, text_counter
+    global current_quest, current_clue, current_dialogue_npc
+    global dialogue_after_action
+
+    current_dialogue = dialogue_lines
+    dialogue_active = True
+    dialogue_index = 0
+    dialogue_text_shown = ""
+    text_counter = 0
+
+    current_quest = None
+    current_clue = None
+    current_dialogue_npc = None
+
+    dialogue_after_action = after_action
+
+def all_artifacts_recovered():
+    required_items = [
+        "gogo_boots_recovered",
+        "acid_wash_denim_jacket_recovered",
+        "flannel_shirt_recovered",
+        "bowling_shirt_recovered",
+        "pearl_necklace_recovered"
+    ]
+
+    return all(item_id in collected_items for item_id in required_items)
+
+def should_start_ending():
+    return(
+        current_era == "Museum"
+        and all_artifacts_recovered()
+        and "1990s" in completed_minigames
+        and not culprit_identified
+        and not ending_started
+    )
+
+
+def start_ending_sequence():
+    global ending_started
+    
+    active_quests.clear()
+    ending_started = True
+    
+    start_dialogue(ending_intro_dialogue, after_action="open_culprit_choice")
+
+def handle_dialogue_after_action():
+    global show_culprit_choice, culprit_identified, show_ending_screen
+
+    if dialogue_after_action == "open_culprit_choice":
+        show_culprit_choice = True
+
+    elif dialogue_after_action == "grandfather_final":
+        start_dialogue(grandfather_final_dialogue, after_action="manager_final")
+
+    elif dialogue_after_action == "manager_final":
+        start_dialogue(manager_final_dialogue, after_action="ending_done")
+
+    elif dialogue_after_action == "ending_done":
+        culprit_identified = True
+        active_quests.clear()
+        show_ending_screen = True
+        save_current_profile()
+
+def choose_culprit(culprit_id):
+    global show_culprit_choice, wrong_culprit_text, wrong_culprit_timer
+    global culprit_identified
+
+    if culprit_id != CORRECT_CULPRIT_ID:
+        wrong_culprit_text = "Wrong culprit. Check the clues: red dress, tied hair, balck shoes, mischievous personality."
+        wrong_culprit_timer = 150
+        return
+    
+    show_culprit_choice = False
+    culprit_identified = True
+
+    start_dialogue(ending_outro_dialogue, after_action="grandfather_final")
+    
+
+    
+
 def start_self_dialogue(era_name):
     global dialogue_active, current_dialogue, dialogue_index
     global dialogue_text_shown, text_counter
@@ -610,6 +754,9 @@ def transition_to(new_map_array, new_era_name, spawn_tile_x, spawn_tile_y):
 
     game_map = new_map_array
     current_era = new_era_name
+
+    keep_only_new_era_quests(current_era)
+
     play_music(current_era)
 
     player_x = spawn_tile_x * tile_size
@@ -723,6 +870,47 @@ def complete_quest(quest_id):
     quest_name = quest_descriptions.get(quest_id, quest_id)
     quest_popup_text = "QUEST COMPLETE: " + quest_name
     quest_popup_timer = QUEST_POPUP_DURATION
+
+era_active_quest_ids = {
+    "1920s": [
+        "clue_gogo_boots",
+        "old_tailor_hint"
+    ],
+
+    "1950s": [
+        "clue_acid_wash_denim_jacket"
+    ],
+
+    "1960s": [
+        "clue_flannel_shirt"
+    ],
+
+    "1980s": [
+        "clue_bowling_shirt"
+    ],
+
+    "1990s": [
+        "clue_pearl_necklace"
+    ],
+
+    "Museum": []
+}
+
+def keep_only_new_era_quests(era_name):
+    allowed_quests = era_active_quest_ids.get(era_name, [])
+
+    active_quests[:] = [
+        quest_id for quest_id in active_quests
+        if quest_id in allowed_quests and quest_id not in completed_quests
+    ]
+
+def completed_current_era_clue_quest(era_name):
+    for quest_id in era_active_quest_ids.get(era_name, []):
+        if quest_id in active_quests:
+            active_quests.remove(quest_id)
+
+        if quest_id not in completed_quests:
+            completed_quests.append(quest_id)
 
 def draw_wrapped_text(surface, text, font, color, x, y, max_width, line_spacing=5):
     words = text.split(" ")
@@ -1113,6 +1301,144 @@ def draw_item_choice_screen():
 
         wrong_choice_timer -= 1
 
+def draw_culprit_choice_screen():
+    global culprit_choice_rects, wrong_culprit_timer
+
+    if not show_culprit_choice:
+        return
+    
+    overlay = pygame.Surface((WIDTH, HEIGHT))
+    overlay.set_alpha(235)
+    overlay.fill((10, 10, 15))
+    screen.blit(overlay, (0, 0))
+
+    title = title_font.render("IDENTIFY THE CULPRIT", True, (255, 220, 120))
+    title_rect = title.get_rect(center=(WIDTH // 2, 70))
+    screen.blit(title, title_rect)
+
+    instruction = small_font.render(
+        "Choose based on the clues collected. Click a suspect or press 1 - 4.",
+        True,
+        (220, 220, 220)
+    )
+    instruction_rect = instruction.get_rect(center=(WIDTH // 2, 125))
+    screen.blit(instruction, instruction_rect)
+
+    culprit_choice_rects = []
+
+    card_width = 240
+    card_height = 430
+
+    positions = [
+        (80, 190),
+        (350, 190),
+        (620, 190),
+        (890, 190),
+    ]
+
+    for index, suspect in enumerate(culprit_choices):
+        x, y = positions[index]
+
+        card_rect = pygame.Rect(x, y, card_width, card_height)
+
+        pygame.draw.rect(screen, (30, 30, 40), card_rect)
+        pygame.draw.rect(screen, (255, 255, 255), card_rect, 3)
+
+        number_text = font.render(str(index + 1), True, (255, 255, 0))
+        screen.blit(number_text, (card_rect.x + 12, card_rect.y + 10))
+
+        name_text = font.render(suspect["name"], True, (255, 220, 120))
+        name_rect = name_text.get_rect(center=(card_rect.centerx, card_rect.y + 45))
+        screen.blit(name_text, name_rect)
+
+        image_key = suspect["image"]
+
+        if image_key in npc_images:
+            suspect_img = pygame.transform.smoothscale(npc_images[image_key], (120, 160))
+            img_rect = suspect_img.get_rect(center=(card_rect.centerx, card_rect.y + 150))
+            screen.blit(suspect_img, img_rect)
+
+        y_text = card_rect.y + 255
+        y_text = draw_wrapped_text(
+            screen,
+            suspect["hint"],
+            small_font,
+            (230, 230, 230),
+            card_rect.x + 18,
+            y_text,
+            card_width - 36
+        )
+
+        culprit_choice_rects.append((card_rect, suspect["id"]))
+
+    if wrong_culprit_timer > 0:
+        wrong_surface = font.render(wrong_culprit_text, True, (255, 80, 80))
+        wrong_rect = wrong_surface.get_rect(center=(WIDTH // 2, HEIGHT - 70))
+        screen.blit(wrong_surface, wrong_rect)
+
+        wrong_culprit_timer -= 1
+
+
+def finish_current_dialogue():
+    global dialogue_active, dialogue_index, dialogue_text_shown, text_counter
+    global current_dialogue_npc, current_quest, current_clue, current_item_quest
+    global minigame_after_dialogue, dialogue_after_action
+
+    saved_after_action = dialogue_after_action
+    dialogue_after_action = None
+
+    dialogue_active = False
+    dialogue_index = 0
+    dialogue_text_shown = ""
+    text_counter = 0
+
+    # Record NPC talked
+    if current_dialogue_npc:
+        npc_record = f"{current_era}:{current_dialogue_npc}"
+
+        if npc_record not in talked_to_npcs:
+            talked_to_npcs.append(npc_record)
+
+        current_dialogue_npc = None
+
+    # Add quest from NPC dialogue
+    if current_quest:
+        quest_log[current_quest] = "started"
+        add_quest(current_quest)
+        current_quest = None
+
+    # Add clue from NPC dialogue
+    if current_clue:
+        add_clue(current_clue)
+        current_clue = None
+
+    # If this was item recovery dialogue
+    if current_item_quest:
+        add_item(current_item_quest)
+
+        completed_current_era_clue_quest(current_era)
+        complete_quest(current_item_quest)
+
+        current_item_quest = None
+
+        if (
+            has_talked_to_all_npcs(current_era)
+            and current_era in minigames
+            and current_era not in completed_minigames
+        ):
+            minigame_function = minigames[current_era]
+            minigame_won = minigame_function(screen, clock)
+
+            if minigame_won:
+                completed_minigames.append(current_era)
+                print(f"Minigame for {current_era} completed!")
+            else:
+                print(f"Minigame for {current_era} failed. Try again.")
+
+    # Ending dialogue actions
+    if saved_after_action:
+        dialogue_after_action = saved_after_action
+        handle_dialogue_after_action()
 
 #6. Main Game Loop
 running = True
@@ -1164,7 +1490,13 @@ while running:
                         game_state = "menu"
 
                 elif game_state == "playing":
-                    if show_item_choice:
+                    if show_culprit_choice:
+                        for rect, culprit_id in culprit_choice_rects:
+                            if rect.collidepoint(event.pos):
+                                choose_culprit(culprit_id)
+                                break
+
+                    elif show_item_choice:
                         for rect, item_key in choice_items_rects:
                             if rect.collidepoint(event.pos):
                                 choose_artifact_item(item_key)
@@ -1173,6 +1505,7 @@ while running:
                     elif game_exit_button.collidepoint(event.pos):
                         save_current_profile()
                         running = False
+
                 
                 elif game_state == "pause":
                     if resume_button.collidepoint(event.pos):
@@ -1188,7 +1521,13 @@ while running:
         if game_state == "playing":
             if event.type == pygame.KEYDOWN:
 
-                if event.key == pygame.K_i:
+                if show_culprit_choice and event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4]:
+                    index = event.key - pygame.K_1
+
+                    if 0 <= index < len(culprit_choices):
+                        choose_culprit(culprit_choices[index]["id"])
+
+                elif event.key == pygame.K_i:
                     show_clue_inventory = not show_clue_inventory
 
                 elif event.key == pygame.K_e:
@@ -1234,6 +1573,11 @@ while running:
                     else:
                         game_state = "pause"
 
+                elif event.key == pygame.K_f:
+                    if dialogue_active:
+                        finish_current_dialogue()
+
+
                 elif event.key == pygame.K_SPACE:
                     if dialogue_active and dialogue_index < len(current_dialogue):
                         current_line = current_dialogue[dialogue_index]
@@ -1251,48 +1595,7 @@ while running:
                             dialogue_text_shown = ""
 
                             if dialogue_index >= len(current_dialogue):
-                                dialogue_active = False
-
-                                #record the npc after theyve complete their dialogue
-                                if current_dialogue_npc:
-                                    npc_record = f"{current_era}:{current_dialogue_npc}"
-
-                                    if npc_record not in talked_to_npcs:
-                                        talked_to_npcs.append(npc_record)
-
-                                    current_dialogue_npc = None
-
-                                #add quest from the npc dialogue
-                                 
-                                if current_quest:
-                                    quest_log[current_quest] = "started"
-                                    add_quest(current_quest)
-                                    current_quest = None
-
-                                if current_clue:
-                                    add_clue(current_clue)
-                                    current_clue = None
-
-                                if current_item_quest:
-                                    recovered_item = current_item_quest
-
-                                    add_item(current_item_quest)
-                                    complete_quest(current_item_quest)
-                                    current_item_quest = None
-
-                                    if(
-                                        has_talked_to_all_npcs(current_era)
-                                        and current_era in minigames
-                                        and current_era not in completed_minigames
-                                    ):
-                                        minigame_function = minigames[current_era]
-                                        minigame_won = minigame_function(screen, clock)
-                                        if minigame_won:
-                                            completed_minigames.append(current_era)
-                                            print(f"Minigame for {current_era} completed!")
-                                        else:
-                                            print(f"Minigame for {current_era} failed. Try again   .")
-
+                                finish_current_dialogue()
 
                 elif event.key == pygame.K_m:
                     pygame.mixer.music.pause()
@@ -1321,7 +1624,7 @@ while running:
     new_x = player_x
     new_y = player_y
 
-    if not dialogue_active and not show_clue_inventory and not show_item_choice:
+    if not dialogue_active and not show_clue_inventory and not show_item_choice and not show_culprit_choice:
         hotkeys = pygame.key.get_pressed()
 
         if hotkeys[pygame.K_w]:
@@ -1397,7 +1700,7 @@ while running:
     if 0 <= tile_row < len(game_map) and 0 <= tile_col < len(game_map[0]):
         current_tile = game_map[tile_row][tile_col]
 
-        if current_tile == "4" and teleport_is_unlocked(current_era):
+        if current_tile == "4" and teleport_is_unlocked(current_era) and not dialogue_active and not show_item_choice and not show_culprit_choice and not show_clue_inventory:
 
             if current_era == "Museum":
                 transition_to(era_1920s_map, "1920s", 14, 12)
@@ -1411,6 +1714,9 @@ while running:
                 transition_to(era_1990s_map, "1990s", 14, 13)
             else:
                 transition_to(museum_map, "Museum", 30, 15)
+
+                if should_start_ending():
+                    start_ending_sequence()
 
         elif current_tile == "2":
             key = (current_era, tile_col, tile_row)
@@ -1582,6 +1888,16 @@ while running:
 
     if show_item_choice:
         draw_item_choice_screen()
+
+    if show_culprit_choice:
+        draw_culprit_choice_screen()
+
+    if show_ending_screen:
+        screen.blit(ending_img, (0, 0))
+
+        hint = font.render("Press ESC to exit", True, (0, 0, 0))
+        hint_rect = hint.get_rect(center=(WIDTH // 2, HEIGHT - 40))
+        screen.blit(hint, hint_rect)
         
     pygame.display.update()
 
