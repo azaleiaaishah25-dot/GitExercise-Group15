@@ -721,7 +721,6 @@ def choose_culprit(culprit_id):
     
 
     
-
 def start_self_dialogue(era_name):
     global dialogue_active, current_dialogue, dialogue_index
     global dialogue_text_shown, text_counter
