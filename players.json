@@ -1,15 +1,18 @@
 {
     "Profile_1": {
-        "player_x": 1500,
-        "player_y": 1600,
-        "current_era": "Museum",
+        "player_x": 840,
+        "player_y": 720,
+        "current_era": "1920s",
         "active_quests": [],
         "completed_quests": [],
         "collected_items": [],
         "talked_to_npcs": [],
         "completed_minigames": [],
         "collected_clues": [],
-        "seen_self_dialogues": [],
+        "seen_self_dialogues": [
+            "1920s",
+            "Museum"
+        ],
         "culprit_identified": false,
         "ending_started": false
     }
