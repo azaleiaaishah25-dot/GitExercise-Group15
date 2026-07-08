@@ -1,0 +1,16 @@
+{
+    "Profile_1": {
+        "player_x": 1500,
+        "player_y": 1600,
+        "current_era": "Museum",
+        "active_quests": [],
+        "completed_quests": [],
+        "collected_items": [],
+        "talked_to_npcs": [],
+        "completed_minigames": [],
+        "collected_clues": [],
+        "seen_self_dialogues": [],
+        "culprit_identified": false,
+        "ending_started": false
+    }
+}
